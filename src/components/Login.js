@@ -47,6 +47,7 @@ const Login = () => {
 
   const loginForm = () => (
     <div className="Login">
+      <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <FormGroup controlId="username" bsSize="large">
           <FormLabel >Username</FormLabel >
