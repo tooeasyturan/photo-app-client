@@ -112,8 +112,8 @@ const Login = () => {
       {user === null ?
         loginForm() :
         <div>
-          <h1>{user.name} logged in</h1>
-          <Button className="primary" href={user.name + '/profile'}>My Profile</Button>
+          <h1>{user.username} logged in</h1>
+          <Button className="primary" href={user.username + '/profile'}>My Profile</Button>
         </div>
       }
     </div >
