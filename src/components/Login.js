@@ -45,7 +45,7 @@ const Login = () => {
   }
 
 
-  const loginForm = () => (
+  const loginFormBackup = () => (
     <div className="Login">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
@@ -72,6 +72,37 @@ const Login = () => {
           Login
     </Button>
       </form>
+    </div>
+  )
+
+  const loginForm = () => (
+    <div className="login-wrapper">
+      <div className="login-form-wrapper">
+        <h1>Login</h1>
+        <form onSubmit={handleLogin}>
+          <div className="username">
+            <label htmlFor="username">Username</label>
+            <input type="text"
+              value={username}
+              placeholder="Username"
+              name="username"
+              noValidate
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div className="password">
+            <label htmlFor="password">Password</label>
+            <input type="password"
+              value={password}
+              placeholder="Password"
+              name="password"
+              noValidate
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
   )
 
