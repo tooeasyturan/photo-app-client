@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import profilesService from '../services/profiles'
+import usersService from '../services/users'
+
 
 const Profile = () => {
-  const [profPic, setProfPic] = useState('')
+  const [profilePicture, setProfilePicture] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
   const [experience, setExperience] = useState('')
@@ -11,14 +13,25 @@ const Profile = () => {
   const [socialMedia, setSocialMedia] = useState('')
   const [portfolio, setPortfolio] = useState('')
 
+  const [user, setUser] = useState(null)
+
   const [profile, setProfile] = useState(null)
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      profilesService.setToken(user.token)
+    }
+  }, [])
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const profile = await profilesService.create({
-        profPic, location, description, experience, shootingStyle, website, socialMedia, portfolio
+        profilePicture, location, description, experience, shootingStyle, website, socialMedia, portfolio
       })
 
       setProfile(profile)
@@ -39,12 +52,12 @@ const Profile = () => {
             <label htmlFor="profPic">Profile Picture</label>
             <input
               type="text"
-              value={profPic}
+              value={profilePicture}
               className=""
-              placeholder="PorfilePicture"
+              placeholder="profile picture"
               name="profPic"
               noValidate
-              onChange={({ target }) => setProfPic(target.value)}
+              onChange={({ target }) => setProfilePicture(target.value)}
             />
           </div>
           <div className="location">
@@ -92,7 +105,7 @@ const Profile = () => {
               onChange={({ target }) => setShootingStyle(target.value)} />
           </div>
           <div className="website">
-            <label htmlFor="website">Shooting Style</label>
+            <label htmlFor="website">Website</label>
             <input
               type="text"
               value={website}
@@ -114,7 +127,7 @@ const Profile = () => {
               onChange={({ target }) => setSocialMedia(target.value)} />
           </div>
           <div className="portfolio">
-            <label htmlFor="portfolio">Profile</label>
+            <label htmlFor="portfolio">Portfolio</label>
             <input
               type="text"
               value={portfolio}
@@ -129,6 +142,10 @@ const Profile = () => {
       </div>
     </div>
   )
+
+  const checkLoginStatus = () => {
+
+  }
 
   return (
     <div>

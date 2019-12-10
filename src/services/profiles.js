@@ -1,10 +1,19 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3004/api/:id'
+const baseUrl = 'http://localhost:3004/users/profile'
+
+let token = null
+
+const setToken = newToken => {
+  token = `bearer ${newToken}`
+}
 
 
 const create = async newObject => {
-  const response = await axios.post(baseUrl, newObject)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.post(baseUrl, newObject, config)
   return response.data
 }
 
-export default { create }
+export default { create, setToken }

@@ -7,7 +7,10 @@ import Profile from './components/Profile'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
+//let username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
+
 function App() {
+
   return (
     <Router>
       <div>
