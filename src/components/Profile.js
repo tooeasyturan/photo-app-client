@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import profilesService from '../services/profiles'
 import usersService from '../services/users'
+import "../styles/Profile.css"
 
 
 const Profile = () => {
@@ -38,14 +39,13 @@ const Profile = () => {
     } catch (exception) {
       console.log('error')
     }
-
-
   }
 
 
+
   const createProfile = () => (
-    <div className="wrapper">
-      <div className="form-wrapper">
+    <div className="profile-wrapper">
+      <div className="profile-form-wrapper">
         <h1>Create Profile</h1>
         <form onSubmit={handleSubmit} noValidate>
           <div className="profPic">
@@ -143,9 +143,6 @@ const Profile = () => {
     </div>
   )
 
-  const checkLoginStatus = () => {
-
-  }
 
   return (
     <div>

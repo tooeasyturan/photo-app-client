@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
-import useForm from 'react-hook-form'
 import '../styles/Signup.css'
 
 
