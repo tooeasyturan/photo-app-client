@@ -10,7 +10,6 @@ const Users = () => {
   useEffect(() => {
     usersService.getAll().then(allUsers => setUsers(allUsers))
   }, [])
-  console.log('users', users)
 
 
 

@@ -113,7 +113,7 @@ const Login = () => {
         loginForm() :
         <div>
           <h1>{user.username} logged in</h1>
-          <Button className="primary" href={user.username + '/profile'}>My Profile</Button>
+          <Button className="primary" href={'/' + user.username}>My Profile</Button>
         </div>
       }
     </div >

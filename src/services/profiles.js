@@ -16,4 +16,9 @@ const create = async newObject => {
   return response.data
 }
 
-export default { create, setToken }
+const get = (username) => {
+  const request = axios.get(`/users/${username}`)
+  return request.then(response => response.data)
+}
+
+export default { create, setToken, get }

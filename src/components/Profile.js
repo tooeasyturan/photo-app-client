@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import profilesService from '../services/profiles'
 import usersService from '../services/users'
+import UserProfile from './UserProfile'
 import "../styles/Profile.css"
 
 
@@ -15,6 +16,9 @@ const Profile = () => {
   const [portfolio, setPortfolio] = useState('')
 
   const [user, setUser] = useState(null)
+  const [users, setUsers] = useState([])
+
+  // const [loggedInUserProfile, setLoggedInUserProfile] = useState(null)
 
   const [profile, setProfile] = useState(null)
 
@@ -27,6 +31,43 @@ const Profile = () => {
     }
   }, [])
 
+  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
+  console.log(username)
+
+
+
+
+  useEffect(() => {
+    usersService.getAll().then(allUsers => setUsers(allUsers))
+  }, [])
+
+
+  // const findLoggedInUserProfile = users.find(users => users.username === username)
+  // console.log(findLoggedInUserProfile)
+
+  const findProfile = async () => {
+    try {
+      const findLoggedInUserProfile = await users.find(users => users.username === username)
+      console.log(findLoggedInUserProfile)
+    } catch (exception) {
+      console.log('error')
+    }
+  }
+
+  console.log(findProfile())
+
+
+
+  // setLoggedInUserProfile(findLoggedInUserProfile)
+  // console.log(loggedInUserProfile)
+
+  // useEffect((users, username) => {
+  //   const findLoggedInUserProfile = users.find(users => users.username === username)
+  //   setLoggedInUserProfile(findLoggedInUserProfile)
+  // }, [])
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -36,10 +77,20 @@ const Profile = () => {
       })
 
       setProfile(profile)
+      console.log(profile)
     } catch (exception) {
       console.log('error')
     }
   }
+
+  // const UserProfileTest = () => (
+  //   <div>
+  //     <p>{loggedInUserProfile.username}</p>
+  //     <p>{loggedInUserProfile.firstName}</p>
+  //     <p>{loggedInUserProfile.lastName}</p>
+  //     <p>{loggedInUserProfile.profile[0].description}</p>
+  //   </div>
+  // )
 
 
 
@@ -144,8 +195,10 @@ const Profile = () => {
   )
 
 
+
   return (
     <div>
+      {/* {UserProfileTest()} */}
       {createProfile()}
     </div>
   )
