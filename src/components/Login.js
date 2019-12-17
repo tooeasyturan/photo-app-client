@@ -45,35 +45,6 @@ const Login = () => {
   }
 
 
-  const loginFormBackup = () => (
-    <div className="Login">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <FormGroup controlId="username" bsSize="large">
-          <FormLabel >Username</FormLabel >
-          <FormControl
-            autoFocus
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <FormLabel >Password</FormLabel >
-          <FormControl
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </FormGroup>
-        <Button block bsSize="large" type="submit">
-          Login
-    </Button>
-      </form>
-    </div>
-  )
 
   const loginForm = () => (
     <div className="login-wrapper">

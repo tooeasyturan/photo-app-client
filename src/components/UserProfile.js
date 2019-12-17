@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import profilesService from '../services/profiles'
 import usersService from '../services/users'
+import { Button } from 'react-bootstrap'
+
 
 
 const UserProfile = () => {
-  // const [loggedInUser, setLoggedInUser] = useState(null)
   const [users, setUsers] = useState([])
   const [loggedInUserProfile, setLoggedInUserProfile] = useState(null)
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-
   const [email, setEmail] = useState('')
 
 
@@ -21,8 +19,6 @@ const UserProfile = () => {
   const [shootingStyle, setShootingStyle] = useState('')
   const [website, setWebsite] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
-
-
 
   useEffect(() => {
     usersService.getAll().then(allUsers => setUsers(allUsers))
@@ -54,15 +50,17 @@ const UserProfile = () => {
 
   findProfile()
 
-
   return (
     <div>
+      <img src={profilePicture} alt="" width="200px" height="200px"></img>
       <p>{username}</p>
       <p>{email}</p>
       <p>{firstName}</p>
       <p>{lastName}</p>
       <p>{location}</p>
       <p>{description}</p>
+      <Button className="primary" href={'/' + username + '/profile'}>My Profile</Button>
+      <Button className="primary" href='/users'>Explore Users</Button>
     </div>
   )
 }

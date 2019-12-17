@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Profile from './components/Profile'
 import Users from './components/Users'
 import UserProfile from './components/UserProfile'
+// import GetUserProfile from './components/GetUserProfile'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -49,6 +50,7 @@ function App() {
         <Route exact path={`/${username}/profile`} component={Profile} />
         <Route exact path="/users" component={Users} />
         <Route exact path={`/${username}`} component={UserProfile} />
+
 
       </div>
     </Router>

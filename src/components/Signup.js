@@ -10,6 +10,7 @@ const Signup = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [date, setDate] = useState('')
 
   const [user, setUser] = useState(null)
 
@@ -20,8 +21,9 @@ const Signup = () => {
     event.preventDefault()
     try {
       const user = await usersService.create({
-        firstName, lastName, username, email, password
+        firstName, lastName, username, email, password, date: new Date().toISOString()
       })
+      console.log(date)
 
       setUser(user)
 
@@ -34,10 +36,6 @@ const Signup = () => {
       console.log('error')
     }
 
-
-  }
-
-  const handleChange = () => {
 
   }
 
