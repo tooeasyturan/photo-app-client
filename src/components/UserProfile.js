@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
 import { Button } from 'react-bootstrap'
+import "../styles/UserProfile.css"
 
 
 

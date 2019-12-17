@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
 import User from './User'
+import { Card, Icon, Image } from 'semantic-ui-react'
+
 
 
 const Users = () => {
@@ -24,7 +26,10 @@ const Users = () => {
 
   return (
     <div>
-      <ul>{usersList()}</ul>
+      <h1>Explore Users</h1>
+      <Card.Group className="doubling stackable" itemsPerRow={6}>
+        {usersList()}
+      </Card.Group>
     </div>
   )
 
