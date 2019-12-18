@@ -5,7 +5,7 @@ import UserProfile from './UserProfile'
 import "../styles/Profile.css"
 
 
-const Profile = () => {
+const CreateProfile = () => {
   const [profilePicture, setProfilePicture] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
@@ -37,21 +37,21 @@ const Profile = () => {
 
 
 
-  useEffect(() => {
-    usersService.getAll().then(allUsers => setUsers(allUsers))
-  }, [])
+  // useEffect(() => {
+  //   usersService.getAll().then(allUsers => setUsers(allUsers))
+  // }, [])
 
 
-  const findProfile = async () => {
-    try {
-      const findLoggedInUserProfile = await users.find(users => users.username === username)
-      console.log(findLoggedInUserProfile)
-    } catch (exception) {
-      console.log('error')
-    }
-  }
+  // const findProfile = async () => {
+  //   try {
+  //     const findLoggedInUserProfile = await users.find(users => users.username === username)
+  //     console.log(findLoggedInUserProfile)
+  //   } catch (exception) {
+  //     console.log('error')
+  //   }
+  // }
 
-  console.log(findProfile())
+  // console.log(findProfile())
 
 
   const handleSubmit = async (event) => {
@@ -173,11 +173,10 @@ const Profile = () => {
 
   return (
     <div>
-      {/* {UserProfileTest()} */}
       {createProfile()}
     </div>
   )
 
 }
 
-export default Profile
+export default CreateProfile

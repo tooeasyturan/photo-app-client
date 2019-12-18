@@ -5,3 +5,9 @@
 p {
   margin-left: 5px
 }
+
+.userProfile h1{
+  margin-top: 10px;
+  margin-left: 20px;
+  text-align: left;
+}

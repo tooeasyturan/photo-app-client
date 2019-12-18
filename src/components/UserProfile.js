@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
+import FileUpload from './FileUpload'
 import { Button } from 'react-bootstrap'
 import "../styles/UserProfile.css"
 
@@ -20,6 +21,8 @@ const UserProfile = () => {
   const [shootingStyle, setShootingStyle] = useState('')
   const [website, setWebsite] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
+
+
 
   useEffect(() => {
     usersService.getAll().then(allUsers => setUsers(allUsers))
@@ -51,8 +54,13 @@ const UserProfile = () => {
 
   findProfile()
 
+  // const onChangeHandler = (event) => {
+  //   console.log(event.target.files[0])
+
+  // }
+
   return (
-    <div>
+    <div className="userProfile">
       <img src={profilePicture} alt="" width="200px" height="200px"></img>
       <p>{username}</p>
       <p>{email}</p>
@@ -62,6 +70,14 @@ const UserProfile = () => {
       <p>{description}</p>
       <Button className="primary" href={'/' + username + '/profile'}>My Profile</Button>
       <Button className="primary" href='/users'>Explore Users</Button>
+      <h1>Upload Portfolio Pictures</h1>
+      <FileUpload />
+
+      {/* <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" onChange={onChangeHandler} />
+        <label class="custom-file-label" htmlfor="customFile">Choose file</label>
+      </div> */}
+
     </div>
   )
 }
