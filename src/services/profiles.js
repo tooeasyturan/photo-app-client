@@ -16,6 +16,7 @@ const create = async newObject => {
   return response.data
 }
 
+
 const get = (username) => {
   const request = axios.get(`/users/${username}`)
   return request.then(response => response.data)
