@@ -30,7 +30,7 @@ const UserProfile = () => {
   }, [])
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-  console.log(username)
+
 
   const findProfile = async () => {
     try {

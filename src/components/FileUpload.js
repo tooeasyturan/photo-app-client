@@ -6,7 +6,10 @@ const FileUpload = () => {
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
 
+  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
+
   console.log('uploadedfile', uploadedFile)
+  console.log('username', username)
 
   const onChangeHandler = (event) => {
     setFile(event.target.files[0])
@@ -19,12 +22,13 @@ const FileUpload = () => {
     event.preventDefault()
     const formData = new FormData()
     formData.append('file', file)
+    formData.append('username', username)
 
     try {
       const res = await axios.post('http://localhost:3004/uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
-        }
+        },
       })
 
       const { fileName, filePath } = res.data;
@@ -44,6 +48,7 @@ const FileUpload = () => {
 
   return (
     <>
+
       <form onSubmit={onSubmit} className="col-md-4 mt-4">
         <div className="custom-file">
           <input type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
