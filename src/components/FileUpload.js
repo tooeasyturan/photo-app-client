@@ -11,6 +11,8 @@ const FileUpload = () => {
   console.log('uploadedfile', uploadedFile)
   console.log('username', username)
 
+
+
   const onChangeHandler = (event) => {
     setFile(event.target.files[0])
     setFilename(event.target.files[0].name)
@@ -25,7 +27,7 @@ const FileUpload = () => {
     formData.append('username', username)
 
     try {
-      const res = await axios.post('http://localhost:3004/uploads', formData, {
+      const res = await axios.post('http://localhost:3004/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

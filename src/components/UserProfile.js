@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
 import FileUpload from './FileUpload'
+import UserPortfolio from './UserPortfolio'
 import FileUploadMulter from './FileUploadMulter'
 import { Button } from 'react-bootstrap'
 import "../styles/UserProfile.css"
@@ -73,6 +74,7 @@ const UserProfile = () => {
       <Button className="primary" href='/users'>Explore Users</Button>
       <h1>Upload Portfolio Pictures</h1>
       <FileUpload />
+      <UserPortfolio />
 
       {/* <div class="custom-file">
         <input type="file" class="custom-file-input" id="customFile" onChange={onChangeHandler} />
