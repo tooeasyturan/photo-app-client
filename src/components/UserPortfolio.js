@@ -12,9 +12,12 @@ const UserPortfolio = () => {
   }, [])
   console.log('uploads', uploads)
 
-  const usersPortfolio = uploads.map(upload => {
-    return <img key={upload} className="userPortfolio"
-      src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/${upload}`)}
+  const portfolioPics = uploads.filter(file => file.includes('.jpg'))
+  console.log(portfolioPics)
+
+  const usersPortfolio = portfolioPics.map(portfolioPic => {
+    return <img key={portfolioPic} className="userPortfolio"
+      src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/${portfolioPic}`)}
       alt=""
       height="200px"
       width="200px"

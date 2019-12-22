@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-const FileUpload = () => {
+const Avatar = () => {
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
@@ -26,7 +26,7 @@ const FileUpload = () => {
     formData.append('username', username)
 
     try {
-      const res = await axios.post('http://localhost:3004/', formData, {
+      const res = await axios.post('http://localhost:3004/avatar', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
@@ -46,10 +46,8 @@ const FileUpload = () => {
     }
   }
 
-
   return (
-    <>
-
+    <div>
       <form onSubmit={onSubmit} className="col-md-4 mt-4">
         <div className="custom-file">
           <input type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
@@ -63,8 +61,8 @@ const FileUpload = () => {
         <img style={{ width: '100%' }} src={uploadedFile.filePath} alt="" />
       </div>
       {/* </div> : null} */}
-    </>
+    </div>
   )
 }
 
-export default FileUpload
+export default Avatar

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
+import uploadsService from '../services/uploads'
 import FileUpload from './FileUpload'
 import UserPortfolio from './UserPortfolio'
 import FileUploadMulter from './FileUploadMulter'
@@ -15,7 +16,7 @@ const UserProfile = () => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
 
-
+  const [avatar, setAvatar] = useState([])
   const [profilePicture, setProfilePicture] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
@@ -31,6 +32,14 @@ const UserProfile = () => {
   }, [])
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
+  console.log(username)
+
+  useEffect(() => {
+    uploadsService.getAvatar().then(userAvatar => setAvatar(userAvatar))
+  }, [])
+
+  console.log('avatar', avatar.toString())
+
 
 
   const findProfile = async () => {
@@ -61,9 +70,23 @@ const UserProfile = () => {
 
   // }
 
+  // / Users / joshturan / tfp - frontend / public / uploads / charles.manson / avatar / IMG_1206.jpg
+
+  const getAvatar = avatar.map(a => {
+    return <img key={a} className="avatar"
+      src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
+      alt=""
+      height="200px"
+      width="200px"
+    />
+  })
+
+  console.log('getAvatar', getAvatar)
+
   return (
     <div className="userProfile">
-      <img src={profilePicture} alt="" width="200px" height="200px"></img>
+      {getAvatar}
+      {/* <img key={avatar} src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/IMG_1206.jpg`)} alt="" width="200px" height="200px" /> */}
       <p>{username}</p>
       <p>{email}</p>
       <p>{firstName}</p>

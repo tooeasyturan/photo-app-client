@@ -8,4 +8,9 @@ const getUploads = () => {
   return request.then(response => response.data)
 }
 
-export default { getUploads }
+const getAvatar = () => {
+  const request = axios.get(`http://localhost:3004/avatar/${username}`, { params: { username: username } })
+  return request.then(response => response.data)
+}
+
+export default { getUploads, getAvatar }
