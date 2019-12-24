@@ -50,7 +50,6 @@ const UserProfile = () => {
       setLastName(findLoggedInUserProfile.lastName)
       setEmail(findLoggedInUserProfile.email)
       setLocation(findLoggedInUserProfile.profile[0].location)
-      setProfilePicture(findLoggedInUserProfile.profile[0].profilePicture)
       setDescription(findLoggedInUserProfile.profile[0].description)
       setExperience(findLoggedInUserProfile.profile[0].experience)
       setShootingStyle(findLoggedInUserProfile.profile[0].shootingStyle)

@@ -6,14 +6,14 @@ import "../styles/Profile.css"
 
 
 const CreateProfile = () => {
-  const [profilePicture, setProfilePicture] = useState('')
+
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
   const [experience, setExperience] = useState('')
   const [shootingStyle, setShootingStyle] = useState('')
   const [website, setWebsite] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
-  const [portfolio, setPortfolio] = useState('')
+
 
 
   const [user, setUser] = useState(null)
@@ -58,7 +58,7 @@ const CreateProfile = () => {
     event.preventDefault()
     try {
       const profile = await profilesService.create({
-        profilePicture, location, description, experience, shootingStyle, website, socialMedia, portfolio
+        location, description, experience, shootingStyle, website, socialMedia,
       })
 
       setProfile(profile)
@@ -74,18 +74,6 @@ const CreateProfile = () => {
       <div className="profile-form-wrapper">
         <h1>Create Profile</h1>
         <form onSubmit={handleSubmit} noValidate>
-          <div className="profPic">
-            <label htmlFor="profPic">Profile Picture</label>
-            <input
-              type="text"
-              value={profilePicture}
-              className=""
-              placeholder="profile picture"
-              name="profPic"
-              noValidate
-              onChange={({ target }) => setProfilePicture(target.value)}
-            />
-          </div>
           <div className="location">
             <label htmlFor="location">Location</label>
             <input
@@ -151,17 +139,6 @@ const CreateProfile = () => {
               name="socialMedia"
               noValidate
               onChange={({ target }) => setSocialMedia(target.value)} />
-          </div>
-          <div className="portfolio">
-            <label htmlFor="portfolio">Portfolio</label>
-            <input
-              type="text"
-              value={portfolio}
-              className=""
-              placeholder="Portfolio"
-              name="portfolio"
-              noValidate
-              onChange={({ target }) => setPortfolio(target.value)} />
           </div>
           <button type="submit">Update Profile</button>
         </form>
