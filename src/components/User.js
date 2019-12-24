@@ -4,10 +4,17 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 
 const User = ({ user }) => {
   console.log(user)
+  // console.log('avatar', user.avatar[0].avatar)
+  const avatar = `/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`
+  console.log('avatar', avatar)
+
+  // /Users/joshturan/tfp-frontend/public/uploads/charles.manson/avatar/DSC05606.jpg
+
+  // src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
 
   return (
     <Card className="user">
-      <Image src='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
+      <Image src={require(`/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`)} alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
       <Card.Content>
         <Card.Header>{user.username}</Card.Header>
         <Card.Description>

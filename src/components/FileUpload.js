@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
+import uploadsService from '../services/uploads'
 import axios from 'axios'
 
 const FileUpload = () => {
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
+  const [portfolio, setPortfolio] = useState([])
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
   console.log('uploadedfile', uploadedFile)
   console.log('username', username)
-
 
 
   const onChangeHandler = (event) => {

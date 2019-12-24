@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import uploadsService from '../services/uploads'
 
 const Avatar = () => {
+  const [user, setUser] = useState(null)
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      uploadsService.setToken(user.token)
+    }
+  }, [])
+
+  console.log('user', user)
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
@@ -28,9 +41,15 @@ const Avatar = () => {
     try {
       const res = await axios.post('http://localhost:3004/avatar', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${user.token}`
         },
       })
+
+
+      // const res = await uploadsService.create({ formData })
+
+
 
       const { fileName, filePath } = res.data;
       console.log('res.data', res.data)

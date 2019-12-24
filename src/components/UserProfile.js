@@ -41,7 +41,6 @@ const UserProfile = () => {
   console.log('avatar', avatar.toString())
 
 
-
   const findProfile = async () => {
     try {
       const findLoggedInUserProfile = await users.find(users => users.username === username)
@@ -65,13 +64,8 @@ const UserProfile = () => {
 
   findProfile()
 
-  // const onChangeHandler = (event) => {
-  //   console.log(event.target.files[0])
 
-  // }
-
-  // / Users / joshturan / tfp - frontend / public / uploads / charles.manson / avatar / IMG_1206.jpg
-
+  // I DONT KNOW WHY I HAVE TO MAP AVATAR IN ORDER FOR DIRECTORY TO ROUTE PROPERLY
   const getAvatar = avatar.map(a => {
     return <img key={a} className="avatar"
       src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
