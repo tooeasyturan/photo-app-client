@@ -8,6 +8,7 @@
     "list-react-files": "^0.2.0",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
+    "react-country-region-selector": "^1.4.7",
     "react-dom": "^16.11.0",
     "react-hook-form": "^3.26.5",
     "react-router-dom": "^5.1.2",

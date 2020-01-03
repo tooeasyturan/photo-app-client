@@ -12,9 +12,13 @@ const User = ({ user }) => {
 
   // src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
 
+  // /Users/joshturan/tfp-frontend/public/uploads/joshturan/avatar/DSC_0055.jpg
+
+  // src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${avatar}`)}
+
   return (
-    <Card className="user">
-      <Image src={require(`/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`)} alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
+    <Card href={`/users/${user.username}`} className="user">
+      <Image src={require(`/Users/joshturan/tfp-frontend/public/uploads/${user.username}/avatar/${user.avatar[0].avatar}`)} alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
       <Card.Content>
         <Card.Header>{user.username}</Card.Header>
         <Card.Description>

@@ -5,11 +5,12 @@ import FileUpload from './FileUpload'
 import UserPortfolio from './UserPortfolio'
 import FileUploadMulter from './FileUploadMulter'
 import { Button } from 'react-bootstrap'
+import { Card, Icon, Image, Grid, Container } from 'semantic-ui-react'
 import "../styles/UserProfile.css"
 
 
 
-const UserProfile = () => {
+const MyProfile = (props) => {
   const [users, setUsers] = useState([])
   const [loggedInUserProfile, setLoggedInUserProfile] = useState(null)
   const [firstName, setFirstName] = useState('')
@@ -38,7 +39,7 @@ const UserProfile = () => {
     uploadsService.getAvatar().then(userAvatar => setAvatar(userAvatar))
   }, [])
 
-  console.log('avatar', avatar.toString())
+  console.log('avatar', avatar)
 
 
   const findProfile = async () => {
@@ -66,39 +67,43 @@ const UserProfile = () => {
 
   // I DONT KNOW WHY I HAVE TO MAP AVATAR IN ORDER FOR DIRECTORY TO ROUTE PROPERLY
   const getAvatar = avatar.map(a => {
-    return <img key={a} className="avatar"
+    return <Image key={a}
       src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
       alt=""
-      height="200px"
-      width="200px"
     />
   })
+
 
   console.log('getAvatar', getAvatar)
 
   return (
-    <div className="userProfile">
-      {getAvatar}
-      {/* <img key={avatar} src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/IMG_1206.jpg`)} alt="" width="200px" height="200px" /> */}
-      <p>{username}</p>
-      <p>{email}</p>
-      <p>{firstName}</p>
-      <p>{lastName}</p>
-      <p>{location}</p>
-      <p>{description}</p>
-      <Button className="primary" href={'/' + username + '/profile'}>My Profile</Button>
-      <Button className="primary" href='/users'>Explore Users</Button>
+
+
+    <>
+      <Card className="ui centered card" >
+        {getAvatar}
+        <Card.Content >
+          <p>{username}</p>
+          <p>{email}</p>
+          <p>{firstName + ' ' + lastName}</p>
+          <p>{description}</p>
+        </Card.Content>
+        <Button className="primary" href={'/' + username + '/profile'}>My Profile</Button>
+        <Button className="primary" href='/users'>Explore Users</Button>
+      </Card>
+
+
       <h1>Upload Portfolio Pictures</h1>
-      <FileUpload />
-      <UserPortfolio />
+      <div class="col-md-4 offset-md-4">
+        <FileUpload />
+      </div>
 
-      {/* <div class="custom-file">
-        <input type="file" class="custom-file-input" id="customFile" onChange={onChangeHandler} />
-        <label class="custom-file-label" htmlfor="customFile">Choose file</label>
-      </div> */}
 
-    </div>
+      <UserPortfolio username={username} />
+
+    </>
+
   )
 }
 
-export default UserProfile
+export default MyProfile

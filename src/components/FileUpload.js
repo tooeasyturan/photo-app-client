@@ -60,9 +60,9 @@ const FileUpload = () => {
 
 
   return (
-    <>
 
-      <form onSubmit={onSubmit} className="col-md-4 mt-4">
+    <>
+      <form onSubmit={onSubmit} >
         <div className="custom-file">
           <input type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
           <label className="custom-file-label" htmlFor="customFile">{filename}</label>
@@ -76,6 +76,7 @@ const FileUpload = () => {
       </div>
       {/* </div> : null} */}
     </>
+
   )
 }
 

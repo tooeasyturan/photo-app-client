@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import profilesService from '../services/profiles'
 import usersService from '../services/users'
-import UserProfile from './UserProfile'
+import UserProfile from './MyProfile'
 import "../styles/Profile.css"
 
 
 const CreateProfile = () => {
-
-  const [location, setLocation] = useState('')
+  const [country, setCountry] = useState('')
+  const [region, setRegion] = useState('')
   const [description, setDescription] = useState('')
   const [experience, setExperience] = useState('')
   const [shootingStyle, setShootingStyle] = useState('')
@@ -58,7 +59,7 @@ const CreateProfile = () => {
     event.preventDefault()
     try {
       const profile = await profilesService.create({
-        location, description, experience, shootingStyle, website, socialMedia,
+        country, region, description, experience, shootingStyle, website, socialMedia,
       })
 
       setProfile(profile)
@@ -74,16 +75,10 @@ const CreateProfile = () => {
       <div className="profile-form-wrapper">
         <h1>Create Profile</h1>
         <form onSubmit={handleSubmit} noValidate>
-          <div className="location">
+          <div>
             <label htmlFor="location">Location</label>
-            <input
-              type="text"
-              value={location}
-              className=""
-              placeholder="Location"
-              name="location"
-              noValidate
-              onChange={({ target }) => setLocation(target.value)} />
+            <CountryDropdown value={country} onChange={(val) => setCountry(val)} />
+            <RegionDropdown country={country} value={region} onChange={(val) => setRegion(val)} />
           </div>
           <div className="description">
             <label htmlFor="description">Description</label>

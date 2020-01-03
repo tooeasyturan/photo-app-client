@@ -5,9 +5,9 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import CreateProfile from './components/CreateProfile'
 import Users from './components/Users'
-import UserProfile from './components/UserProfile'
+import MyProfile from './components/MyProfile'
 import Avatar from './components/Avatar'
-// import GetUserProfile from './components/GetUserProfile'
+import GetUserProfile from './components/GetUserProfile'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -50,8 +50,9 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path={`/${username}/profile`} component={CreateProfile} />
         <Route exact path="/users" component={Users} />
-        <Route exact path={`/${username}`} component={UserProfile} />
+        <Route exact path={`/${username}`} component={MyProfile} />
         <Route exact path="/avatar" component={Avatar} />
+        <Route exact path="/users/:username" component={GetUserProfile} />
 
 
       </div>
