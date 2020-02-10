@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import './App.css';
 import Navigation from './components/Navigation'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import CreateProfile from './components/CreateProfile'
+import CreateModel from './components/CreateModel'
 import Users from './components/Users'
 import MyProfile from './components/MyProfile'
 import Avatar from './components/Avatar'
@@ -28,16 +30,56 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
   const [username, setUsername] = useState('')
+  const [status, setStatus] = useState('')
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
-    if (loggedUserJSON) {
-      const username = JSON.parse(loggedUserJSON).username
-      setUsername(username)
-    } else {
-      setUsername('user')
+    async function getUser() {
+      await getLoggedInUser()
     }
+    getUser()
+
   }, [])
+
+  // useEffect(() => {
+  //   getStatus()
+  // }, [])
+
+
+  const getLoggedInUser = async () => {
+    try {
+      const loggedUserJSON = await window.localStorage.getItem('loggedTFPappUser')
+      if (loggedUserJSON) {
+        const username = JSON.parse(loggedUserJSON).username
+        console.log('username', username)
+        setUsername(username)
+        let user = await axios.get(`http://localhost:3004/users/${username}`)
+        user = await user.data
+        console.log('user data', user)
+        const status = await user[0].status
+        setStatus(status)
+        console.log('user status', status)
+      } else {
+        setUsername('user')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getStatus = async () => {
+    try {
+      console.log('status username', username)
+      let user = await axios.get(`http://localhost:3004/users/test6`)
+      user = await user.data
+      const status = await user[0].status
+      setStatus(status)
+      console.log('status', status)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
 
 
 
@@ -48,7 +90,8 @@ function App() {
         <Route exact path="/" component={Navigation} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path={`/${username}/profile`} component={CreateProfile} />
+        <Route exact path={`/${username}/profile`} component={
+          () => status === "photographer" ? <CreateProfile /> : <CreateModel />} />
         <Route exact path="/users" component={Users} />
         <Route exact path={`/${username}`} component={MyProfile} />
         <Route exact path="/avatar" component={Avatar} />

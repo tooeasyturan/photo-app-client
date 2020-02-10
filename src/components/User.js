@@ -5,7 +5,11 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 const User = ({ user }) => {
   console.log(user)
   // console.log('avatar', user.avatar[0].avatar)
-  const avatar = `/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`
+  let avatar = `/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`
+
+  if (avatar === undefined) {
+    avatar = 'https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
+  }
   console.log('avatar', avatar)
 
   // /Users/joshturan/tfp-frontend/public/uploads/charles.manson/avatar/DSC05606.jpg
@@ -22,7 +26,7 @@ const User = ({ user }) => {
       <Card.Content>
         <Card.Header>{user.username}</Card.Header>
         <Card.Description>
-          <p>{'Location: ' + user.profile[0].location}</p>
+          <p>{'Location: ' + user.profile[0].country + ' ' + user.profile[0].region}</p>
           <p>{'Description: ' + user.profile[0].description}</p>
         </Card.Description>
       </Card.Content>

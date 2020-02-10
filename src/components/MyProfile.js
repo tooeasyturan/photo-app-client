@@ -4,6 +4,7 @@ import uploadsService from '../services/uploads'
 import FileUpload from './FileUpload'
 import UserPortfolio from './UserPortfolio'
 import FileUploadMulter from './FileUploadMulter'
+import DeleteUser from './DeleteUser'
 import { Button } from 'react-bootstrap'
 import { Card, Icon, Image, Grid, Container } from 'semantic-ui-react'
 import "../styles/UserProfile.css"
@@ -94,11 +95,11 @@ const MyProfile = (props) => {
 
 
       <h1>Upload Portfolio Pictures</h1>
-      <div class="col-md-4 offset-md-4">
+      <div className="col-md-4 offset-md-4">
         <FileUpload />
       </div>
 
-
+      <DeleteUser />
       <UserPortfolio username={username} />
 
     </>

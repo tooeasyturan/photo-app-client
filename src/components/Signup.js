@@ -10,6 +10,7 @@ const Signup = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [status, setStatus] = useState('')
   const [date, setDate] = useState('')
 
   const [user, setUser] = useState(null)
@@ -21,7 +22,7 @@ const Signup = () => {
     event.preventDefault()
     try {
       const user = await usersService.create({
-        firstName, lastName, username, email, password, date: new Date().toISOString()
+        firstName, lastName, username, email, status, password, date: new Date().toISOString()
       })
       console.log(date)
 
@@ -32,6 +33,7 @@ const Signup = () => {
       setUsername('')
       setEmail('')
       setPassword('')
+      setStatus(null)
     } catch (exception) {
       console.log('error')
     }
@@ -78,6 +80,22 @@ const Signup = () => {
               name="username"
               noValidate
               onChange={({ target }) => setUsername(target.value)} />
+          </div>
+          <div className="username">
+            I am a:
+            {/* <label for="photographer"> */}
+            <input
+              // id="photographer"
+              type="radio"
+              name="status"
+              value="photographer"
+              onClick={({ target }) => setStatus(target.value)} />photographer
+              {/* </label> */}
+            <input
+              type="radio"
+              name="status"
+              value="model"
+              onClick={({ target }) => setStatus(target.value)} />Model
           </div>
           <div className="email">
             <label htmlFor="email">Email</label>

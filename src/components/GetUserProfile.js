@@ -10,8 +10,8 @@ import UserPortfolio from './UserPortfolio'
 
 
 const GetUserProfile = (props) => {
-  const [user, setUser] = useState({})
-  const [profile, setProfile] = useState({})
+  const [user, setUser] = useState([])
+  const [profile, setProfile] = useState([])
   const [avatar, setAvatar] = useState([])
   const [portfolio, setPortfolio] = useState({})
 
@@ -22,8 +22,6 @@ const GetUserProfile = (props) => {
   }, [])
 
 
-
-
   const username = props.match.params.username
   console.log(props)
 
@@ -31,15 +29,28 @@ const GetUserProfile = (props) => {
     try {
       let user = await axios.get(`http://localhost:3004/users/${username}`)
       user = await user.data
+
+      // must use await on 'profile' or page will render before profile data is fetched and causes errors
+      const profile = await user[0].profile[0]
       setUser(user[0])
-      setProfile(user[0].profile)
+      setProfile(profile)
       setPortfolio(user[0].portfolio)
+      console.log('location', user[0].profile[0].country)
+
+      // console.log('profile', profile)
 
 
     } catch (exception) {
       console.log('error')
     }
   }
+
+  console.log('user', user)
+  console.log('location2', profile.country)
+  console.log('portfolio', portfolio)
+
+
+
 
   const getAvatar = async () => {
     try {
@@ -72,11 +83,11 @@ const GetUserProfile = (props) => {
         {getUserAvatar}
         <Card.Content >
           <p>{user.username}</p>
+          <p>{profile.country + ' ' + profile.region}</p>
           <p>{user.firstName + ' ' + user.lastName}</p>
           <p>{user.email}</p>
         </Card.Content>
       </Card>
-
       <UserPortfolio username={username} />
     </>
 
