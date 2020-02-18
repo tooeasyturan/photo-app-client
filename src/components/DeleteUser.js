@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+
 const DeleteUser = () => {
   const [user, setUser] = useState('')
 
@@ -12,14 +13,16 @@ const DeleteUser = () => {
     }
   }, [])
 
-  const deleteUser = () => {
+  const deleteUser = async () => {
 
     const token = user.token
     const config = {
-      headers: { Authorization: token },
+      'Content-Type': 'application/json',
+      headers: { Authorization: 'bearer ' + token },
     }
-    console.log('id', token)
-    axios.delete('http://localhost:3004/users/profile', config)
+    console.log('token', token)
+    const response = await axios.delete('http://localhost:3004/users/profile', config)
+    console.log(response)
   }
 
 

@@ -4,6 +4,7 @@ import uploadsService from '../services/uploads'
 import FileUpload from './FileUpload'
 import UserPortfolio from './UserPortfolio'
 import FileUploadMulter from './FileUploadMulter'
+import Logout from './Logout'
 import DeleteUser from './DeleteUser'
 import { Button } from 'react-bootstrap'
 import { Card, Icon, Image, Grid, Container } from 'semantic-ui-react'
@@ -98,7 +99,8 @@ const MyProfile = (props) => {
       <div className="col-md-4 offset-md-4">
         <FileUpload />
       </div>
-
+      {/* <button onclick={() => localStorage.removeItem('loggedTFPappUser')}></button> */}
+      <Logout user={loggedInUserProfile} />
       <DeleteUser />
       <UserPortfolio username={username} />
 
