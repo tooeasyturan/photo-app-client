@@ -3,7 +3,7 @@ import axios from 'axios'
 import uploadsService from '../services/uploads'
 import { Card, Image } from 'semantic-ui-react'
 
-const UserPortfolio = ({ username }) => {
+const UserPortfolio = (props) => {
   const [uploads, setUploads] = useState([])
   const [user, setUser] = useState('')
 
@@ -15,7 +15,10 @@ const UserPortfolio = ({ username }) => {
     }
   }, [])
 
+  const username = props.username
+
   console.log('user portfolio user', username)
+  console.log('PROPS', props)
 
   // const username = props.match.params.username
 
@@ -40,11 +43,14 @@ const UserPortfolio = ({ username }) => {
     }
   }
 
+  console.log('uPLOADS', uploads)
   const portfolioPics = uploads.filter(file => file.includes('.jpg'))
   console.log(portfolioPics)
 
   const handleRemoveImage = async (portfolioPic) => {
     // PROBABLY BETTER TO SEND NAME OF IMAGE TO BE DELETED WITH REQUEST URL PARAMS
+    // *** Uploads are retrieved directly from file, not through db. Need to query db for portfolio id. 
+    // *** maybe images should be saved using portfolio id.
 
     const token = user.token
     const config = {
@@ -52,9 +58,16 @@ const UserPortfolio = ({ username }) => {
       headers: { Authorization: 'bearer ' + token },
       data: { portfolioPic }
     }
-    console.log('token', token)
-    const response = await axios.delete('http://localhost:3004/users/portfolio', config)
-    console.log(response)
+
+    if (window.confirm("Are you sure you want to delete this image")) {
+
+      console.log('token', token)
+      const response = await axios.delete('http://localhost:3004/users/portfolio', config)
+      console.log(response)
+    } else {
+      console.log('image not deleted')
+    }
+
 
     // try {
     //   const imageToDelete = portfolioPic
@@ -64,7 +77,7 @@ const UserPortfolio = ({ username }) => {
     // }
 
 
-    // window.alert(`hello ${id}`)
+
   }
 
   const usersPortfolio = portfolioPics.map(portfolioPic => {

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import MyProfile from './MyProfile'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Button } from 'semantic-ui-react'
+
 
 
 const Logout = (props) => {
