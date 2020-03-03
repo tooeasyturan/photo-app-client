@@ -69,15 +69,6 @@ const UserPortfolio = (props) => {
     }
 
 
-    // try {
-    //   const imageToDelete = portfolioPic
-    //   console.log('image to delete', imageToDelete)
-    // } catch (error) {
-    //   console.log(error)
-    // }
-
-
-
   }
 
   const usersPortfolio = portfolioPics.map(portfolioPic => {

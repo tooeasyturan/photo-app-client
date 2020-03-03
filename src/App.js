@@ -10,6 +10,8 @@ import Users from './components/Users'
 import MyProfile from './components/MyProfile'
 import Avatar from './components/Avatar'
 import GetUserProfile from './components/GetUserProfile'
+import Cloudinary from './components/Cloudinary'
+import UserPortfolioCloud from './components/UserPortfolioCloud'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -29,6 +31,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // console.log(username)
 
 function App() {
+  const [userLoggedIn, setUserLoggedIn] = useState('')
   const [username, setUsername] = useState('')
   const [status, setStatus] = useState('')
 
@@ -40,9 +43,6 @@ function App() {
 
   }, [])
 
-  // useEffect(() => {
-  //   getStatus()
-  // }, [])
 
 
   const getLoggedInUser = async () => {
@@ -54,6 +54,7 @@ function App() {
         setUsername(username)
         let user = await axios.get(`http://localhost:3004/users/${username}`)
         user = await user.data
+        setUserLoggedIn(user)
         console.log('user data', user)
         const status = await user[0].status
         setStatus(status)
@@ -96,6 +97,8 @@ function App() {
         <Route exact path={`/${username}`} component={MyProfile} />
         <Route exact path="/avatar" component={Avatar} />
         <Route exact path="/users/:username" component={GetUserProfile} />
+        <Route exact path="/cloudinary" component={Cloudinary} />
+        <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} />
 
 
       </div>

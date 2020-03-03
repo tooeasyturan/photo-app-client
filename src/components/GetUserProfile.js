@@ -5,6 +5,7 @@ import usersService from '../services/users'
 import axios from 'axios'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import UserPortfolio from './UserPortfolio'
+import SearchUsers from './SearchUsers'
 
 
 
@@ -23,7 +24,7 @@ const GetUserProfile = (props) => {
 
 
   const username = props.match.params.username
-  console.log(props)
+  console.log("props", props)
 
   const getPortfolio = async () => {
     try {
@@ -71,6 +72,7 @@ const GetUserProfile = (props) => {
       src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
       alt=""
     />
+
   })
 
 

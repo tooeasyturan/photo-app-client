@@ -7,10 +7,11 @@ const User = ({ user }) => {
   // console.log('avatar', user.avatar[0].avatar)
   let avatar = `/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`
 
+
   if (avatar === undefined) {
     avatar = 'https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
   }
-  console.log('avatar', avatar)
+  console.log('AVATARRRR', user.avatar[0].avatar)
 
   // /Users/joshturan/tfp-frontend/public/uploads/charles.manson/avatar/DSC05606.jpg
 

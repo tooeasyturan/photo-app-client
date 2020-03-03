@@ -20,8 +20,8 @@ const FileUpload = () => {
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
-  console.log('uploadedfile', uploadedFile)
-  console.log('username', username)
+  // console.log('uploadedfile', uploadedFile)
+  // console.log('username', username)
 
 
   const onChangeHandler = (event) => {

@@ -9,11 +9,14 @@ import DeleteUser from './DeleteUser'
 import { Button } from 'react-bootstrap'
 import { Card, Icon, Image, Grid, Container } from 'semantic-ui-react'
 import "../styles/UserProfile.css"
+import Cloudinary from './Cloudinary'
+import UserPortfolioCloud from './UserPortfolioCloud'
 
 
 
 const MyProfile = (props) => {
   const [users, setUsers] = useState([])
+  const [user, setUser] = useState(null)
   const [loggedInUserProfile, setLoggedInUserProfile] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -28,20 +31,32 @@ const MyProfile = (props) => {
   const [website, setWebsite] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
 
+  const [avatarPath, setAvatarPath] = useState('')
+
 
 
   useEffect(() => {
     usersService.getAll().then(allUsers => setUsers(allUsers))
   }, [])
 
+
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-  console.log(username)
+  // console.log(username)
 
   useEffect(() => {
-    uploadsService.getAvatar().then(userAvatar => setAvatar(userAvatar))
+    getUserAvatar()
   }, [])
 
-  console.log('avatar', avatar)
+  const getUserAvatar = async () => {
+    try {
+      const userAvatar = await uploadsService.getAvatar()
+      const path = `/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${userAvatar[0]}`
+      setAvatar(userAvatar)
+      setAvatarPath(path)
+    } catch (error) {
+      console.log('fetching avatar error')
+    }
+  }
 
 
   const findProfile = async () => {
@@ -76,7 +91,7 @@ const MyProfile = (props) => {
   })
 
 
-  console.log('getAvatar', getAvatar)
+
 
   return (
 
@@ -103,6 +118,7 @@ const MyProfile = (props) => {
       <Logout user={loggedInUserProfile} />
       <DeleteUser />
       <UserPortfolio username={username} />
+      {/* <UserPortfolioCloud username={username} /> */}
 
     </>
 
