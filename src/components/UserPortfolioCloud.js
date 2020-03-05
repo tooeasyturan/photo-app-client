@@ -19,47 +19,37 @@ const UserPortfolioCloud = (props) => {
     }
   }, [])
 
-  console.log("USER!!!", user.username)
 
-  // useEffect(() => {
-  //   // Create an scoped async function in the hook
-  //   async function anyNameFunction() {
-  //     await loadContent();
-  //   }
-  //   // Execute the created function directly
-  //   anyNameFunction();
-  // }, []);
+  useEffect(() => {
+    const fetchImages = async () => {
+      const result = await axios.get(`http://localhost:3004/cloudinary/${username}`)
+      setUploads(result.data)
+    }
+    fetchImages()
+  }, [])
 
 
+  const handleRemoveImage = async (upload) => {
+    // PROBABLY BETTER TO SEND NAME OF IMAGE TO BE DELETED WITH REQUEST URL PARAMS
+    // *** Uploads are retrieved directly from file, not through db. Need to query db for portfolio id. 
+    // *** maybe images should be saved using portfolio id.
 
-  // useEffect(() => {
-  //   getUserUploads()
-  // }, [])
-
-  const getUserUploads = async () => {
-
-    const token = await user.token
-    console.log('USER TOKEN', token)
+    const token = user.token
     const config = {
       'Content-Type': 'application/json',
       headers: { Authorization: 'bearer ' + token },
-      // params: { username: username }
+      data: { upload }
     }
 
-    try {
-      let uploads = await axios.get(`http://localhost:3004/cloudinary/${username}`, config)
-      uploads = await uploads.data
-      setUploads(uploads)
-      console.log('UPLOADS', uploads)
-      // console.log('UPLOADSZZ', uploads)
-    } catch (exception) {
-      console.log('portfolio uploads error')
+    if (window.confirm("Are you sure you want to delete this image")) {
+
+      console.log('token', token)
+      const response = await axios.delete('http://localhost:3004/cloudinary', config)
+      console.log(response)
+    } else {
+      console.log('image not deleted')
     }
   }
-
-
-
-
 
   const usersPortfolio = uploads.map(upload => {
     return <Image key={upload}
@@ -67,18 +57,15 @@ const UserPortfolioCloud = (props) => {
       wrapped ui={true}
       alt=""
       rounded
-    // onClick={() => handleRemoveImage(portfolioPic)}
+      onClick={() => handleRemoveImage(upload)}
     />
   })
 
-  // How to get rid of button and have pics display on page load? Something with async/await I'm guessing
 
   return (
     <>
-      <button onClick={getUserUploads}>TEST</button>
-      {/* {getUserUploads} */}
+      <h1>Pics</h1>
       <Image.Group className="doubling stackable" size="large">
-        <h1>Pics</h1>
         {usersPortfolio}
       </Image.Group>
     </>
