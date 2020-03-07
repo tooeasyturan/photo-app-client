@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import usersService from '../services/users'
-import uploadsService from '../services/uploads'
-import FileUpload from './FileUpload'
-import UserPortfolio from './UserPortfolio'
-import FileUploadMulter from './FileUploadMulter'
 import Logout from './Logout'
 import DeleteUser from './DeleteUser'
 import { Button } from 'react-bootstrap'
@@ -21,9 +18,7 @@ const MyProfile = (props) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-
   const [avatar, setAvatar] = useState([])
-  const [profilePicture, setProfilePicture] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
   const [experience, setExperience] = useState('')
@@ -31,8 +26,8 @@ const MyProfile = (props) => {
   const [website, setWebsite] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
 
-  const [avatarPath, setAvatarPath] = useState('')
 
+  console.log('MY PROFILE PROPS', props)
 
 
   useEffect(() => {
@@ -41,22 +36,17 @@ const MyProfile = (props) => {
 
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-  // console.log(username)
+
+
+  const fetchAvatar = async () => {
+    const result = await axios.get(`http://localhost:3004/cloudinary/${username}/avatar`)
+    setAvatar(result.data)
+  }
 
   useEffect(() => {
-    getUserAvatar()
+    fetchAvatar()
   }, [])
 
-  const getUserAvatar = async () => {
-    try {
-      const userAvatar = await uploadsService.getAvatar()
-      const path = `/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${userAvatar[0]}`
-      setAvatar(userAvatar)
-      setAvatarPath(path)
-    } catch (error) {
-      console.log('fetching avatar error')
-    }
-  }
 
 
   const findProfile = async () => {
@@ -82,13 +72,7 @@ const MyProfile = (props) => {
   findProfile()
 
 
-  // I DONT KNOW WHY I HAVE TO MAP AVATAR IN ORDER FOR DIRECTORY TO ROUTE PROPERLY
-  const getAvatar = avatar.map(a => {
-    return <Image key={a}
-      src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
-      alt=""
-    />
-  })
+
 
 
 
@@ -98,7 +82,7 @@ const MyProfile = (props) => {
 
     <>
       <Card className="ui centered card" >
-        {getAvatar}
+        <Image key={avatar} src={avatar} alt="" />
         <Card.Content >
           <p>{username}</p>
           <p>{email}</p>
@@ -111,14 +95,13 @@ const MyProfile = (props) => {
 
 
       <h1>Upload Portfolio Pictures</h1>
-      <div className="col-md-4 offset-md-4">
-        <FileUpload />
+      <div className="col-md-12 offset-md-4">
+
       </div>
-      {/* <button onclick={() => localStorage.removeItem('loggedTFPappUser')}></button> */}
       <Logout user={loggedInUserProfile} />
       <DeleteUser />
-      <UserPortfolio username={username} />
       {/* <UserPortfolioCloud username={username} /> */}
+      <Cloudinary />
 
     </>
 

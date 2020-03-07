@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import uploadsService from '../services/uploads'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import axios from 'axios'
+import GetCloudUploads from './GetCloudUploads'
 
 const UserPortfolioCloud = (props) => {
   const [uploads, setUploads] = useState([])
   const [user, setUser] = useState('')
 
-  const username = props.match.params.username
+  // const username = props.match.params.username
+  const username = props.username
   console.log('PROPS USERNAME', username)
 
 
@@ -20,13 +21,17 @@ const UserPortfolioCloud = (props) => {
   }, [])
 
 
+  const fetchImages = async () => {
+    const result = await axios.get(`http://localhost:3004/cloudinary/${username}`)
+    setUploads(result.data)
+  }
+
   useEffect(() => {
-    const fetchImages = async () => {
-      const result = await axios.get(`http://localhost:3004/cloudinary/${username}`)
-      setUploads(result.data)
-    }
     fetchImages()
   }, [])
+
+  // // RUN FUNCTION OUTSIDE OF useEffect SO RE-RENDER WILL OCCUR
+  // fetchImages()
 
 
   const handleRemoveImage = async (upload) => {
@@ -51,6 +56,10 @@ const UserPortfolioCloud = (props) => {
     }
   }
 
+
+
+
+
   const usersPortfolio = uploads.map(upload => {
     return <Image key={upload}
       src={upload}
@@ -67,6 +76,7 @@ const UserPortfolioCloud = (props) => {
       <h1>Pics</h1>
       <Image.Group className="doubling stackable" size="large">
         {usersPortfolio}
+        {/* <GetCloudUploads uploads={uploads} /> */}
       </Image.Group>
     </>
   )

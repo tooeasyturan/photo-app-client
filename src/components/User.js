@@ -1,29 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
+import axios from 'axios'
+
 
 
 const User = ({ user }) => {
+  const [avatar, setAvatar] = useState([])
+
   console.log(user)
   // console.log('avatar', user.avatar[0].avatar)
-  let avatar = `/Users/joshturan/tfp-frontend/public${user.avatar[0].avatar}`
 
-
-  if (avatar === undefined) {
-    avatar = 'https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
+  const fetchImages = async () => {
+    const result = await axios.get(`http://localhost:3004/cloudinary/${user.username}/avatar`)
+    setAvatar(result.data)
+    console.log('RESULT.DATA', result.data)
   }
-  console.log('AVATARRRR', user.avatar[0].avatar)
 
-  // /Users/joshturan/tfp-frontend/public/uploads/charles.manson/avatar/DSC05606.jpg
+  useEffect(() => {
+    fetchImages()
+  }, [])
 
-  // src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
-
-  // /Users/joshturan/tfp-frontend/public/uploads/joshturan/avatar/DSC_0055.jpg
-
-  // src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${avatar}`)}
 
   return (
     <Card href={`/users/${user.username}`} className="user">
-      <Image src={require(`/Users/joshturan/tfp-frontend/public/uploads/${user.username}/avatar/${user.avatar[0].avatar}`)} alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
+      <Image src={avatar} alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
       <Card.Content>
         <Card.Header>{user.username}</Card.Header>
         <Card.Description>

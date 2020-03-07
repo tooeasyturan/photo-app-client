@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import uploadsService from '../services/uploads'
-import profilesService from '../services/profiles'
-import usersService from '../services/users'
 import axios from 'axios'
-import { Card, Icon, Image } from 'semantic-ui-react'
-import UserPortfolio from './UserPortfolio'
-import SearchUsers from './SearchUsers'
+import { Card, Image } from 'semantic-ui-react'
+import UserPortfolioCloud from './UserPortfolioCloud'
 
 
 
@@ -14,12 +10,10 @@ const GetUserProfile = (props) => {
   const [user, setUser] = useState([])
   const [profile, setProfile] = useState([])
   const [avatar, setAvatar] = useState([])
-  const [portfolio, setPortfolio] = useState({})
 
 
   useEffect(() => {
     getPortfolio()
-    getAvatar()
   }, [])
 
 
@@ -35,7 +29,6 @@ const GetUserProfile = (props) => {
       const profile = await user[0].profile[0]
       setUser(user[0])
       setProfile(profile)
-      setPortfolio(user[0].portfolio)
       console.log('location', user[0].profile[0].country)
 
       // console.log('profile', profile)
@@ -47,34 +40,17 @@ const GetUserProfile = (props) => {
   }
 
   console.log('user', user)
-  console.log('location2', profile.country)
-  console.log('portfolio', portfolio)
 
 
-
-
-  const getAvatar = async () => {
-    try {
-      let avatar = await axios.get(`http://localhost:3004/avatar/${username}`)
-      avatar = await avatar.data
-      setAvatar(avatar)
-    } catch (exception) {
-      console.log('avatar error')
-    }
+  const fetchAvatar = async () => {
+    const result = await axios.get(`http://localhost:3004/cloudinary/${username}/avatar`)
+    setAvatar(result.data)
+    console.log('RESULT.DATA', result.data)
   }
 
-
-  console.log('avatar is...', avatar)
-
-
-  const getUserAvatar = avatar.map(a => {
-    return <Image key={a}
-      src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/avatar/${a}`)}
-      alt=""
-    />
-
-  })
-
+  useEffect(() => {
+    fetchAvatar()
+  }, [])
 
 
 
@@ -82,7 +58,7 @@ const GetUserProfile = (props) => {
   return (
     <>
       <Card className="ui centered card" >
-        {getUserAvatar}
+        <Image key={avatar} src={avatar} alt="" />
         <Card.Content >
           <p>{user.username}</p>
           <p>{profile.country + ' ' + profile.region}</p>
@@ -90,7 +66,7 @@ const GetUserProfile = (props) => {
           <p>{user.email}</p>
         </Card.Content>
       </Card>
-      <UserPortfolio username={username} />
+      <UserPortfolioCloud username={username} />
     </>
 
 

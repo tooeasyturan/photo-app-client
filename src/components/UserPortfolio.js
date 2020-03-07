@@ -17,17 +17,6 @@ const UserPortfolio = (props) => {
 
   const username = props.username
 
-  console.log('user portfolio user', username)
-  console.log('PROPS', props)
-
-  // const username = props.match.params.username
-
-  // const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-
-  // useEffect(() => {
-  //   uploadsService.getUploads().then(allUploads => setUploads(allUploads))
-  // }, [])
-  // console.log('uploads', uploads)
 
   useEffect(() => {
     getUserUploads()
@@ -67,8 +56,6 @@ const UserPortfolio = (props) => {
     } else {
       console.log('image not deleted')
     }
-
-
   }
 
   const usersPortfolio = portfolioPics.map(portfolioPic => {

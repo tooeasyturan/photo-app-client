@@ -38,22 +38,6 @@ const CreateProfile = () => {
 
 
 
-  // useEffect(() => {
-  //   usersService.getAll().then(allUsers => setUsers(allUsers))
-  // }, [])
-
-
-  // const findProfile = async () => {
-  //   try {
-  //     const findLoggedInUserProfile = await users.find(users => users.username === username)
-  //     console.log(findLoggedInUserProfile)
-  //   } catch (exception) {
-  //     console.log('error')
-  //   }
-  // }
-
-  // console.log(findProfile())
-
 
   const handleSubmit = async (event) => {
     event.preventDefault()

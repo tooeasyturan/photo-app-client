@@ -11,6 +11,7 @@ import MyProfile from './components/MyProfile'
 import Avatar from './components/Avatar'
 import GetUserProfile from './components/GetUserProfile'
 import Cloudinary from './components/Cloudinary'
+import AvatarCloud from './components/AvatarCloud'
 import UserPortfolioCloud from './components/UserPortfolioCloud'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -98,7 +99,8 @@ function App() {
         <Route exact path="/avatar" component={Avatar} />
         <Route exact path="/users/:username" component={GetUserProfile} />
         <Route exact path="/cloudinary" component={Cloudinary} />
-        <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} />
+        {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
+        <Route exact path="/cloudinary/avatar" component={AvatarCloud} />
 
 
       </div>
