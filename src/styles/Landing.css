@@ -1,0 +1,25 @@
+/* .landing-box {
+  margin-top: 200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: flex;
+} */
+
+
+.landing-background {
+  background: url('../assets/landingbg.jpg') no-repeat fixed bottom;
+  background-size: cover;
+  height: 800px;
+  position: relative;
+}
+
+.ui.text.container {
+  margin-top: 200px;
+}
+
+
+
+.center-items {
+  text-align: center;
+  margin: 0 auto;
+}

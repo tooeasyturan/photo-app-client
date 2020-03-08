@@ -2,7 +2,7 @@ import React from 'react'
 import { Image } from 'semantic-ui-react'
 
 
-const GetCloudUploads = ({ uploads, handleRemoveImage }) => {
+const GetCloudUploads = ({ uploads }) => {
 
 
   return (
@@ -13,7 +13,7 @@ const GetCloudUploads = ({ uploads, handleRemoveImage }) => {
           wrapped ui={true}
           alt=""
           rounded
-          onClick={(handleRemoveImage) => handleRemoveImage(upload)}
+        // onClick={() => handleRemoveImage(upload)}
         />
       })}
     </div>

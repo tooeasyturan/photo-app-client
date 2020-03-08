@@ -4,6 +4,9 @@ import uploadsService from '../services/uploads'
 import axios from 'axios'
 
 const Cloudinary = () => {
+
+  // SHOULD I KEEP ALL LOGIC FOR UPLOADING AND DISPLAYING PORTFOLIO PICS IN ONE COMPONENT OR SEPARATE? NEED TO KEEP IN MIND STATE CHANGE FOR UPLOADS
+
   const [user, setUser] = useState(null)
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
