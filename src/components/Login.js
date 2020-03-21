@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import loginService from '../services/login'
 import usersService from '../services/users'
 import Notification from './Notification'
 import { Button } from 'react-bootstrap'
 import "../styles/Login.css"
+import { UserContext } from './UserContext'
+
 
 
 
@@ -12,6 +14,7 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+
 
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import usersService from '../services/users'
 import Logout from './Logout'
@@ -8,12 +8,12 @@ import { Card, Icon, Image, Grid, Container } from 'semantic-ui-react'
 import "../styles/UserProfile.css"
 import Cloudinary from './Cloudinary'
 import UserPortfolioCloud from './UserPortfolioCloud'
+import { UserContext } from './UserContext'
 
 
 
 const MyProfile = (props) => {
   const [users, setUsers] = useState([])
-  const [user, setUser] = useState(null)
   const [loggedInUserProfile, setLoggedInUserProfile] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -26,8 +26,11 @@ const MyProfile = (props) => {
   const [website, setWebsite] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
 
+  const [user, setUser] = useContext(UserContext)
+  // console.log('VALUE!!', user)
 
-  console.log('MY PROFILE PROPS', props)
+  // console.log('MY PROFILE PROPS', props)
+
 
 
   useEffect(() => {
@@ -71,7 +74,7 @@ const MyProfile = (props) => {
 
   findProfile()
 
-
+  console.log('find loggedinuserprofile', loggedInUserProfile)
 
 
 

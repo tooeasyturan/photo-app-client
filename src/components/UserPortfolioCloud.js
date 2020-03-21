@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import axios from 'axios'
-import GetCloudUploads from './GetCloudUploads'
+import { UserContext } from './UserContext'
+
 
 const UserPortfolioCloud = (props) => {
   const [uploads, setUploads] = useState([])
@@ -10,6 +11,9 @@ const UserPortfolioCloud = (props) => {
   // const username = props.match.params.username
   const username = props.username
   console.log('PROPS USERNAME', username)
+  console.log('USER USERNAME', user.username)
+
+
 
 
   useEffect(() => {
@@ -38,16 +42,13 @@ const UserPortfolioCloud = (props) => {
     // PROBABLY BETTER TO SEND NAME OF IMAGE TO BE DELETED WITH REQUEST URL PARAMS
     // *** Uploads are retrieved directly from file, not through db. Need to query db for portfolio id. 
     // *** maybe images should be saved using portfolio id.
-
     const token = user.token
     const config = {
       'Content-Type': 'application/json',
       headers: { Authorization: 'bearer ' + token },
       data: { upload }
     }
-
     if (window.confirm("Are you sure you want to delete this image")) {
-
       console.log('token', token)
       const response = await axios.delete('http://localhost:3004/cloudinary', config)
       console.log(response)
@@ -60,7 +61,7 @@ const UserPortfolioCloud = (props) => {
 
 
 
-  const usersPortfolio = uploads.map(upload => {
+  const myPortfolio = uploads.map(upload => {
     return <Image key={upload}
       src={upload}
       wrapped ui={true}
@@ -70,12 +71,20 @@ const UserPortfolioCloud = (props) => {
     />
   })
 
+  const usersPortfolio = uploads.map(upload => {
+    return <Image key={upload}
+      src={upload}
+      wrapped ui={true}
+      alt=""
+      rounded
+    />
+  })
 
   return (
     <>
       <h1>Pics</h1>
       <Image.Group className="doubling stackable" size="large">
-        {usersPortfolio}
+        {props.username === user.username ? myPortfolio : usersPortfolio}
         {/* <GetCloudUploads uploads={uploads} /> */}
       </Image.Group>
     </>

@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import uploadsService from '../services/uploads'
 import axios from 'axios'
+import { UserContext } from './UserContext'
+
 
 const Cloudinary = () => {
 
   // SHOULD I KEEP ALL LOGIC FOR UPLOADING AND DISPLAYING PORTFOLIO PICS IN ONE COMPONENT OR SEPARATE? NEED TO KEEP IN MIND STATE CHANGE FOR UPLOADS
 
-  const [user, setUser] = useState(null)
+  // const [user, setUser] = useState(null)
+  const [user, setUser] = useContext(UserContext)
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
   const [uploads, setUploads] = useState([])
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      uploadsService.setToken(user.token)
-    }
-  }, [])
+
+
+  console.log("CLOUDINARY USER!!!", user)
+
+
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
+  //   if (loggedUserJSON) {
+  //     const user = JSON.parse(loggedUserJSON)
+  //     setUser(user)
+  //     uploadsService.setToken(user.token)
+  //   }
+  // }, [])
 
 
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username

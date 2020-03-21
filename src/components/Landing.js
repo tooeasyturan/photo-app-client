@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/Landing.css'
 import Navigation from './Navigation'
+import Signup from './Signup'
 import { Segment, Button, Grid } from 'semantic-ui-react'
 
 const Landing = () => {
@@ -14,9 +15,12 @@ const Landing = () => {
 
             <div className="ui text container">
               <h1 className="ui inverted header">
-                SUI Starter
+                TFP Application
         </h1>
               <h2>Do whatever you want when you want to.</h2>
+              <div>
+                <Signup />
+              </div>
               {/* <button className="ui huge primary button" href="/signup">Get Started <i className="right arrow icon"></i></button> */}
               <Button secondary size='huge' href="/signup">Sign Up</Button>
             </div>
