@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import loginService from '../services/login'
 import usersService from '../services/users'
 import Notification from './Notification'
-import { Button } from 'react-bootstrap'
+// import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 // import "../styles/Login.css"
 import { UserContext } from './UserContext'
 
@@ -14,6 +15,10 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [usernameError, setUsernameError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [matchError, setMatchError] = useState(false)
+  const [formError, setFormError] = useState(false)
 
 
 
@@ -28,6 +33,28 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
+    setUsernameError(false)
+    setPasswordError(false)
+    setMatchError(false)
+    // let error = false
+    if (username === '' && password === '') {
+      setUsernameError(true)
+      setPasswordError(true)
+      // error = true
+      return
+    }
+
+    if (username === '') {
+      setUsernameError(true)
+      return
+    }
+
+    if (password === '') {
+      setPasswordError(true)
+      // error = true
+      return
+    }
+
     try {
       const user = await loginService.login({
         username, password,
@@ -39,96 +66,84 @@ const Login = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+    } catch (error) {
+
+
+
+      if (error.response.status === 401) {
+        setMatchError(true)
+      }
+
+
+
+      if (error) {
+        setFormError(true)
+        return
+      } else {
+        setFormError(false)
+      }
+
+
     }
   }
 
 
 
-  const LoginForm = () => (
+  const loginForm = () => (
 
-    // <div className="ui middle aligned center aligned grid">
-    //   <div className="column">
-    //     <h2 className="ui teal image header">
-    //       {/* <img src="assets/images/logo.png" className="image"> */}
-    //       <div className="content">
-    //         Log-in to your account
-    //   </div>
-    //     </h2>
-    //     <form className="ui large form">
-    //       <div className="ui stacked segment">
-    //         <div className="field">
-    //           <div className="ui left icon input">
-    //             <i className="user icon"></i>
-    //             <input type="text"
-    //               value={username}
-    //               placeholder="Username"
-    //               name="username"
-    //               noValidate
-    //               onChange={({ target }) => setUsername(target.value)}
-    //             />          </div>
-    //         </div>
-    //         <div className="field">
-    //           <div className="ui left icon input">
-    //             <i className="lock icon"></i>
-    //             <input type="password"
-    //               value={password}
-    //               placeholder="Password"
-    //               name="password"
-    //               noValidate
-    //               onChange={({ target }) => setPassword(target.value)}
-    //             />          </div>
-    //         </div>
-    //         <div className="ui fluid large teal submit button">Login</div>
-    //       </div>
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as='h2' color='teal' textAlign='center'>
+          Log-in to your account
+      </Header>
+        <Form size='large' onSubmit={handleLogin}>
+          <Segment stacked style={{ width: 450 }}>
+            <Form.Input
+              fluid icon='user'
+              iconPosition='left'
+              placeholder='Username'
+              name="username"
+              type="text"
+              value={username}
+              onChange={({ target }) => setUsername(target.value)}
+              error={usernameError}
+            />
+            <Form.Input
+              fluid
+              icon='lock'
+              iconPosition='left'
+              placeholder='Password'
+              type="password"
+              value={password}
+              name="password"
+              onChange={({ target }) => setPassword(target.value)}
+              error={passwordError}
+            />
 
-    //       <div className="ui error message"></div>
+            <Button color='teal' fluid size='large'>
+              Login
+          </Button>
+          </Segment>
+        </Form>
+        {usernameError ?
+          <Message
+            error
+            header="Please enter your username"
+          /> : null}
+        {passwordError ?
+          <Message
+            error
+            header="Please enter your password"
+          /> : null}
+        {matchError ?
+          <Message
+            error
+            header="Username and password do not match"
+          /> : null}
+      </Grid.Column>
+    </Grid>
 
-    //     </form>
-    //     <div className="ui message">
-    //       New to us? <a href="#">Sign Up</a>
-    //     </div>
-    //   </div>
-    // </div>
 
-
-    <div className="ui middle aligned center aligned grid">
-      <div className="column">
-        <h2 className="ui teal image header">
-          <div className="content">
-            Log-in to your account
-      </div>
-        </h2>
-        <form className="ui large form">
-          <div className="ui stacked segment">
-            <div className="field">
-              <div className="ui left icon input">
-                <i className="user icon"></i>
-                <input type="text" name="email" placeholder="E-mail address" />
-              </div>
-            </div>
-            <div className="field">
-              <div className="ui left icon input">
-                <i className="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" />
-              </div>
-            </div>
-            <div className="ui fluid large teal submit button">Login</div>
-          </div>
-
-          <div className="ui error message"></div>
-
-        </form>
-
-        <div className="ui message">
-          New to us? <a href="#">Sign Up</a>
-        </div>
-      </div>
-    </div>
 
 
 
@@ -136,14 +151,15 @@ const Login = () => {
 
   return (
     <>
-      <Notification message={errorMessage} />
+      {/* <Notification message={errorMessage} /> */}
       {user === null ?
-        <LoginForm /> :
+        loginForm() :
         <div>
           <h1>{user.username} logged in</h1>
           <Button className="primary" href={'/' + user.username}>My Profile</Button>
         </div>
       }
+
     </>
 
   )

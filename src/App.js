@@ -3,6 +3,8 @@ import axios from 'axios'
 import './App.css';
 import Navigation from './components/Navigation'
 import Signup from './components/Signup'
+import Signup2 from './components/Signup2'
+
 import Login2 from './components/Login2'
 import Login from './components/Login'
 import CreateProfile from './components/CreateProfile'
@@ -72,6 +74,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup2" component={Signup2} />
           <Route exact path="/login2" component={Login2} />
           <Route exact path={`/${user.username}/profile`} component={
             () => user.status === "photographer" ? <CreateProfile /> : <CreateModel />} />
