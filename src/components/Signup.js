@@ -24,7 +24,6 @@ const Signup = () => {
       const user = await usersService.create({
         firstName, lastName, username, email, status, password, date: new Date().toISOString()
       })
-      console.log(date)
 
       setUser(user)
 

@@ -23,11 +23,16 @@ const getAll = () => {
 
 
 const create = async newObject => {
-  const config = {
-    headers: { Authorization: token }
+  try {
+    // const config = {
+    //   headers: { 'Content-Type': 'application/json' }
+    // }
+    const response = await axios.post(baseUrl, newObject)
+    // console.log('RESPONSE', response)
+    return response.data
+  } catch (error) {
+    console.log(error.response.data.errors)
   }
-  const response = await axios.post(baseUrl, newObject, config)
-  return response.data
 }
 
 

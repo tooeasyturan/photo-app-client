@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
 // import '../styles/Signup.css'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import axios from 'axios'
 
 
 
@@ -16,118 +17,111 @@ const Signup = () => {
   const [date, setDate] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const [firstNameError, setFirstNameError] = useState(false)
+  const [lastNameError, setLastNameError] = useState(false)
+  const [usernameError, setUsernameError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [matchError, setMatchError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [statusError, setStatusError] = useState(false)
+
+  const [errors, setErrors] = useState(false)
+
+  const [errorsList, setErrorsList] = useState([])
 
   const [user, setUser] = useState(null)
 
-  console.log(firstName)
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    setFirstNameError(false)
+    setLastNameError(false)
+    setUsernameError(false)
+    setEmailError(false)
+    setMatchError(false)
+    setStatusError(false)
+    setErrorsList([])
+    setErrors(false)
+
+    let errorList = []
+
+
+    if (!firstName) {
+      setFirstNameError(true)
+      let firstNameErrorMsg = 'You must enter a first name'
+      errorList.push(firstNameErrorMsg)
+    }
+
+    if (!lastName) {
+      setLastNameError(true)
+      let lastNameErrorMsg = 'You must enter a last name'
+      errorList.push(lastNameErrorMsg)
+
+    }
+
+    if (!username) {
+      setUsernameError(true)
+      let usernameErrorMsg = 'You must enter a username'
+      errorList.push(usernameErrorMsg)
+    }
+
+    if (!email) {
+      setEmailError(true)
+      let emailErrorMsg = 'You must enter an email'
+      errorList.push(emailErrorMsg)
+    }
+
+    if (confirmPassword !== password) {
+      console.log('passwords do not match')
+      setMatchError(true)
+      let passwordErrorMsg = 'Passwords do not match'
+      errorList.push(passwordErrorMsg)
+    }
+
+    if (!status) {
+      setStatusError(true)
+      let statusErrorMsg = 'You must select a status'
+      errorList.push(statusErrorMsg)
+    }
+
+    // if (passwordError || firstNameError || lastNameError || statusError) {
+    //   setErrorsList(errorList)
+    //   setErrors(true)
+    //   console.log('ERROR LIST', errorsList)
+    //   return
+    // }
+
+    setErrorsList(errorList)
+
+
+
     try {
-      const user = await usersService.create({
+      const user = await axios.post('http://localhost:3004/users', {
         firstName, lastName, username, email, status, password, date: new Date().toISOString()
       })
-      console.log(date)
-
+      console.log('USER', user)
       setUser(user)
-
       setFirstName('')
       setLastName('')
       setUsername('')
       setEmail('')
       setPassword('')
       setStatus(null)
-    } catch (exception) {
-      console.log('error')
+    } catch (error) {
+      const errors = await error.response.data.errors
+      setErrors(errors)
+      console.log('ERRORS', errors)
+      const errorArray = errors.map(error => error.msg)
+      console.log('error array', errorArray)
+      // console.log(error.response.data.errors)
     }
 
 
   }
 
 
-  const createAccount = () => (
-    <div className="wrapper">
-      <div className="form-wrapper">
-        <h1>Create Account</h1>
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="firstName">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              value={firstName}
-              className=""
-              placeholder="First Name"
-              name="firstName"
-              noValidate
-              onChange={({ target }) => setFirstName(target.value)}
-            />
-          </div>
-          <div className="lastName">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              value={lastName}
-              className=""
-              placeholder="Last Name"
-              name="lastName"
-              noValidate
-              onChange={({ target }) => setLastName(target.value)} />
-          </div>
-          <div className="username">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              value={username}
-              className=""
-              placeholder="User Name"
-              name="username"
-              noValidate
-              onChange={({ target }) => setUsername(target.value)} />
-          </div>
-          <div className="username">
-            I am a:
-            {/* <label for="photographer"> */}
-            <input
-              // id="photographer"
-              type="radio"
-              name="status"
-              value="photographer"
-              onClick={({ target }) => setStatus(target.value)} />photographer
-              {/* </label> */}
-            <input
-              type="radio"
-              name="status"
-              value="model"
-              onClick={({ target }) => setStatus(target.value)} />Model
-          </div>
-          <div className="email">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              value={email}
-              className=""
-              placeholder="Email"
-              name="email"
-              noValidate
-              onChange={({ target }) => setEmail(target.value)} />
-          </div>
-          <div className="password">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              value={password}
-              className=""
-              placeholder="Password"
-              name="password"
-              noValidate
-              onChange={({ target }) => setPassword(target.value)} />
-          </div>
-          <button type="submit">Create Account</button>
-        </form>
-      </div>
-    </div>
-  )
 
   const CreateAccount = () => (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -135,41 +129,48 @@ const Signup = () => {
         <Header as='h2' color='teal' textAlign='center'>
           Create Your Account
       </Header>
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} size="large" >
           <Segment style={{ width: 450 }}>
             <Form.Group widths='equal'>
               <Form.Input fluid
                 placeholder='First name'
                 value={firstName}
                 onChange={({ target }) => setFirstName(target.value)}
+                error={firstNameError}
               />
               <Form.Input fluid
                 placeholder='Last name'
                 value={lastName}
                 onChange={({ target }) => setLastName(target.value)}
+                error={lastNameError}
               />
             </Form.Group>
             <Form.Input fluid
               placeholder='Username'
               value={username}
               onChange={({ target }) => setUsername(target.value)}
+              error={usernameError}
             />
             <Form.Input fluid
               placeholder='Email'
+              type='email'
               value={email}
               onChange={({ target }) => setEmail(target.value)}
+              error={emailError}
             />
             <Form.Input fluid
               placeholder='Password'
               type='password'
               value={password}
               onChange={({ target }) => setPassword(target.value)}
+              error={matchError}
             />
             <Form.Input fluid
               placeholder='Confirm Password'
               type='password'
               value={confirmPassword}
               onChange={({ target }) => setConfirmPassword(target.value)}
+              error={matchError}
             />
 
 
@@ -182,6 +183,7 @@ const Signup = () => {
                 name='htmlRadios'
                 value="model"
                 onClick={({ target }) => setStatus(target.value)}
+                error={statusError}
               />
               <Form.Field
                 label='Photographer'
@@ -190,6 +192,7 @@ const Signup = () => {
                 name='htmlRadios'
                 value="photographer"
                 onClick={({ target }) => setStatus(target.value)}
+                error={statusError}
               />
             </Form.Group>
 
@@ -198,8 +201,21 @@ const Signup = () => {
               Create Account
           </Button>
           </Segment>
-
         </Form>
+        {/* {matchError ?
+          <Message
+            error
+            header='Passwords do not match'
+          /> : null} */}
+        {firstNameError || lastNameError || usernameError || emailError || statusError || matchError ?
+          <Message
+            error
+            header='There were some errors with your submission'
+            list={errorsList}
+          /> : null}
+
+
+
       </Grid.Column>
     </Grid>
   )
@@ -211,6 +227,8 @@ const Signup = () => {
 
 
   return (
+
+
     <div>
       {/* {createAccount()} */}
       {CreateAccount()}
