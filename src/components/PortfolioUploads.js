@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
-import uploadsService from '../services/uploads'
+import { Image } from 'semantic-ui-react'
 import axios from 'axios'
 import { UserContext } from './UserContext'
 
 
-const Cloudinary = () => {
+const PortfolioUploads = () => {
 
   // SHOULD I KEEP ALL LOGIC FOR UPLOADING AND DISPLAYING PORTFOLIO PICS IN ONE COMPONENT OR SEPARATE? NEED TO KEEP IN MIND STATE CHANGE FOR UPLOADS
 
@@ -49,7 +48,7 @@ const Cloudinary = () => {
     formData.append('folder', 'userimg')
 
     try {
-      const res = await axios.post('http://localhost:3004/cloudinary', formData, {
+      const res = await axios.post('http://localhost:3004/uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${user.token}`
@@ -61,7 +60,7 @@ const Cloudinary = () => {
       setUploadedFile({ fileName, filePath })
       setFilename('Choose File')
       console.log('filepath', filePath)
-      const result = await axios.get(`http://localhost:3004/cloudinary/${username}`)
+      const result = await axios.get(`http://localhost:3004/uploads/${username}`)
       setUploads(result.data)
       // console.log('CLOUDINARY UPLOADS', result.data)
     } catch (err) {
@@ -74,7 +73,7 @@ const Cloudinary = () => {
   }
 
   const fetchImages = async () => {
-    const result = await axios.get(`http://localhost:3004/cloudinary/${username}`)
+    const result = await axios.get(`http://localhost:3004/uploads/${username}`)
     setUploads(result.data)
   }
 
@@ -97,8 +96,8 @@ const Cloudinary = () => {
     if (window.confirm("Are you sure you want to delete this image")) {
 
       console.log('token', token)
-      const response = await axios.delete('http://localhost:3004/cloudinary', config)
-      const uploads = await axios.get(`http://localhost:3004/cloudinary/${username}`)
+      const response = await axios.delete('http://localhost:3004/uploads', config)
+      const uploads = await axios.get(`http://localhost:3004/uploads/${username}`)
       setUploads(uploads.data)
       console.log(response)
     } else {
@@ -122,7 +121,7 @@ const Cloudinary = () => {
   return (
 
     <div>
-      <form onSubmit={onSubmit} action='/cloudinary' method="post" className="col-md-4 mt-4" encType="multipart/form-data">
+      <form onSubmit={onSubmit} action='/uploads' method="post" className="col-md-4 mt-4" encType="multipart/form-data">
         <div className="custom-file">
           <input name="file" type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
           <label className="custom-file-label" htmlFor="image">{filename}</label>
@@ -139,4 +138,4 @@ const Cloudinary = () => {
   )
 }
 
-export default Cloudinary
+export default PortfolioUploads

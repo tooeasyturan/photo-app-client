@@ -1,8 +1,7 @@
 import React from 'react'
 import '../styles/Landing.css'
 import Navigation from './Navigation'
-import Signup from './Signup'
-import { Segment, Button, Grid } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
 const Landing = () => {
   return (

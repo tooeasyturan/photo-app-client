@@ -6,7 +6,7 @@ export const UserContext = createContext(null)
 
 export const UserProvider = (props) => {
   const [loggedInUser, setLoggedInUser] = useState(null)
-
+  const [fetchedUser, setfetchedUser] = useState(null)
 
 
   useEffect(() => {
@@ -32,6 +32,7 @@ export const UserProvider = (props) => {
         // })
         setLoggedInUser(token)
         usersService.setToken(token)
+
 
 
         //   console.log('username', username)

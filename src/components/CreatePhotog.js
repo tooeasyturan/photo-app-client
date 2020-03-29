@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import profilesService from '../services/profiles'
-import usersService from '../services/users'
-import UserProfile from './MyProfile'
 import "../styles/Profile.css"
 
 
-const CreateProfile = () => {
+const CreatePhotog = () => {
   const [country, setCountry] = useState('')
   const [region, setRegion] = useState('')
   const [description, setDescription] = useState('')
@@ -135,4 +133,4 @@ const CreateProfile = () => {
 
 }
 
-export default CreateProfile
+export default CreatePhotog

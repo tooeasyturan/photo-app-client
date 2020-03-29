@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { Image } from 'semantic-ui-react'
 import axios from 'axios'
-import uploadsService from '../services/uploads'
-import { Card, Image } from 'semantic-ui-react'
+import { UserContext } from './UserContext'
 
-const UserPortfolio = (props) => {
+
+const UserPortfolioCloud = (props) => {
   const [uploads, setUploads] = useState([])
   const [user, setUser] = useState('')
+
+  // const username = props.match.params.username
+  const username = props.username
+  console.log('PROPS USERNAME', username)
+  console.log('USER USERNAME', user.username)
+
+
+
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
@@ -15,68 +24,71 @@ const UserPortfolio = (props) => {
     }
   }, [])
 
-  const username = props.username
 
-
-  useEffect(() => {
-    getUserUploads()
-  }, [])
-
-  const getUserUploads = async () => {
-    try {
-      let uploads = await axios.get(`http://localhost:3004/${username}`, { params: { username: username } })
-      uploads = await uploads.data
-      setUploads(uploads)
-    } catch (exception) {
-      console.log('portfolio uploads error')
-    }
+  const fetchImages = async () => {
+    const result = await axios.get(`http://localhost:3004/uploads/${username}`)
+    setUploads(result.data)
   }
 
-  console.log('uPLOADS', uploads)
-  const portfolioPics = uploads.filter(file => file.includes('.jpg'))
-  console.log(portfolioPics)
+  useEffect(() => {
+    fetchImages()
+  }, [])
 
-  const handleRemoveImage = async (portfolioPic) => {
+  // // RUN FUNCTION OUTSIDE OF useEffect SO RE-RENDER WILL OCCUR
+  // fetchImages()
+
+
+  const handleRemoveImage = async (upload) => {
     // PROBABLY BETTER TO SEND NAME OF IMAGE TO BE DELETED WITH REQUEST URL PARAMS
     // *** Uploads are retrieved directly from file, not through db. Need to query db for portfolio id. 
     // *** maybe images should be saved using portfolio id.
-
     const token = user.token
     const config = {
       'Content-Type': 'application/json',
       headers: { Authorization: 'bearer ' + token },
-      data: { portfolioPic }
+      data: { upload }
     }
-
     if (window.confirm("Are you sure you want to delete this image")) {
-
       console.log('token', token)
-      const response = await axios.delete('http://localhost:3004/users/portfolio', config)
+      const response = await axios.delete('http://localhost:3004/uploads', config)
       console.log(response)
     } else {
       console.log('image not deleted')
     }
   }
 
-  const usersPortfolio = portfolioPics.map(portfolioPic => {
-    return <Image key={portfolioPic}
-      src={require(`/Users/joshturan/tfp-frontend/public/uploads/${username}/${portfolioPic}`)}
+
+
+
+
+  const myPortfolio = uploads.map(upload => {
+    return <Image key={upload}
+      src={upload}
       wrapped ui={true}
       alt=""
       rounded
-      onClick={() => handleRemoveImage(portfolioPic)}
+      onClick={() => handleRemoveImage(upload)}
     />
   })
 
-
+  const usersPortfolio = uploads.map(upload => {
+    return <Image key={upload}
+      src={upload}
+      wrapped ui={true}
+      alt=""
+      rounded
+    />
+  })
 
   return (
-    <Image.Group className="doubling stackable" size="large">
+    <>
       <h1>Pics</h1>
-      {usersPortfolio}
-    </Image.Group>
+      <Image.Group className="doubling stackable" size="large">
+        {props.username === user.username ? myPortfolio : usersPortfolio}
+        {/* <GetCloudUploads uploads={uploads} /> */}
+      </Image.Group>
+    </>
   )
 }
 
-
-export default UserPortfolio
+export default UserPortfolioCloud

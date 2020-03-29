@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../services/users'
 import User from './User'
-import SearchUsers from './SearchUsers'
-import uploadsService from '../services/uploads'
-import { Card, Icon, Image } from 'semantic-ui-react'
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
-import axios from 'axios'
+import { Card } from 'semantic-ui-react'
+import { CountryDropdown } from 'react-country-region-selector';
+
 
 
 

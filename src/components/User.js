@@ -11,7 +11,7 @@ const User = ({ user }) => {
   // console.log('avatar', user.avatar[0].avatar)
 
   const fetchImages = async () => {
-    const result = await axios.get(`http://localhost:3004/cloudinary/${user.username}/avatar`)
+    const result = await axios.get(`http://localhost:3004/uploads/${user.username}/avatar`)
     setAvatar(result.data)
     console.log('RESULT.DATA', result.data)
   }

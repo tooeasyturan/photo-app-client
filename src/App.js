@@ -1,27 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import './App.css';
-import Navigation from './components/Navigation'
 import Signup from './components/Signup'
-import Signup2 from './components/Signup2'
-
-import Login2 from './components/Login2'
 import Login from './components/Login'
-import CreateProfile from './components/CreateProfile'
+import CreatePhotog from './components/CreatePhotog'
 import CreateModel from './components/CreateModel'
+import CreateModel2 from './components/CreateModel2'
+
 import Users from './components/Users'
-import MyProfile from './components/MyProfile'
-import Avatar from './components/Avatar'
 import GetUserProfile from './components/GetUserProfile'
-import Cloudinary from './components/Cloudinary'
-import AvatarCloud from './components/AvatarCloud'
-import UserPortfolioCloud from './components/UserPortfolioCloud'
+import PortfolioUploads from './components/PortfolioUploads'
+import AvatarUpload from './components/AvatarUpload'
 import Landing from './components/Landing'
-import MyProfileTest from './components/MyProfileTest'
+import MyProfile from './components/MyProfile'
+import MyProfile2 from './components/MyProfile2'
+
 import { UserProvider } from './components/UserContext'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { UserContext } from './components/UserContext'
-import usersService from './services/users'
 
 
 
@@ -61,6 +57,7 @@ function App() {
 
   }
 
+  console.log('app user', user)
 
 
 
@@ -74,17 +71,17 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/signup2" component={Signup2} />
-          <Route exact path="/login2" component={Login2} />
           <Route exact path={`/${user.username}/profile`} component={
-            () => user.status === "photographer" ? <CreateProfile /> : <CreateModel />} />
+            () => user.status === "photographer" ? <CreatePhotog /> : <CreateModel2 user={user} />} />
           <Route exact path="/users" component={Users} />
-          <Route exact path={`/${user.username}`} component={MyProfileTest} />
-          <Route exact path="/avatar" component={Avatar} />
+          {/* <Route exact path={`/${user.username}`} component={MyProfile} /> */}
+          <Route exact path={`/${user.username}`} component={() => <MyProfile2 user={user} />} />
+
           <Route exact path="/users/:username" component={GetUserProfile} />
-          <Route exact path="/cloudinary" component={Cloudinary} />
+          <Route exact path="/uploads" component={PortfolioUploads} />
+          <Route exact path="/createmodel2" component={CreateModel2} />
           {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
-          <Route exact path="/cloudinary/avatar" component={AvatarCloud} />
+          <Route exact path="/uploads/avatar" component={AvatarUpload} />
           {/* <Route exact path={`/test/${username}`} component={MyProfileTest} /> */}
         </div>
       </UserProvider>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import uploadsService from '../services/uploads'
 import axios from 'axios'
 
-const AvatarCloud = () => {
+const AvatarUpload = () => {
   const [user, setUser] = useState(null)
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
@@ -37,7 +37,7 @@ const AvatarCloud = () => {
     formData.append('folder', 'userimg')
 
     try {
-      const res = await axios.post('http://localhost:3004/cloudinary/avatar', formData, {
+      const res = await axios.post('http://localhost:3004/uploads/avatar', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${user.token}`
@@ -62,7 +62,7 @@ const AvatarCloud = () => {
   return (
     <div>
       <div>
-        <form onSubmit={onSubmit} action='/cloudinary' method="post" className="col-md-4 mt-4" encType="multipart/form-data">
+        <form onSubmit={onSubmit} action='/uploads' method="post" className="col-md-4 mt-4" encType="multipart/form-data">
           <div className="custom-file">
             <input name="file" type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
             <label className="custom-file-label" htmlFor="image">{filename}</label>
@@ -75,4 +75,4 @@ const AvatarCloud = () => {
   )
 }
 
-export default AvatarCloud
+export default AvatarUpload

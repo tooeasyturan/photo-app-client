@@ -7,7 +7,7 @@ const CreateModel = () => {
   const [country, setCountry] = useState('')
   const [region, setRegion] = useState('')
   const [description, setDescription] = useState('')
-  const [style, setStyle] = useState('')
+  const [shootingStyle, setShootingStyle] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
 
   const [user, setUser] = useState(null)
@@ -30,7 +30,7 @@ const CreateModel = () => {
     event.preventDefault()
     try {
       const profile = await profilesService.create({
-        country, region, description, style, socialMedia,
+        country, region, description, shootingStyle, socialMedia,
       })
 
       setProfile(profile)
@@ -65,12 +65,12 @@ const CreateModel = () => {
             <label htmlFor="style">Style MODEL!!!!</label>
             <input
               type="text"
-              value={style}
+              value={shootingStyle}
               className=""
               placeholder="Style"
               name="style"
               noValidate
-              onChange={({ target }) => setStyle(target.value)} />
+              onChange={({ target }) => setShootingStyle(target.value)} />
           </div>
 
           <div className="socialMedia">

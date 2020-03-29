@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import usersService from '../services/users'
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
 
 
 

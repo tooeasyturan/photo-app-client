@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Card, Image } from 'semantic-ui-react'
-import UserPortfolioCloud from './UserPortfolioCloud'
+import UserPortfolio from './UserPortfolio'
 
 
 
@@ -43,7 +43,7 @@ const GetUserProfile = (props) => {
 
 
   const fetchAvatar = async () => {
-    const result = await axios.get(`http://localhost:3004/cloudinary/${username}/avatar`)
+    const result = await axios.get(`http://localhost:3004/uploads/${username}/avatar`)
     setAvatar(result.data)
     console.log('RESULT.DATA', result.data)
   }
@@ -66,7 +66,7 @@ const GetUserProfile = (props) => {
           <p>{user.email}</p>
         </Card.Content>
       </Card>
-      <UserPortfolioCloud username={username} />
+      <UserPortfolio username={username} />
     </>
 
 
