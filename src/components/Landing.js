@@ -6,7 +6,7 @@ import { Button } from 'semantic-ui-react'
 const Landing = () => {
   return (
     <>
-      <Navigation />
+
       <div className="landing-background" id="landing" >
         {/* <Row className="justify-content-md-center"> */}
         <div className="landing-box">

@@ -57,7 +57,7 @@ const GetUserProfile = (props) => {
 
   return (
     <>
-      <Card className="ui centered card" >
+      <Card className="ui centered card" style={{ marginTop: 100 }}>
         <Image key={avatar} src={avatar} alt="" />
         <Card.Content >
           <p>{user.username}</p>

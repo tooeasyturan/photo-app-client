@@ -49,12 +49,12 @@ const Users = (props) => {
   console.log("USERS BY COUNTRY", searchedUsers)
 
   return (
-    <div>
+    <div style={{ marginTop: 100 }}>
       <h1>Explore Users</h1>
       <form>
         <CountryDropdown value={country} onChange={(val) => handleSearch(val)} />
       </form>
-      <Card.Group className="doubling stackable" itemsPerRow={6}>
+      <Card.Group className="doubling stackable" itemsPerRow={6} style={{ marginTop: 10 }}>
         {usersList()}
       </Card.Group>
     </div>

@@ -6,11 +6,13 @@ import Login from './components/Login'
 import CreatePhotog from './components/CreatePhotog'
 import CreateModel from './components/CreateModel'
 import CreateModel2 from './components/CreateModel2'
-
+import Navigation from './components/Navigation'
 import Users from './components/Users'
 import GetUserProfile from './components/GetUserProfile'
 import PortfolioUploads from './components/PortfolioUploads'
 import AvatarUpload from './components/AvatarUpload'
+import AvatarUpload2 from './components/AvatarUpload2'
+
 import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
 import MyProfile2 from './components/MyProfile2'
@@ -67,7 +69,7 @@ function App() {
     <Router>
       <UserProvider>
         <div>
-          {/* <Route exact path="/" component={Navigation} /> */}
+          <Route path="/" component={Navigation} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
@@ -82,6 +84,8 @@ function App() {
           <Route exact path="/createmodel2" component={CreateModel2} />
           {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
           <Route exact path="/uploads/avatar" component={AvatarUpload} />
+          {/* <Route exact path="/uploads/avatar2" component={() => <AvatarUpload2 user={user} />} /> */}
+
           {/* <Route exact path={`/test/${username}`} component={MyProfileTest} /> */}
         </div>
       </UserProvider>

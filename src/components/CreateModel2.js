@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
+import AvatarUpload2 from './AvatarUpload2'
 
 
 
@@ -62,6 +63,9 @@ const CreateModel2 = ({ user }) => {
     }
   }
 
+  const handleAvatarClick = () => {
+
+  }
 
 
 
@@ -72,8 +76,23 @@ const CreateModel2 = ({ user }) => {
           Edit Your Profile
       </Header> */}
         <Form size='large' onSubmit={handleSubmit}>
-          <Segment>
-            <Image src={avatar} size='huge' rounded centered />
+          <Segment style={{ marginTop: 100 }}>
+            <Popup
+              trigger={
+                <label htmlFor="image">
+                  <input type="file" name="image" id="image" style={{ display: 'none' }} />
+                  <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
+                </label>
+              }
+            >
+              <Popup.Header>Click to change avatar</Popup.Header>
+            </Popup>
+
+            {/* <label htmlFor="image">
+              <input type="file" name="image" id="image" style={{ display: 'none' }} />
+              <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
+            </label> */}
+
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
             <Form.Group>
@@ -111,60 +130,11 @@ const CreateModel2 = ({ user }) => {
   console.log(shootingStyle)
 
 
-  // const createModel = () => (
-  //   <div className="profile-wrapper">
-  //     <div className="profile-form-wrapper">
-  //       <h1>Create Profile</h1>
-  //       <form onSubmit={handleSubmit} noValidate>
-  //         <div>
-  //           <label htmlFor="location">Location</label>
-  //           <CountryDropdown value={country} onChange={(val) => setCountry(val)} />
-  //           <RegionDropdown country={country} value={region} onChange={(val) => setRegion(val)} />
-  //         </div>
-  //         <div className="description">
-  //           <label htmlFor="description">Description</label>
-  //           <input
-  //             type="text"
-  //             value={description}
-  //             className=""
-  //             placeholder="Description"
-  //             name="description"
-  //             noValidate
-  //             onChange={({ target }) => setDescription(target.value)} />
-  //         </div>
-  //         <div className="style">
-  //           <label htmlFor="style">Style MODEL!!!!</label>
-  //           <input
-  //             type="text"
-  //             value={styles}
-  //             className=""
-  //             placeholder="Style"
-  //             name="style"
-  //             noValidate
-  //             onChange={({ target }) => setStyles(target.value)} />
-  //         </div>
-
-  //         <div className="socialMedia">
-  //           <label htmlFor="socialMedia">Social Media</label>
-  //           <input
-  //             type="text"
-  //             value={socialMedia}
-  //             className=""
-  //             placeholder="Social Media"
-  //             name="socialMedia"
-  //             noValidate
-  //             onChange={({ target }) => setSocialMedia(target.value)} />
-  //         </div>
-  //         <button type="submit">Update Profile</button>
-  //       </form>
-  //     </div>
-  //   </div>
-  // )
 
   return (
     <div>
-      {/* {createModel()}       */}
       {createModel2()}
+
 
     </div>
   )

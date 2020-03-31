@@ -21,6 +21,7 @@ const AvatarUpload = () => {
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
 
+  console.log(file)
 
 
   const onChangeHandler = (event) => {
@@ -60,18 +61,18 @@ const AvatarUpload = () => {
   }
 
   return (
-    <div>
-      <div>
-        <form onSubmit={onSubmit} action='/uploads' method="post" className="col-md-4 mt-4" encType="multipart/form-data">
-          <div className="custom-file">
-            <input name="file" type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
-            <label className="custom-file-label" htmlFor="image">{filename}</label>
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
 
+    <div style={{ marginTop: 100 }}>
+      <form onSubmit={onSubmit} action='/uploads' method="post" className="col-md-4 mt-4" encType="multipart/form-data">
+        <div className="custom-file">
+          <input name="file" type="file" className="custom-file-input" id="customFile" onChange={onChangeHandler} />
+          <label className="custom-file-label" htmlFor="image">{filename}</label>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
     </div>
+
+
   )
 }
 
