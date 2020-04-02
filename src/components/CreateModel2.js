@@ -25,7 +25,7 @@ const CreateModel2 = ({ user }) => {
   const [description, setDescription] = useState(user.profile[0].description)
   const [shootingStyle, setShootingStyle] = useState(user.profile[0].shootingStyle)
   const [socialMedia, setSocialMedia] = useState('')
-  const [avatar, setAvatar] = useState(user.avatar[0].avatar)
+  // const [avatar, setAvatar] = useState(user.avatar[0].avatar)
 
   const [token, setToken] = useState(null)
   const [profile, setProfile] = useState(null)
@@ -57,6 +57,7 @@ const CreateModel2 = ({ user }) => {
       })
 
       setProfile(profile)
+      console.log('set profile', profile)
 
     } catch (exception) {
       console.log('error')
@@ -79,10 +80,11 @@ const CreateModel2 = ({ user }) => {
           <Segment style={{ marginTop: 100 }}>
             <Popup
               trigger={
-                <label htmlFor="image">
-                  <input type="file" name="image" id="image" style={{ display: 'none' }} />
-                  <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
-                </label>
+                // <label htmlFor="image">
+                //   <input type="file" name="image" id="image" style={{ display: 'none' }} />
+                //   <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
+                // </label>
+                <AvatarUpload2 user={user} />
               }
             >
               <Popup.Header>Click to change avatar</Popup.Header>

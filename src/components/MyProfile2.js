@@ -28,7 +28,7 @@ const MyProfile2 = ({ user }) => {
           <br></br>
           <br></br>
           <br></br>
-          <AvatarUpload2 user={user} />
+          {/* <AvatarUpload2 user={user} /> */}
         </Grid.Column>
       </Grid>
     </>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import uploadsService from '../services/uploads'
-import { Image, Button } from 'semantic-ui-react'
+import { Image, Button, Popup } from 'semantic-ui-react'
 import axios from 'axios'
 
 const AvatarUpload2 = ({ user }) => {
@@ -10,6 +10,8 @@ const AvatarUpload2 = ({ user }) => {
   const [uploadedFile, setUploadedFile] = useState({})
   const [avatar, setAvatar] = useState(user.avatar[0].avatar)
   const [preview, setPreview] = useState()
+  const [isUpdated, setIsUpdated] = useState(false)
+
 
 
 
@@ -57,12 +59,13 @@ const AvatarUpload2 = ({ user }) => {
     // I've kept this example simple by using the first image instead of multiple
 
     setFile(e.target.files[0])
-
+    setIsUpdated(false)
   }
 
 
 
   const onSubmit = async (event) => {
+    console.log('submit in progess')
     event.preventDefault()
     const formData = new FormData()
     formData.append('file', file)
@@ -78,11 +81,14 @@ const AvatarUpload2 = ({ user }) => {
       })
 
       const { fileName, filePath } = res.data;
-      console.log('res.data', res.data)
+      console.log('res.data', res.data.avatar)
 
       setUploadedFile({ fileName, filePath })
+      setAvatar(res.data.avatar)
       setFilename('Choose File')
       console.log('filepath', filePath)
+      console.log('File after submit', file)
+      setIsUpdated(true)
     } catch (err) {
       if (err.response.status === 500) {
         console.log('There was a problem with the server')
@@ -98,28 +104,51 @@ const AvatarUpload2 = ({ user }) => {
 
 
 
-    <div>
-      <form onSubmit={onSubmit} action='/uploads' method="post" encType="multipart/form-data">
-        <div>
-          <input
-            type='file'
-            id='fileInput'
-            onChange={onSelectFile}
-            style={{ display: 'none' }}
-            ref={fileInput}
-          />
+    // <>
+    //   <form onSubmit={onSubmit} action='/uploads' method="post" encType="multipart/form-data">
+    //     <div>
+    //       <input
+    //         type='file'
+    //         id='fileInput'
+    //         onChange={onSelectFile}
+    //         style={{ display: 'none' }}
+    //         ref={fileInput}
+    //       />
+    //       <label htmlFor='fileInput'>
+    //         <Image src={!file ? avatar : preview} alt='asdf' size='huge' rounded centered />
+    //       </label>
+    //     </div>
+    //     <br></br>
+    //     <button onClick={() => setFile(null)}>Reset</button>
+    //     {file ? <button type="submit">Submit</button> : null}
+    //   </form>
+    // </>
+
+    <>
+      <div>
+
+        <input
+          type='file'
+          id='fileInput'
+          onChange={onSelectFile}
+          style={{ display: 'none' }}
+          ref={fileInput}
+        />
+        <Popup trigger={
           <label htmlFor='fileInput'>
-            <img src={!file ? avatar : preview} alt='asdf' style={{ height: 800, width: 800 }} />
+            {!avatar && !preview ? <Image src={'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png'} alt='asdf' size='medium' rounded centered /> :
+              <Image src={!file ? avatar : preview} alt='asdf' size='huge' rounded centered />
+            }
           </label>
-        </div>
-        <br></br>
-        <button onClick={() => setFile(null)}>Reset</button>
-        <button type="submit">Submit</button>
-      </form>
-
-
-    </div>
-
+        } >
+          <Popup.Header>Click image to change avatar</Popup.Header>
+        </Popup>
+      </div>
+      <br></br>
+      {/* <button onClick={() => setFile(null)}>Reset</button> */}
+      {file && isUpdated === false ?
+        <Button color='red' fluid size='medium' type='submit' onClick={onSubmit}>Confirm avatar change</Button> : null}
+    </>
 
 
 

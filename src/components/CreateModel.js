@@ -34,6 +34,7 @@ const CreateModel = () => {
       })
 
       setProfile(profile)
+      console.log('set profile', profile)
 
     } catch (exception) {
       console.log('error')

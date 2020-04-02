@@ -74,7 +74,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path={`/${user.username}/profile`} component={
-            () => user.status === "photographer" ? <CreatePhotog /> : <CreateModel2 user={user} />} />
+            () => user.status === "photographer" ? <CreatePhotog /> : <CreateModel />} />
           <Route exact path="/users" component={Users} />
           {/* <Route exact path={`/${user.username}`} component={MyProfile} /> */}
           <Route exact path={`/${user.username}`} component={() => <MyProfile2 user={user} />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image } from 'semantic-ui-react'
+import { Image, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 import { UserContext } from './UserContext'
 
@@ -132,7 +132,11 @@ const PortfolioUploads = () => {
       <h1>Pics</h1>
       <Image.Group className="doubling stackable" size="large">
         {usersPortfolio}
+
       </Image.Group>
+      {/* <Icon name='camera' size='massive' /> */}
+
+
     </div>
 
   )
