@@ -10,6 +10,8 @@ import Navigation from './components/Navigation'
 import Users from './components/Users'
 import GetUserProfile from './components/GetUserProfile'
 import PortfolioUploads from './components/PortfolioUploads'
+import PortfolioUploads2 from './components/PortfolioUploads2'
+
 import AvatarUpload from './components/AvatarUpload'
 import AvatarUpload2 from './components/AvatarUpload2'
 
@@ -81,6 +83,7 @@ function App() {
 
           <Route exact path="/users/:username" component={GetUserProfile} />
           <Route exact path="/uploads" component={PortfolioUploads} />
+          <Route exact path="/uploads2" component={PortfolioUploads2} />
           <Route exact path="/createmodel2" component={CreateModel2} />
           {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
           <Route exact path="/uploads/avatar" component={AvatarUpload} />
