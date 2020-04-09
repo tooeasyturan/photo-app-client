@@ -5,6 +5,7 @@ import DeleteUser from './DeleteUser'
 import { Card, Image, Button, Grid, Popup } from 'semantic-ui-react'
 import "../styles/UserProfile.css"
 import PortfolioUploads from './PortfolioUploads'
+import PortfolioUploads2 from './PortfolioUploads2'
 import CreateModel2 from './CreateModel2'
 import { UserContext } from './UserContext'
 import AvatarUpload2 from './AvatarUpload2'
@@ -21,13 +22,10 @@ const MyProfile2 = ({ user }) => {
             Explore Users
           </Button>
 
-          <Logout user={user} />
+          {/* <Logout user={user} /> */}
           <DeleteUser />
-          <PortfolioUploads />
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+          {/* <PortfolioUploads /> */}
+          <PortfolioUploads2 />
           {/* <AvatarUpload2 user={user} /> */}
         </Grid.Column>
       </Grid>

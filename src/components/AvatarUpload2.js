@@ -13,8 +13,6 @@ const AvatarUpload2 = ({ user }) => {
   const [isUpdated, setIsUpdated] = useState(false)
 
 
-
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
     if (loggedUserJSON) {
@@ -65,7 +63,7 @@ const AvatarUpload2 = ({ user }) => {
 
 
   const onSubmit = async (event) => {
-    console.log('submit in progess')
+    console.log(' avatar submit in progess')
     event.preventDefault()
     const formData = new FormData()
     formData.append('file', file)
@@ -102,42 +100,19 @@ const AvatarUpload2 = ({ user }) => {
 
   return (
 
-
-
-    // <>
-    //   <form onSubmit={onSubmit} action='/uploads' method="post" encType="multipart/form-data">
-    //     <div>
-    //       <input
-    //         type='file'
-    //         id='fileInput'
-    //         onChange={onSelectFile}
-    //         style={{ display: 'none' }}
-    //         ref={fileInput}
-    //       />
-    //       <label htmlFor='fileInput'>
-    //         <Image src={!file ? avatar : preview} alt='asdf' size='huge' rounded centered />
-    //       </label>
-    //     </div>
-    //     <br></br>
-    //     <button onClick={() => setFile(null)}>Reset</button>
-    //     {file ? <button type="submit">Submit</button> : null}
-    //   </form>
-    // </>
-
     <>
       <div>
-
         <input
           type='file'
-          id='fileInput'
+          id='avatarInput'
           onChange={onSelectFile}
           style={{ display: 'none' }}
           ref={fileInput}
         />
         <Popup trigger={
-          <label htmlFor='fileInput'>
-            {!avatar && !preview ? <Image src={'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png'} alt='asdf' size='medium' rounded centered /> :
-              <Image src={!file ? avatar : preview} alt='asdf' size='huge' rounded centered />
+          <label htmlFor='avatarInput'>
+            {!avatar && !preview ? <Image src={'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png'} alt='asdf' size='medium' rounded centered style={{ cursor: 'pointer' }} /> :
+              <Image src={!file ? avatar : preview} alt='asdf' size='huge' rounded centered style={{ cursor: 'pointer' }} />
             }
           </label>
         } >

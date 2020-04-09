@@ -6,7 +6,7 @@ export const UserContext = createContext(null)
 
 export const UserProvider = (props) => {
   const [loggedInUser, setLoggedInUser] = useState(null)
-  const [fetchedUser, setfetchedUser] = useState(null)
+  const [fetchedUser, setFetchedUser] = useState(null)
 
 
   useEffect(() => {
@@ -15,40 +15,28 @@ export const UserProvider = (props) => {
     }
     getUser()
 
-  }, [])
+  }, [setFetchedUser])
 
 
 
   const getLoggedInUser = async () => {
     try {
-      const loggedUserJSON = await window.localStorage.getItem('loggedTFPappUser')
-      if (loggedUserJSON) {
-        const token = JSON.parse(loggedUserJSON)
-        // let result = await axios.get('http://localhost:3004/auth', {
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data',
-        //     'Authorization': `bearer ${token}`
-        //   }
-        // })
-        setLoggedInUser(token)
-        usersService.setToken(token)
-
-
-
-        //   console.log('username', username)
-        //   setUsername(username)
-        //   let user = await axios.get(`http://localhost:3004/users/${username}`)
-        //   user = await user.data
-        //   setUserLoggedIn(user)
-        //   console.log('user data', user)
-        //   const status = await user[0].status
-        //   setStatus(status)
-        //   console.log('user status', status)
-        // } else {
-        //   setUsername('user')
-        // }
+      const loggedInUser = await JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+      console.log('LOGGED IN USER TOKEN', loggedInUser)
+      if (loggedInUser) {
+        let result = await axios.get('http://localhost:3004/auth', {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `bearer ${loggedInUser.token}`
+          }
+        }
+        )
+        setLoggedInUser(loggedInUser.token)
+        setFetchedUser(result.data)
+        usersService.setToken(loggedInUser.token)
       } else {
         setLoggedInUser(null)
+        setFetchedUser(null)
       }
     } catch (error) {
       console.log(error)
@@ -56,7 +44,7 @@ export const UserProvider = (props) => {
   }
 
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <UserContext.Provider value={[fetchedUser, setFetchedUser]}>
       {props.children}
     </UserContext.Provider>
   )

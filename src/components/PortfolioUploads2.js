@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image, Icon, Popup, Button, Loader } from 'semantic-ui-react'
+import { Image, Icon, Popup, Button, Loader, Label } from 'semantic-ui-react'
 import axios from 'axios'
+import uuid from 'uuid/v4'
 import { UserContext } from './UserContext'
 
 
@@ -21,18 +22,9 @@ const PortfolioUploads2 = () => {
   console.log("CLOUDINARY USER!!!", user)
 
 
-  // useEffect(() => {
-  //   const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
-  //   if (loggedUserJSON) {
-  //     const user = JSON.parse(loggedUserJSON)
-  //     setUser(user)
-  //     uploadsService.setToken(user.token)
-  //   }
-  // }, [])
-
-
   const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 
 
   const onChangeHandler = async (event) => {
@@ -44,9 +36,6 @@ const PortfolioUploads2 = () => {
 
     const file = event.target.files[0]
     // const filename = event.target.files[0].name
-
-
-
 
     setIsLoading(true)
     const formData = new FormData()
@@ -60,7 +49,7 @@ const PortfolioUploads2 = () => {
       const res = await axios.post('http://localhost:3004/uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${user.token}`
+          'Authorization': `Bearer ${loggedInUser.token}`
         },
       })
 
@@ -83,49 +72,7 @@ const PortfolioUploads2 = () => {
     }
   }
 
-  // console.log('file to submit', file)
-  // console.log('file name to submit', filename)
 
-
-
-
-  // const onSubmit = async (event) => {
-  //   event.preventDefault()
-  //   console.log('file on submit', file)
-
-  //   setIsLoading(true)
-  //   const formData = new FormData()
-  //   formData.append('file', file)
-  //   formData.append('username', username)
-  //   formData.append('folder', 'userimg')
-
-  //   try {
-  //     console.log('sending file')
-  //     const res = await axios.post('http://localhost:3004/uploads', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //         'Authorization': `Bearer ${user.token}`
-  //       },
-  //     })
-  //     console.log('file sent')
-
-  //     const { fileName, filePath } = res.data;
-  //     console.log('res.data', res.data)
-  //     setUploadedFile({ fileName, filePath })
-  //     setFilename('Choose File')
-  //     console.log('filepath', filePath)
-  //     const result = await axios.get(`http://localhost:3004/uploads/${username}`)
-  //     setUploads(result.data)
-  //     setIsLoading(false)
-  //     // console.log('CLOUDINARY UPLOADS', result.data)
-  //   } catch (err) {
-  //     if (err.response.status === 500) {
-  //       console.log('There was a problem with the server')
-  //     } else {
-  //       console.log(err.response.data.msg)
-  //     }
-  //   }
-  // }
 
   const fetchImages = async () => {
     const result = await axios.get(`http://localhost:3004/uploads/${username}`)
@@ -141,7 +88,7 @@ const PortfolioUploads2 = () => {
     // *** Uploads are retrieved directly from file, not through db. Need to query db for portfolio id. 
     // *** maybe images should be saved using portfolio id.
 
-    const token = user.token
+    const token = loggedInUser.token
     const config = {
       'Content-Type': 'application/json',
       headers: { Authorization: 'bearer ' + token },
@@ -161,11 +108,12 @@ const PortfolioUploads2 = () => {
   }
 
   const usersPortfolio = uploads.map(upload => {
-    return <Image key={upload}
+    return <Image key={uuid()}
       src={upload}
       wrapped ui={true}
       alt=""
       rounded
+      style={{ cursor: 'pointer' }}
       onClick={() => handleRemoveImage(upload)}
     />
   })
@@ -177,31 +125,32 @@ const PortfolioUploads2 = () => {
     <>
       <div style={{ marginTop: 100, marginLeft: 100 }}>
         {/* <form onSubmit={onSubmit} actions='/uploads' method="post" encType="multipart/form-data"> */}
-        <input name="file" type="file" className="custom-file-input" id="fileInput" onChange={onChangeHandler} style={{ display: 'none' }} />
+
+        <input name="file" type="file" className="custom-file-input" id="portfolioInput" onChange={onChangeHandler} style={{ display: 'none' }} />
         {/* <label htmlFor="fileInput">{filename}</label> */}
         {isLoading ? <Loader active inline /> :
-
           <Popup
             trigger={
-              <label htmlFor="fileInput"><Icon name='add' size='huge' color='teal' style={{ cursor: 'pointer' }} /></label>
+              <label htmlFor="portfolioInput"><Icon name='camera' size='huge' color='teal' style={{ cursor: 'pointer' }} />
+                Add Images
+              </label>
+
             }
             content='Add image to your portfolio'
           />
 
 
         }
-        {/* <Button size='medium' type='submit'>Upload</Button> */}
-        {/* </form> */}
+
+        {/* <Button color='teal' size='large' onClick={onChangeHandler}>Add Images </Button> */}
+
+
+
+
       </div>
-      <h1>Pics</h1>
       <Image.Group className="doubling stackable" size="large">
         {usersPortfolio}
-
       </Image.Group>
-      {/* <Icon name='camera' size='massive' /> */}
-
-
-
     </>
   )
 }

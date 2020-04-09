@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Card, Image } from 'semantic-ui-react'
 import UserPortfolio from './UserPortfolio'
+import SendMessage from './SendMessage'
 
 
 
@@ -39,7 +40,7 @@ const GetUserProfile = (props) => {
     }
   }
 
-  console.log('user', user)
+  console.log('user', user.id)
 
 
   const fetchAvatar = async () => {
@@ -64,8 +65,10 @@ const GetUserProfile = (props) => {
           <p>{profile.country + ' ' + profile.region}</p>
           <p>{user.firstName + ' ' + user.lastName}</p>
           <p>{user.email}</p>
+
         </Card.Content>
       </Card>
+      <SendMessage userTo={user} />
       <UserPortfolio username={username} />
     </>
 

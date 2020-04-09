@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { UserContext } from './UserContext'
 import '../styles/Landing.css'
 import Navigation from './Navigation'
 import { Button } from 'semantic-ui-react'
 
 const Landing = () => {
+  const [user, setUser] = useContext(UserContext)
+  console.log('landing page user', user)
+
   return (
     <>
 
@@ -19,8 +23,14 @@ const Landing = () => {
               <h2>Do whatever you want when you want to.</h2>
               <div>
               </div>
-              {/* <button className="ui huge primary button" href="/signup">Get Started <i className="right arrow icon"></i></button> */}
-              <Button secondary size='huge' href="/signup">Sign Up</Button>
+
+              {
+                !user ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
+                  <div>
+                    <Button secondary size='huge' href={`/${user.username}`}>Go to my profile</Button>
+                    <Button secondary size='huge' href='/users'>Explore users</Button>
+                  </div>
+              }
             </div>
           </div>
         </div>
