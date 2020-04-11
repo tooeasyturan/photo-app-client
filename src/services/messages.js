@@ -15,5 +15,25 @@ const create = async newObject => {
   return response.data
 }
 
+const getAll = async () => {
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  setToken(loggedInUser.token)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const request = await axios.get(baseUrl, config)
+  return request.data
+}
 
-export default { create, setToken, }
+const getConvo = async (id) => {
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  setToken(loggedInUser.token)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const request = await axios.get(`${baseUrl}/${id}`, config)
+  return request.data
+}
+
+
+export default { create, setToken, getAll, getConvo }

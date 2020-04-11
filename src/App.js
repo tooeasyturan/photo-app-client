@@ -19,6 +19,8 @@ import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
 import MyProfile2 from './components/MyProfile2'
 
+import GetAllMessages from './components/GetAllMessages'
+
 import { UserProvider } from './components/UserContext'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { UserContext } from './components/UserContext'
@@ -87,6 +89,7 @@ function App() {
           <Route exact path="/createmodel2" component={CreateModel2} />
           {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
           <Route exact path="/uploads/avatar" component={AvatarUpload} />
+          <Route exact path="/messages" component={GetAllMessages} />
           {/* <Route exact path="/uploads/avatar2" component={() => <AvatarUpload2 user={user} />} /> */}
 
           {/* <Route exact path={`/test/${username}`} component={MyProfileTest} /> */}

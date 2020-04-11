@@ -10,6 +10,7 @@ import profilesService from '../services/profiles'
 
 const CreateModel2 = ({ user }) => {
 
+
   const options = [
     { key: 'headshot', text: 'Headshot', value: 'headshot' },
     { key: 'dating', text: 'Dating', value: 'dating' },

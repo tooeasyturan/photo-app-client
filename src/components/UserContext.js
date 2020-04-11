@@ -15,7 +15,7 @@ export const UserProvider = (props) => {
     }
     getUser()
 
-  }, [setFetchedUser])
+  }, [])
 
 
 

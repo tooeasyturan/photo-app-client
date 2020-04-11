@@ -34,7 +34,7 @@ const Navigation = () => {
     return (
       <>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" >
-          <Navbar.Brand href="#home">TFP</Navbar.Brand>
+          <Navbar.Brand href='/'>TFP</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="smooth-scroll">
             <Nav className="ml-auto">
