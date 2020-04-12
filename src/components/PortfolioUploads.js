@@ -72,6 +72,7 @@ const PortfolioUploads = () => {
     }
   }
 
+  window.uploads = uploads
 
 
   const fetchImages = async () => {

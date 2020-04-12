@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment } from 'semantic-ui-react'
+import '../styles/Messages.css'
+
+
+
 
 
 const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
+
   return (
     <>
-      <Comment>
+      {/* <Comment>
         {userFrom.username === message.sender ? <Comment.Avatar avatar /> : <Comment.Avatar as='a' src={userToAvatar} />}
         <Comment.Content>
           <Comment.Author>{message.sender}</Comment.Author>
@@ -13,8 +18,30 @@ const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
           <Comment.Text>
             <p>{message.content}</p>
           </Comment.Text>
-        </Comment.Content>
-      </Comment>
+       </Comment.Content> 
+      </Comment> */}
+
+      {userFrom.username !== message.sender ?
+        <Comment>
+          <Comment.Avatar as='a' src={userToAvatar} />
+          <Comment.Content>
+            <Comment.Author>{message.sender}</Comment.Author>
+            <Comment.Metadata>{message.date}</Comment.Metadata>
+            <Comment.Text>
+              <p>{message.content}</p>
+            </Comment.Text>
+          </Comment.Content>
+        </Comment>
+        : <Comment >
+          <Comment.Content>
+            <Comment.Author className='loggedInUser'>You</Comment.Author>
+            <Comment.Metadata style={{ display: 'flex', flexDirection: 'row-reverse', paddingRight: 10 }}>{message.date}</Comment.Metadata>
+            <Comment.Text className='loggedInUser'>
+              <p>{message.content}</p>
+            </Comment.Text>
+          </Comment.Content>
+        </Comment>}
+
 
 
 

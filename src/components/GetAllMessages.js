@@ -116,7 +116,7 @@ const GetAllMessages = () => {
 
   return (
     <div style={{ marginTop: 200, width: '100%' }}>
-      <Container style={{ width: '70%', height: 600 }}>
+      <Container style={{ width: '60%', height: 600 }}>
         {/* <Segment style={{ width: '50%' }}> */}
         <Header as='h1'>Inbox</Header>
         <Grid>

@@ -8,6 +8,7 @@ import { UserContext } from './UserContext'
 const SendMessage = ({ userTo }) => {
   const [saved, setSaved] = useState(false)
   const [message, setMessage] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
 
   // fetchedUser is currently logged in user
   const [userFrom, setUserFrom] = useContext(UserContext)
@@ -21,8 +22,11 @@ const SendMessage = ({ userTo }) => {
     e.preventDefault()
 
     try {
-      const result = await messagesService.create({ userFrom: userFrom.id, userTo: userTo.username, message: message })
-      console.log('send message', result)
+      if (message.length > 0) {
+        const result = await messagesService.create({ userFrom: userFrom.id, userTo: userTo.username, message: message })
+        setModalOpen(false)
+        console.log('send message', result)
+      }
     } catch (exception) {
       console.log(exception)
     }
@@ -35,7 +39,11 @@ const SendMessage = ({ userTo }) => {
   return (
     <>
       <Container>
-        <Modal style={{ marginTop: 100 }} as={Form} onSubmit={handleSubmit} size='tiny' trigger={<Button>Message User</Button>}>
+        <Modal style={{ height: 'auto', top: 'auto', left: 'auto', bottom: 'auto', right: 'auto' }} as={Form} onSubmit={handleSubmit} size='tiny'
+          trigger={<Button onClick={() => setModalOpen(true)}>Message User</Button>}
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+        >
           <Header icon="pencil" content={`Message ${userTo.username}`} as="h2" />
           <Modal.Content>
             <Form.Field
@@ -47,8 +55,8 @@ const SendMessage = ({ userTo }) => {
             {saved ? <div>Saved!</div> : null}
           </Modal.Content>
           <Modal.Actions>
-            <Button type="submit" color="red" icon="times" content="Close" />
-            <Button type="submit" color="green" icon="save" content="Save" />
+            <Button type="submit" color="red" icon="times" content="Close" onClick={() => setModalOpen(false)} />
+            <Button type="submit" color="green" icon="save" content="Send" />
           </Modal.Actions>
         </Modal>
       </Container>
