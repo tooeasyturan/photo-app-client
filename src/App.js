@@ -3,23 +3,17 @@ import axios from 'axios'
 import './App.css';
 import Signup from './components/Signup'
 import Login from './components/Login'
-import CreatePhotog from './components/CreatePhotog'
-import CreateModel from './components/CreateModel'
-import CreateModel2 from './components/CreateModel2'
 import Navigation from './components/Navigation'
 import Users from './components/Users'
 import GetUserProfile from './components/GetUserProfile'
-import PortfolioUploads from './components/PortfolioUploads'
-import PortfolioUploads2 from './components/PortfolioUploads2'
 
-import AvatarUpload from './components/AvatarUpload'
-import AvatarUpload2 from './components/AvatarUpload2'
+
 
 import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
-import MyProfile2 from './components/MyProfile2'
 
 import GetAllMessages from './components/GetAllMessages'
+import MessageTheme from './components/MessageTheme'
 
 import { UserProvider } from './components/UserContext'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -77,19 +71,20 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path={`/${user.username}/profile`} component={
-            () => user.status === "photographer" ? <CreatePhotog /> : <CreateModel />} />
+          {/* <Route exact path={`/${user.username}/profile`} component={
+            () => user.status === "photographer" ? <CreatePhotog /> : <CreateModel />} /> */}
           <Route exact path="/users" component={Users} />
           {/* <Route exact path={`/${user.username}`} component={MyProfile} /> */}
-          <Route exact path={`/${user.username}`} component={() => <MyProfile2 user={user} />} />
+          <Route exact path={`/${user.username}`} component={() => <MyProfile user={user} />} />
 
           <Route exact path="/users/:username" component={GetUserProfile} />
-          <Route exact path="/uploads" component={PortfolioUploads} />
-          <Route exact path="/uploads2" component={PortfolioUploads2} />
-          <Route exact path="/createmodel2" component={CreateModel2} />
+          {/* <Route exact path="/uploads" component={PortfolioUploads} /> */}
+          {/* <Route exact path="/uploads2" component={PortfolioUploads2} /> */}
+          {/* <Route exact path="/createmodel2" component={CreateModel2} /> */}
           {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
-          <Route exact path="/uploads/avatar" component={AvatarUpload} />
+          {/* <Route exact path="/uploads/avatar" component={AvatarUpload} /> */}
           <Route exact path="/messages" component={GetAllMessages} />
+          <Route exact path="/messagetheme" component={MessageTheme} />
           {/* <Route exact path="/uploads/avatar2" component={() => <AvatarUpload2 user={user} />} /> */}
 
           {/* <Route exact path={`/test/${username}`} component={MyProfileTest} /> */}

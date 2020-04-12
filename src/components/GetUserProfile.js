@@ -65,7 +65,6 @@ const GetUserProfile = (props) => {
           <p>{profile.country + ' ' + profile.region}</p>
           <p>{user.firstName + ' ' + user.lastName}</p>
           <p>{user.email}</p>
-
         </Card.Content>
       </Card>
       <SendMessage userTo={user} />

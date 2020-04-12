@@ -12,9 +12,6 @@ const SendMessage = ({ userTo }) => {
   // fetchedUser is currently logged in user
   const [userFrom, setUserFrom] = useContext(UserContext)
 
-  console.log(userFrom)
-
-
 
   const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
   messagesService.setToken(loggedInUser.token)
@@ -25,10 +22,14 @@ const SendMessage = ({ userTo }) => {
 
     try {
       const result = await messagesService.create({ userFrom: userFrom.id, userTo: userTo.id, message: message })
-      console.log(result)
+      console.log('send message', result)
     } catch (exception) {
       console.log(exception)
     }
+  }
+
+  const handleChange = (e) => {
+    setMessage(e.target.value)
   }
 
   return (
@@ -39,7 +40,7 @@ const SendMessage = ({ userTo }) => {
           <Form.Field
             control={TextArea}
             value={message}
-            onChange={({ target }) => setMessage(target.value)}
+            onChange={handleChange}
             placeholder='Tell us more about yourself...'
           />
           {saved ? <div>Saved!</div> : null}

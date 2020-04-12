@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import messagesService from '../services/messages'
-import { Button, Modal, Form, Header, TextArea } from 'semantic-ui-react'
+import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
 import { flatten, filter, map, zipObject, keyBy } from 'lodash'
+import DisplayMessage from './DisplayMessages'
+
+
 
 const GetAllMessages = () => {
   const [user, setUser] = useContext(UserContext)
@@ -10,8 +13,12 @@ const GetAllMessages = () => {
   const [users, setUsers] = useState([])
   const [cleanConvos, setCleanConvos] = useState([])
   // const [convos, setConvos] = useState([])
+  const [fetchedMessages, setFetchedMessages] = useState([])
+  const [userSelected, setUserSelected] = useState(null)
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 
 
   useEffect(() => {
@@ -36,15 +43,15 @@ const GetAllMessages = () => {
     }
   }
 
-  console.log('clean convos', cleanConvos)
   window.cleanConvos = cleanConvos
   window.users = users
   window.rawConvos = rawConvos
+  window.fetchedMessages = fetchedMessages
 
 
   const cleanData = (rawConvos) => {
     let convos = rawConvos.map(convo => convo.members)
-    let users = flatten(convos).filter(name => name !== 'Emil')
+    let users = flatten(convos).filter(name => name !== loggedInUser.username)
     setUsers(users)
     let ids = rawConvos.map(convo => convo.id)
     let combined = zipObject(users, ids)
@@ -78,39 +85,94 @@ const GetAllMessages = () => {
   }
 
 
-  const handleShowConvos = () => {
-    console.log(cleanConvos)
-    users.map(user =>
-      console.log(
-        <li id={cleanConvos[user]}>{user}</li>
-      )
-    )
-  }
+  // const handleShowConvos = () => {
+  //   console.log(cleanConvos)
+  //   users.map(user =>
+  //     console.log(
+  //       <li id={cleanConvos[user]}>{user}</li>
+  //     )
+  //   )
+  // }
 
   const handleFetchMessages = async (e) => {
-    console.log(e.target.id)
+    console.log(e.target.innerHTML)
+    setUserSelected(e.target.innerHTML)
     const result = await messagesService.getConvo(e.target.id)
-    console.log(result)
+    setFetchedMessages(result[0].message)
   }
+
+  console.log('messages', fetchedMessages)
+  window.userSelected = userSelected
+
+
+  const messagesToDisplay = () => fetchedMessages.map(message =>
+    <DisplayMessage
+      key={message._id}
+      message={message}
+    />
+  )
+
 
 
 
   return (
-    <div style={{ marginTop: 200 }}>
-      <button onClick={handleClick}>Click</button>
-      <button onClick={handleShowConvos}>Show convos</button>
-      <button onClick={handleShowConvos}>Users</button>
+    <div style={{ marginTop: 200, width: '100%' }}>
+      {/* <div style={{ marginTop: 200 }}>
+        <button onClick={handleClick}>Click</button> */}
       {/* <ul>
       {users && cleanConvos ? <h1>{users[1] + ' '}</h1> : <h1>Loading</h1>}
       </ul> */}
-      <ul>
+      {/* <ul>
+          {users && cleanConvos ? users.map(user =>
+            <button onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</button>
+          ) : <h1>Loading</h1>}
+        </ul> */}
+      {/* {fetchedMessages ? messagesToDisplay() : null} */}
+      {/* </div> */}
+
+      {/* <List selection verticalAlign='middle'>
         {users && cleanConvos ? users.map(user =>
-          <button onClick={handleFetchMessages} id={cleanConvos[user]}>{user}</button>
+          <List.Item >
+            <List.Content>
+              <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</List.Header>
+            </List.Content>
+          </List.Item>
         ) : <h1>Loading</h1>}
-      </ul>
+      </List> */}
+
+      <div>
+        <Segment style={{ width: '50%' }}>
+          <Header as='h1'>Inbox</Header>
+          <Grid>
+            <Grid.Column width={5}>
+              <List selection verticalAlign='middle'>
+                {users && cleanConvos ? users.map(user =>
+                  <List.Item >
+                    <List.Content>
+                      <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</List.Header>
+                    </List.Content>
+                  </List.Item>
+                ) : <h1>Loading</h1>}
+              </List>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <Comment.Group>
+                {fetchedMessages ? messagesToDisplay() : null}
+                <Form reply>
+                  <Form.TextArea />
+                  <Button content='Send' labelPosition='left' icon='edit' primary onClick={() => console.log(userSelected)} />
+                </Form>
+              </Comment.Group>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+      </div>
+
+
 
 
     </div>
+
 
   )
 
