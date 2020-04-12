@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Card, Image } from 'semantic-ui-react'
+import { Card, Image, Container } from 'semantic-ui-react'
 import UserPortfolio from './UserPortfolio'
 import SendMessage from './SendMessage'
 
@@ -58,16 +58,19 @@ const GetUserProfile = (props) => {
 
   return (
     <>
-      <Card className="ui centered card" style={{ marginTop: 100 }}>
-        <Image key={avatar} src={avatar} alt="" />
-        <Card.Content >
-          <p>{user.username}</p>
-          <p>{profile.country + ' ' + profile.region}</p>
-          <p>{user.firstName + ' ' + user.lastName}</p>
-          <p>{user.email}</p>
-        </Card.Content>
-      </Card>
-      <SendMessage userTo={user} />
+      <Container>
+        <Card className="ui centered card" style={{ marginTop: 100 }}>
+          <Image key={avatar} src={avatar} alt="" />
+          <Card.Content >
+            <p>{user.username}</p>
+            <p>{profile.country + ' ' + profile.region}</p>
+            <p>{user.firstName + ' ' + user.lastName}</p>
+            <p>{user.email}</p>
+            <SendMessage userTo={user} />
+          </Card.Content>
+        </Card>
+      </Container>
+
       <UserPortfolio username={username} />
     </>
 

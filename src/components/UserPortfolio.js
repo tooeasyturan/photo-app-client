@@ -10,8 +10,7 @@ const UserPortfolioCloud = (props) => {
 
   // const username = props.match.params.username
   const username = props.username
-  console.log('PROPS USERNAME', username)
-  console.log('USER USERNAME', user.username)
+  console.log('UPLOADS', uploads)
 
 
 

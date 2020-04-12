@@ -1,22 +1,30 @@
 import React, { useState, useEffect, useContext } from 'react'
+import axios from 'axios'
 import messagesService from '../services/messages'
 import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
 import { flatten, filter, map, zipObject, keyBy } from 'lodash'
+import SendMessageBtn from './SendMessageBtn'
 import DisplayMessage from './DisplayMessages'
 
 
 
 const GetAllMessages = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [userFrom, setUserFrom] = useContext(UserContext)
   const [rawConvos, setRawConvos] = useState(null)
   const [users, setUsers] = useState([])
   const [cleanConvos, setCleanConvos] = useState([])
   // const [convos, setConvos] = useState([])
   const [fetchedMessages, setFetchedMessages] = useState([])
   const [userSelected, setUserSelected] = useState(null)
+  // const [isLoading, setIsLoading] = useState(false)
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [response, setResponse] = useState('')
+
+  const [userToAvatar, setUserToAvatar] = useState([])
+
+
+
 
   const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 
@@ -33,20 +41,14 @@ const GetAllMessages = () => {
     try {
       const result = await messagesService.getAll()
       setRawConvos(result)
-      setUsers()
       setCleanConvos(cleanData(result))
-      setIsLoading(true)
+      // setIsLoading(true)
 
 
     } catch (exception) {
       console.log(exception)
     }
   }
-
-  window.cleanConvos = cleanConvos
-  window.users = users
-  window.rawConvos = rawConvos
-  window.fetchedMessages = fetchedMessages
 
 
   const cleanData = (rawConvos) => {
@@ -59,146 +61,98 @@ const GetAllMessages = () => {
     return combined
   }
 
-  const handleClick = async () => {
-    let convos = rawConvos.map(convo => convo.members)
-    window.convos = convos
-    let users = flatten(convos).filter(name => name !== 'Emil')
-    let ids = rawConvos.map(convo => convo.id)
-
-    let usersTest = [{ 'users': users }]
-    console.log('users test', usersTest)
-
-    let idsTest = [{ 'ids': ids }]
-    console.log('ids', idsTest)
-
-    let combinedTest = zipObject(usersTest, ids)
-    console.log('combined test', combinedTest)
-
-
-    let combined = zipObject(users, ids)
-    console.log(combined)
-
-
-    // console.log('filtered', users)
-    // console.log('ids', ids)
-
-  }
-
-
-  // const handleShowConvos = () => {
-  //   console.log(cleanConvos)
-  //   users.map(user =>
-  //     console.log(
-  //       <li id={cleanConvos[user]}>{user}</li>
-  //     )
-  //   )
-  // }
 
   const handleFetchMessages = async (e) => {
-    console.log(e.target.innerHTML)
     setUserSelected(e.target.innerHTML)
     const result = await messagesService.getConvo(e.target.id)
     setFetchedMessages(result[0].message)
+    if (userSelected) {
+      fetchImages(userSelected)
+    }
   }
 
-  console.log('messages', fetchedMessages)
+  window.userToAvatar = userToAvatar
   window.userSelected = userSelected
 
+  const fetchImages = async (userSelected) => {
+    const result = await axios.get(`http://localhost:3004/uploads/${userSelected}/avatar`)
+    setUserToAvatar(result.data)
+    console.log('RESULT.DATA', result.data)
+  }
+
+  window.userSelected = userSelected
+  window.userFrom = userFrom
+  window.messages = fetchedMessages
 
   const messagesToDisplay = () => fetchedMessages.map(message =>
     <DisplayMessage
       key={message._id}
       message={message}
+      userFrom={userFrom}
+      userToAvatar={userToAvatar[0]}
     />
   )
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log('onSubmit', userSelected)
+    try {
+      await messagesService.create({ userFrom: userFrom.id, userTo: userSelected, message: response })
+      let newMessage = {
+        sender: userFrom.username,
+        content: response,
+        date: new Date().toLocaleString()
+      }
+
+      setFetchedMessages([...fetchedMessages, { ...newMessage }])
+      setResponse('')
+    } catch (exception) {
+      console.log(exception)
+    }
+  }
 
 
 
 
   return (
     <div style={{ marginTop: 200, width: '100%' }}>
-      {/* <div style={{ marginTop: 200 }}>
-        <button onClick={handleClick}>Click</button> */}
-      {/* <ul>
-      {users && cleanConvos ? <h1>{users[1] + ' '}</h1> : <h1>Loading</h1>}
-      </ul> */}
-      {/* <ul>
-          {users && cleanConvos ? users.map(user =>
-            <button onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</button>
-          ) : <h1>Loading</h1>}
-        </ul> */}
-      {/* {fetchedMessages ? messagesToDisplay() : null} */}
-      {/* </div> */}
+      <Container style={{ width: '70%', height: 600 }}>
+        {/* <Segment style={{ width: '50%' }}> */}
+        <Header as='h1'>Inbox</Header>
+        <Grid>
+          <Grid.Column width={5}>
+            <List selection verticalAlign='middle'>
+              {users && cleanConvos ? users.map(user =>
+                <List.Item style={{ border: '1px solid black' }}>
+                  <List.Content>
+                    <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</List.Header>
+                  </List.Content>
+                </List.Item>
+              ) : <h1>Loading</h1>}
+            </List>
+          </Grid.Column>
+          <Grid.Column width={10} style={{ height: 400 }}>
+            <Comment.Group style={{ height: '100%', overflow: 'auto', border: '1px solid black' }}>
+              {fetchedMessages ? messagesToDisplay() : null}
+            </Comment.Group>
+            <Form reply onSubmit={handleSubmit}>
+              <Form.TextArea
+                control={TextArea}
+                value={response}
+                onChange={(e) => setResponse(e.target.value)}
+                placeholder='Write a response'
+              />
+              <Button content='Send' labelPosition='left' icon='edit' type='submit' primary />
+            </Form>
+          </Grid.Column>
 
-      {/* <List selection verticalAlign='middle'>
-        {users && cleanConvos ? users.map(user =>
-          <List.Item >
-            <List.Content>
-              <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</List.Header>
-            </List.Content>
-          </List.Item>
-        ) : <h1>Loading</h1>}
-      </List> */}
-
-      <div>
-        <Segment style={{ width: '50%' }}>
-          <Header as='h1'>Inbox</Header>
-          <Grid>
-            <Grid.Column width={5}>
-              <List selection verticalAlign='middle'>
-                {users && cleanConvos ? users.map(user =>
-                  <List.Item >
-                    <List.Content>
-                      <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</List.Header>
-                    </List.Content>
-                  </List.Item>
-                ) : <h1>Loading</h1>}
-              </List>
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <Comment.Group>
-                {fetchedMessages ? messagesToDisplay() : null}
-                <Form reply>
-                  <Form.TextArea />
-                  <Button content='Send' labelPosition='left' icon='edit' primary onClick={() => console.log(userSelected)} />
-                </Form>
-              </Comment.Group>
-            </Grid.Column>
-          </Grid>
-        </Segment>
-      </div>
-
-
-
-
+        </Grid>
+        {/* </Segment> */}
+      </Container>
     </div>
-
-
   )
-
 }
 
 export default GetAllMessages
 
 
-    // const filteredResult = function (arr) {
-
-    //   for (let i = 0; i < arr.length; i++) {
-    //     let subArr = arr[i]
-    //     // console.log(subArr)
-    //     for (let j = 0; j < subArr.length; j++) {
-    //       // console.log(subArr)
-    //       let newArr = []
-
-    //       if (subArr[j] !== 'Emil') {
-    //         newArr.push(subArr[j])
-    //         // subArr.splice(subArr[j], 1)
-    //         // console.log(newArr)
-    //       }
-    //       return newArr
-    //     }
-
-    //   }
-
-
-    // }

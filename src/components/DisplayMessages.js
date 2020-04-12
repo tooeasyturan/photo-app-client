@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment } from 'semantic-ui-react'
 
 
-const DisplayMessages = ({ message }) => {
+const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
   return (
     <>
       <Comment>
+        {userFrom.username === message.sender ? <Comment.Avatar avatar /> : <Comment.Avatar as='a' src={userToAvatar} />}
         <Comment.Content>
           <Comment.Author>{message.sender}</Comment.Author>
           <Comment.Metadata>{message.date}</Comment.Metadata>
