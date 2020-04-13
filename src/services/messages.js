@@ -2,6 +2,7 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3004/messages'
 
 let token = null
+const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 
 const setToken = newToken => {
   token = `bearer ${newToken}`
@@ -16,7 +17,6 @@ const create = async newObject => {
 }
 
 const getAll = async () => {
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
   setToken(loggedInUser.token)
   const config = {
     headers: { Authorization: token },
@@ -26,7 +26,6 @@ const getAll = async () => {
 }
 
 const getConvo = async (id) => {
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
   setToken(loggedInUser.token)
   const config = {
     headers: { Authorization: token },
@@ -35,5 +34,15 @@ const getConvo = async (id) => {
   return request.data
 }
 
+const removeConvo = async (id) => {
+  setToken(loggedInUser.token)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const request = await axios.post(`${baseUrl}/${id}`, loggedInUser.username, config)
+  return request.data
+}
 
-export default { create, setToken, getAll, getConvo }
+
+
+export default { create, setToken, getAll, getConvo, removeConvo }

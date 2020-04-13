@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import messagesService from '../services/messages'
-import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment } from 'semantic-ui-react'
+import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment, Icon } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
 import { flatten, filter, map, zipObject, keyBy } from 'lodash'
 import SendMessageBtn from './SendMessageBtn'
@@ -39,7 +39,10 @@ const GetAllMessages = () => {
 
   const getUserMessages = async () => {
     try {
-      const result = await messagesService.getAll()
+      let result = await messagesService.getAll()
+      console.log('result!', result)
+      result = result.filter(message =>
+        message.deleteBySender !== loggedInUser.username && message.deleteByReceiver !== loggedInUser.username)
       setRawConvos(result)
       setCleanConvos(cleanData(result))
       // setIsLoading(true)
@@ -49,6 +52,8 @@ const GetAllMessages = () => {
       console.log(exception)
     }
   }
+
+  window.rawConvos = rawConvos
 
 
   const cleanData = (rawConvos) => {
@@ -60,6 +65,7 @@ const GetAllMessages = () => {
 
     return combined
   }
+
 
 
   const handleFetchMessages = async (e) => {
@@ -111,7 +117,27 @@ const GetAllMessages = () => {
     }
   }
 
+  const handleRemoveConvo = async (e, user) => {
+    console.log(e.target.id)
+    console.log(user)
+    console.log(users)
+    console.log(cleanConvos)
 
+    // 'updated' refers to updated users list without user that has been selected to be
+    let updatedConvos = users.filter(updated => updated !== user)
+    console.log(updatedConvos)
+    setUsers(updatedConvos)
+
+    try {
+      const result = await messagesService.removeConvo(e.target.id)
+
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  window.users = users
 
 
   return (
@@ -125,8 +151,18 @@ const GetAllMessages = () => {
               {users && cleanConvos ? users.map(user =>
                 <List.Item style={{ border: '1px solid black' }}>
                   <List.Content>
-                    <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>{user}</List.Header>
+                    <Button floated='right' icon size='mini'
+                      id={cleanConvos[user]}
+                      onClick={(e) => handleRemoveConvo(e, user)}
+                    >Remove
+                    </Button>
                   </List.Content>
+                  <List.Content verticalAlign='middle' style={{ paddingTop: 5 }}>
+                    <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>
+                      {user}
+                    </List.Header>
+                  </List.Content>
+
                 </List.Item>
               ) : <h1>Loading</h1>}
             </List>
