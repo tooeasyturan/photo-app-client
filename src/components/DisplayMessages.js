@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment } from 'semantic-ui-react'
 import '../styles/Messages.css'
+import ConvoAvatar from './ConvoAvatar'
 
 
 
 
 
 const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
+
 
   return (
     <>

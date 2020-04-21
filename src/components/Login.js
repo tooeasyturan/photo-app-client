@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import loginService from '../services/login'
 import usersService from '../services/users'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+
 // import { Button, Form } from 'react-bootstrap'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 // import "../styles/Login.css"
@@ -154,10 +156,9 @@ const Login = () => {
       {/* <Notification message={errorMessage} /> */}
       {user === null ?
         loginForm() :
-        <div>
-          <h1>{user.username} logged in</h1>
-          <Button className="primary" href={'/' + user.username}>My Profile</Button>
-        </div>
+        <>
+          <Redirect to='/' />
+        </>
       }
 
     </>

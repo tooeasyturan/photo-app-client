@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image } from 'semantic-ui-react'
+import { Image, Container } from 'semantic-ui-react'
 import axios from 'axios'
 import { UserContext } from './UserContext'
 
@@ -81,8 +81,11 @@ const UserPortfolioCloud = (props) => {
 
   return (
     <>
-      <h1>Pics</h1>
-      <Image.Group className="doubling stackable" size="large">
+      <Container style={{ marginTop: 50 }} textAlign='center'>
+        <h1>Pics</h1>
+      </Container>
+
+      <Image.Group style={{ textAlign: 'center', marginTop: 20 }} doubling stackable size="large">
         {props.username === user.username ? myPortfolio : usersPortfolio}
         {/* <GetCloudUploads uploads={uploads} /> */}
       </Image.Group>

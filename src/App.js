@@ -4,10 +4,16 @@ import './App.css';
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Navigation from './components/Navigation'
+import SemanticNav from './components/SemanticNav'
+
 import Users from './components/Users'
 import GetUserProfile from './components/GetUserProfile'
 
+import CreateModel2 from './old_components/CreateModel2'
+import AvatarUpload2 from './old_components/AvatarUpload2'
 
+import CreateModel from './components/CreateModel'
+import CreatePhotog from './components/CreatePhotog'
 
 import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
@@ -67,7 +73,8 @@ function App() {
     <Router>
       <UserProvider>
         <div>
-          <Route path="/" component={Navigation} />
+          {/* <Route exact path="/" component={Navigation} /> */}
+          <Route path="/" component={SemanticNav} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
@@ -80,10 +87,11 @@ function App() {
           <Route exact path="/users/:username" component={GetUserProfile} />
           {/* <Route exact path="/uploads" component={PortfolioUploads} /> */}
           {/* <Route exact path="/uploads2" component={PortfolioUploads2} /> */}
-          {/* <Route exact path="/createmodel2" component={CreateModel2} /> */}
+          <Route exact path="/createmodel2" component={CreateModel2} />
+          <Route exact path="/createprofile" component={() => user.status === 'model' ? <CreateModel user={user} /> : <CreatePhotog user={user} />} />
           {/* <Route exact path="/cloudinary/:username" component={UserPortfolioCloud} /> */}
-          {/* <Route exact path="/uploads/avatar" component={AvatarUpload} /> */}
-          <Route exact path="/messages" component={GetAllMessages} />
+          <Route exact path="/uploads/avatar" component={AvatarUpload2} />
+          <Route exact path="/inbox" component={GetAllMessages} />
           <Route exact path="/messagetheme" component={MessageTheme} />
           {/* <Route exact path="/uploads/avatar2" component={() => <AvatarUpload2 user={user} />} /> */}
 

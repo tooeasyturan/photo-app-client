@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import uploadsService from '../services/uploads'
 import axios from 'axios'
 
-const AvatarUpload = () => {
+const AvatarUpload2 = () => {
   const [user, setUser] = useState(null)
   const [file, setFile] = useState('')
   const [filename, setFilename] = useState('Choose File')
@@ -76,4 +76,4 @@ const AvatarUpload = () => {
   )
 }
 
-export default AvatarUpload
+export default AvatarUpload2

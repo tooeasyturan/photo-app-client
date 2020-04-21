@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image, Icon, Popup, Button, Loader, Label } from 'semantic-ui-react'
+import { Image, Icon, Popup, Button, Loader, Label, Container } from 'semantic-ui-react'
 import axios from 'axios'
 import uuid from 'uuid/v4'
 import { UserContext } from './UserContext'
@@ -114,7 +114,7 @@ const PortfolioUploads = () => {
       wrapped ui={true}
       alt=""
       rounded
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', margin: '0.5em' }}
       onClick={() => handleRemoveImage(upload)}
     />
   })
@@ -124,32 +124,22 @@ const PortfolioUploads = () => {
 
   return (
     <>
-      <div style={{ marginTop: 100, marginLeft: 100 }}>
-        {/* <form onSubmit={onSubmit} actions='/uploads' method="post" encType="multipart/form-data"> */}
-
+      <Container style={{ marginTop: 100, marginLeft: 100 }} textAlign='center'>
         <input name="file" type="file" className="custom-file-input" id="portfolioInput" onChange={onChangeHandler} style={{ display: 'none' }} />
-        {/* <label htmlFor="fileInput">{filename}</label> */}
         {isLoading ? <Loader active inline /> :
-          <Popup
-            trigger={
-              <label htmlFor="portfolioInput"><Icon name='camera' size='huge' color='teal' style={{ cursor: 'pointer' }} />
-                Add Images
-              </label>
-
-            }
-            content='Add image to your portfolio'
-          />
-
-
+          <>
+            <h1 style={{ display: 'inline', marginRight: 10 }}>Portfolio</h1>
+            <Popup
+              trigger={
+                <label htmlFor="portfolioInput"><Icon name='upload' size='huge' color='teal' style={{ cursor: 'pointer', marginBottom: 45 }} />
+                </label>
+              }
+              content='Add image to your portfolio'
+            />
+          </>
         }
-
-        {/* <Button color='teal' size='large' onClick={onChangeHandler}>Add Images </Button> */}
-
-
-
-
-      </div>
-      <Image.Group className="doubling stackable" size="large">
+      </Container>
+      <Image.Group style={{ marginTop: -30, textAlign: 'center' }} doubling stackable size="large">
         {usersPortfolio}
       </Image.Group>
     </>
@@ -157,3 +147,5 @@ const PortfolioUploads = () => {
 }
 
 export default PortfolioUploads
+
+// () => user.status === 'model' ? <CreateModel user={user} /> : <CreatePhotog user={user} />

@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react'
 import uploadsService from '../services/uploads'
-import { Image, Button, Popup } from 'semantic-ui-react'
+import { Image, Button, Popup, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 
 const AvatarUpload = ({ user }) => {
+  console.log('avatar user', user)
+  window.avatarUser = user
+
+
   const [loggedInUser, setLoggedInUser] = useState(null)
   const [file, setFile] = useState(null)
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
-  const [avatar, setAvatar] = useState(user.avatar[0].avatar)
+  const [avatar, setAvatar] = useState([])
   const [preview, setPreview] = useState()
   const [isUpdated, setIsUpdated] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
 
 
   useEffect(() => {
@@ -20,6 +26,12 @@ const AvatarUpload = ({ user }) => {
       setLoggedInUser(user)
       uploadsService.setToken(user.token)
     }
+
+    if (!Array.isArray(user.avatar) || !user.avatar.length) {
+      setAvatar(null)
+    } else (
+      setAvatar(user.avatar[0].avatar)
+    )
   }, [])
 
   useEffect(() => {
@@ -63,6 +75,7 @@ const AvatarUpload = ({ user }) => {
 
 
   const onSubmit = async (event) => {
+    setIsLoading(true)
     console.log(' avatar submit in progess')
     event.preventDefault()
     const formData = new FormData()
@@ -87,7 +100,9 @@ const AvatarUpload = ({ user }) => {
       console.log('filepath', filePath)
       console.log('File after submit', file)
       setIsUpdated(true)
+      setIsLoading(false)
     } catch (err) {
+      setIsLoading(false)
       if (err.response.status === 500) {
         console.log('There was a problem with the server')
       } else {
@@ -122,7 +137,8 @@ const AvatarUpload = ({ user }) => {
       <br></br>
       {/* <button onClick={() => setFile(null)}>Reset</button> */}
       {file && isUpdated === false ?
-        <Button color='red' fluid size='medium' type='submit' onClick={onSubmit}>Confirm avatar change</Button> : null}
+        <Button style={isLoading ? { background: 'none' } : { background: 'red' }}
+          fluid size='medium' type='submit' onClick={onSubmit}>{isLoading === true ? <Loader incline active /> : 'Confirm avatar change'}</Button> : null}
     </>
 
 

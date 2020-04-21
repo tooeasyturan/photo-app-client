@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import axios from 'axios'
 
 
@@ -22,6 +23,8 @@ const Signup = () => {
   const [matchError, setMatchError] = useState(false)
   const [emailError, setEmailError] = useState(false)
   const [statusError, setStatusError] = useState(false)
+
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const [errors, setErrors] = useState(false)
 
@@ -93,20 +96,20 @@ const Signup = () => {
 
     setErrorsList(errorList)
 
-
-
     try {
       const user = await axios.post('http://localhost:3004/users', {
         firstName, lastName, username, email, status, password, date: new Date().toISOString()
       })
       console.log('USER', user)
-      setUser(user)
-      setFirstName('')
-      setLastName('')
-      setUsername('')
-      setEmail('')
-      setPassword('')
-      setStatus(null)
+      // setUser(user)
+      // setFirstName('')
+      // setLastName('')
+      // setUsername('')
+      // setEmail('')
+      // setPassword('')
+      // setConfirmPassword('')
+      // setStatus(null)
+      setIsSubmitted(true)
     } catch (error) {
       const errors = await error.response.data.errors
       setErrors(errors)
@@ -225,11 +228,13 @@ const Signup = () => {
 
 
   return (
-
-
     <div>
-      {/* {createAccount()} */}
-      {CreateAccount()}
+      {!isSubmitted ?
+        CreateAccount() :
+        <>
+          <Redirect to='/login' />
+        </>
+      }
     </div>
   )
 

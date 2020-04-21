@@ -1,136 +1,133 @@
 import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
+import AvatarUpload from './AvatarUpload'
 import profilesService from '../services/profiles'
-import "../styles/Profile.css"
+// import "../styles/Profile.css"
 
 
-const CreatePhotog = () => {
-  const [country, setCountry] = useState('')
-  const [region, setRegion] = useState('')
-  const [description, setDescription] = useState('')
-  const [experience, setExperience] = useState('')
-  const [shootingStyle, setShootingStyle] = useState('')
-  const [website, setWebsite] = useState('')
-  const [socialMedia, setSocialMedia] = useState('')
+const CreatePhotog = ({ user }) => {
+  console.log('create model user', user)
+
+  const options = [
+    { key: 'headshot', text: 'Headshot', value: 'headshot' },
+    { key: 'dating', text: 'Dating', value: 'dating' },
+    { key: 'portrait', text: 'Portrait', value: 'portrait' },
+    { key: 'fashion', text: 'Fashion', value: 'fashion' },
+    { key: 'family', text: 'Family', value: 'family' },
+    { key: 'event', text: 'Event', value: 'event' },
+    { key: 'nude', text: 'Nude', value: 'nude' }
+  ]
+
+  const [country, setCountry] = useState()
+  const [region, setRegion] = useState()
+  const [description, setDescription] = useState()
+  const [shootingStyle, setShootingStyle] = useState([])
+  const [socialMedia, setSocialMedia] = useState()
 
 
+  // const [avatar, setAvatar] = useState(user.avatar[0].avatar)
 
-  const [user, setUser] = useState(null)
-  const [users, setUsers] = useState([])
-
-
+  const [token, setToken] = useState(null)
   const [profile, setProfile] = useState(null)
+
+
+
+  // console.log('FETCHED USER', loggedInUser)
+
+
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      profilesService.setToken(user.token)
+      const result = JSON.parse(loggedUserJSON)
+      setToken(result)
+      profilesService.setToken(result.token)
     }
   }, [])
 
-  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-  console.log(username)
-
-
-
+  // const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const profile = await profilesService.create({
-        country, region, description, experience, shootingStyle, website, socialMedia,
+        country, region, description, shootingStyle, socialMedia,
       })
 
       setProfile(profile)
+      console.log('set profile', profile)
 
     } catch (exception) {
       console.log('error')
     }
   }
 
+  const handleAvatarClick = () => {
 
-  const createProfile = () => (
-    <div className="profile-wrapper">
-      <div className="profile-form-wrapper">
-        <h1>Create Profile</h1>
-        <form onSubmit={handleSubmit} noValidate>
-          <div>
-            <label htmlFor="location">Location</label>
-            <CountryDropdown value={country} onChange={(val) => setCountry(val)} />
-            <RegionDropdown country={country} value={region} onChange={(val) => setRegion(val)} />
-          </div>
-          <div className="description">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
+  }
+
+
+
+  const createPhotog = () => (
+    <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
+      <Grid.Column style={{ maxWidth: 450 }}>
+        {/* <Header as='h2' color='teal' textAlign='center'>
+        Edit Your Profile
+    </Header> */}
+        <Form size='large' onSubmit={handleSubmit}>
+          <Segment style={{ marginTop: 100 }}>
+            <Popup
+              trigger={
+
+                <AvatarUpload user={user} />
+              }
+            >
+              <Popup.Header>Click to change avatar</Popup.Header>
+            </Popup>
+
+
+
+            <br></br>
+            <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
+            <Form.Group>
+              <CountryDropdown value={country} onChange={(val) => setCountry(val)} />
+              <RegionDropdown country={country} value={region} onChange={(val) => setRegion(val)} />
+            </Form.Group>
+
+            <h1 style={{ fontSize: 16, fontWeight: "bold" }}>About Me</h1>
+            <Form.Field
+              control={TextArea}
               value={description}
-              className=""
-              placeholder="Description"
-              name="description"
-              noValidate
-              onChange={({ target }) => setDescription(target.value)} />
-          </div>
-          <div className="experience">
-            <label htmlFor="experience">Experience</label>
-            <input
-              type="text"
-              value={experience}
-              className=""
-              placeholder="Experience"
-              name="experience"
-              noValidate
-              onChange={({ target }) => setExperience(target.value)} />
-          </div>
-          <div className="shootingStyle">
-            <label htmlFor="shootingStyle">Shooting Style</label>
-            <input
-              type="text"
+              onChange={({ target }) => setDescription(target.value)}
+              placeholder='Tell us more about yourself...'
+            />
+
+            <h1 style={{ fontSize: 16, fontWeight: "bold" }}>What types of pictures are you interested in shooting?</h1>
+            <Dropdown
+              placeholder='Please select at least one type'
+              fluid
+              multiple selection
+              options={options}
               value={shootingStyle}
-              className=""
-              placeholder="Shooting Style"
-              name="shootingStyle"
-              noValidate
-              onChange={({ target }) => setShootingStyle(target.value)} />
-          </div>
-          <div className="website">
-            <label htmlFor="website">Website</label>
-            <input
-              type="text"
-              value={website}
-              className=""
-              placeholder="Website"
-              name="website"
-              noValidate
-              onChange={({ target }) => setWebsite(target.value)} />
-          </div>
-          <div className="socialMedia">
-            <label htmlFor="socialMedia">Social Media</label>
-            <input
-              type="text"
-              value={socialMedia}
-              className=""
-              placeholder="Social Media"
-              name="socialMedia"
-              noValidate
-              onChange={({ target }) => setSocialMedia(target.value)} />
-          </div>
-          <button type="submit">Update Profile</button>
-        </form>
-      </div>
-    </div>
+              // onChange={({ target }) => setStyle(style.concat(target.innerText))}
+              onChange={(e, { value }) => setShootingStyle([...value])}
+            />
+            <br></br>
+            <Button color='teal' fluid size='large'>
+              Update Profile
+        </Button>          </Segment>
+        </Form>
+      </Grid.Column>
+    </Grid>
   )
-
-
 
   return (
     <div>
-      {createProfile()}
+      {createPhotog()}
     </div>
   )
-
 }
 
 export default CreatePhotog

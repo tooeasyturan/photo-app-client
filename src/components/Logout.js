@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Button, Dropdown } from 'semantic-ui-react'
 
 
 
-const Logout = (props) => {
+const Logout = ({ hideFixedMenu }) => {
   const [toHome, setToHome] = useState(false)
 
   const handleLogout = () => {
@@ -15,7 +16,7 @@ const Logout = (props) => {
   return (
     <>
       {toHome ? <Redirect to="/login" /> : null}
-      <button onClick={handleLogout}>Logout</button>
+      <Dropdown.Item inverted={!hideFixedMenu} as='a' onClick={handleLogout}>Sign Out</Dropdown.Item>
     </>
   )
 }

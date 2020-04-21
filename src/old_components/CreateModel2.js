@@ -3,7 +3,7 @@ import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 import profilesService from '../services/profiles'
 
-const CreateModel = () => {
+const CreateModel2 = () => {
   const [country, setCountry] = useState('')
   const [region, setRegion] = useState('')
   const [description, setDescription] = useState('')
@@ -99,4 +99,4 @@ const CreateModel = () => {
 
 }
 
-export default CreateModel
+export default CreateModel2

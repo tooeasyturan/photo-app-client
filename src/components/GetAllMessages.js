@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import messagesService from '../services/messages'
-import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment, Icon } from 'semantic-ui-react'
+import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment, Icon, Loader } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
 import { flatten, filter, map, zipObject, keyBy } from 'lodash'
 import SendMessageBtn from './SendMessageBtn'
 import DisplayMessage from './DisplayMessages'
+
+import ConvoAvatar from './ConvoAvatar'
 
 
 
@@ -24,17 +26,15 @@ const GetAllMessages = () => {
   const [userToAvatar, setUserToAvatar] = useState([])
 
 
-
-
   const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 
 
   useEffect(() => {
     async function getUser() {
       await getUserMessages()
+
     }
     getUser()
-
   }, [])
 
   const getUserMessages = async () => {
@@ -45,6 +45,7 @@ const GetAllMessages = () => {
         message.deleteBySender !== loggedInUser.username && message.deleteByReceiver !== loggedInUser.username)
       setRawConvos(result)
       setCleanConvos(cleanData(result))
+
       // setIsLoading(true)
 
 
@@ -57,9 +58,11 @@ const GetAllMessages = () => {
 
 
   const cleanData = (rawConvos) => {
+    console.log('raw con')
     let convos = rawConvos.map(convo => convo.members)
     let users = flatten(convos).filter(name => name !== loggedInUser.username)
     setUsers(users)
+    console.log('users set', users)
     let ids = rawConvos.map(convo => convo.id)
     let combined = zipObject(users, ids)
 
@@ -82,9 +85,11 @@ const GetAllMessages = () => {
 
   const fetchImages = async (userSelected) => {
     const result = await axios.get(`http://localhost:3004/uploads/${userSelected}/avatar`)
-    setUserToAvatar(result.data)
+    setUserToAvatar(result.data[0])
     console.log('RESULT.DATA', result.data)
   }
+
+
 
   window.userSelected = userSelected
   window.userFrom = userFrom
@@ -95,9 +100,15 @@ const GetAllMessages = () => {
       key={message._id}
       message={message}
       userFrom={userFrom}
-      userToAvatar={userToAvatar[0]}
+      userToAvatar={userToAvatar}
     />
   )
+
+
+
+  // const convoAvatar = (avatar) => {
+  //   return <Image avatar src={avatar}></Image>
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -137,53 +148,61 @@ const GetAllMessages = () => {
     }
   }
 
+
+
   window.users = users
 
 
   return (
-    <div style={{ marginTop: 200, width: '100%' }}>
-      <Container style={{ width: '60%', height: 600 }}>
-        {/* <Segment style={{ width: '50%' }}> */}
-        <Header as='h1'>Inbox</Header>
-        <Grid>
-          <Grid.Column width={5}>
-            <List selection verticalAlign='middle'>
-              {users && cleanConvos ? users.map(user =>
-                <List.Item style={{ border: '1px solid black' }}>
-                  <List.Content>
-                    <Button floated='right' icon size='mini'
+    <div style={{ marginTop: 75, width: '100%' }}>
+      <Container style={{ width: '70%', height: 600 }}>
+        <Segment style={{ height: 600 }}>
+          {/* <Segment style={{ width: '50%' }}> */}
+          <Header as='h1' style={{ textAlign: 'center' }}>Inbox</Header>
+          <Grid>
+            <Grid.Column width={5}>
+              <List selection verticalAlign='middle'>
+                {users && cleanConvos ? users.map(user =>
+                  <List.Item style={{}} >
+                    {/* {isLoading ? <Loader active inline /> : <Image avatar src={userToAvatar[0]} />} */}
+                    <ConvoAvatar user={user} />
+                    <List.Content verticalAlign='middle' style={{ paddingTop: 5 }}>
+                      <List.Header as='h4' onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>
+                        {user}
+                      </List.Header>
+                    </List.Content>
+                    {/* <List.Content> */}
+                    <Button floated='right' icon='trash alternate outline' size='medium'
                       id={cleanConvos[user]}
                       onClick={(e) => handleRemoveConvo(e, user)}
-                    >Remove
+                    >
                     </Button>
-                  </List.Content>
-                  <List.Content verticalAlign='middle' style={{ paddingTop: 5 }}>
-                    <List.Header onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>
-                      {user}
-                    </List.Header>
-                  </List.Content>
+                    {/* </List.Content> */}
+                  </List.Item>
+                ) : <h1>Loading</h1>}
+              </List>
+            </Grid.Column>
+            <Grid.Column width={10} style={{ height: 400 }}>
+              <Comment.Group style={{
+                height: '100%', overflow: 'auto', border: '2px solid black', background: 'ghostwhite',
+                borderRadius: '5px'
+              }}>
+                {fetchedMessages ? messagesToDisplay() : null}
+              </Comment.Group>
+              <Form reply onSubmit={handleSubmit}>
+                <Form.TextArea
+                  control={TextArea}
+                  value={response}
+                  onChange={(e) => setResponse(e.target.value)}
+                  placeholder='Write a response'
+                />
+                <Button content='Send' labelPosition='left' icon='edit' type='submit' primary />
+              </Form>
+            </Grid.Column>
 
-                </List.Item>
-              ) : <h1>Loading</h1>}
-            </List>
-          </Grid.Column>
-          <Grid.Column width={10} style={{ height: 400 }}>
-            <Comment.Group style={{ height: '100%', overflow: 'auto', border: '1px solid black' }}>
-              {fetchedMessages ? messagesToDisplay() : null}
-            </Comment.Group>
-            <Form reply onSubmit={handleSubmit}>
-              <Form.TextArea
-                control={TextArea}
-                value={response}
-                onChange={(e) => setResponse(e.target.value)}
-                placeholder='Write a response'
-              />
-              <Button content='Send' labelPosition='left' icon='edit' type='submit' primary />
-            </Form>
-          </Grid.Column>
-
-        </Grid>
-        {/* </Segment> */}
+          </Grid>
+          {/* </Segment> */}
+        </Segment>
       </Container>
     </div>
   )

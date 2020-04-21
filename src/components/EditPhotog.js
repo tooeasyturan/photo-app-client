@@ -4,13 +4,12 @@ import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image
 import { UserContext } from './UserContext'
 import AvatarUpload from './AvatarUpload'
 
+
+
 import profilesService from '../services/profiles'
-import EditModel from './EditModel';
 
+const EditPhotog = ({ user }) => {
 
-
-const CreateModel = ({ user }) => {
-  console.log('create model user', user)
 
   const options = [
     { key: 'headshot', text: 'Headshot', value: 'headshot' },
@@ -22,11 +21,11 @@ const CreateModel = ({ user }) => {
     { key: 'nude', text: 'Nude', value: 'nude' }
   ]
 
-  const [country, setCountry] = useState()
-  const [region, setRegion] = useState()
-  const [description, setDescription] = useState()
-  const [shootingStyle, setShootingStyle] = useState([])
-  const [socialMedia, setSocialMedia] = useState()
+  const [country, setCountry] = useState(user.profile[0].country)
+  const [region, setRegion] = useState(user.profile[0].region)
+  const [description, setDescription] = useState(user.profile[0].description)
+  const [shootingStyle, setShootingStyle] = useState(user.profile[0].shootingStyle)
+  const [socialMedia, setSocialMedia] = useState('')
 
 
   // const [avatar, setAvatar] = useState(user.avatar[0].avatar)
@@ -38,6 +37,7 @@ const CreateModel = ({ user }) => {
 
   // console.log('FETCHED USER', loggedInUser)
 
+  console.log('user from app avatar', user.profile[0].country)
 
 
   useEffect(() => {
@@ -73,24 +73,30 @@ const CreateModel = ({ user }) => {
 
 
 
-  const createModel = () => (
+  const editPhotog = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
         {/* <Header as='h2' color='teal' textAlign='center'>
-        Edit Your Profile
-    </Header> */}
+          Edit Your Profile
+      </Header> */}
         <Form size='large' onSubmit={handleSubmit}>
           <Segment style={{ marginTop: 100 }}>
             <Popup
               trigger={
-
+                // <label htmlFor="image">
+                //   <input type="file" name="image" id="image" style={{ display: 'none' }} />
+                //   <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
+                // </label>
                 <AvatarUpload user={user} />
               }
             >
               <Popup.Header>Click to change avatar</Popup.Header>
             </Popup>
 
-
+            {/* <label htmlFor="image">
+              <input type="file" name="image" id="image" style={{ display: 'none' }} />
+              <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
+            </label> */}
 
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
@@ -107,7 +113,7 @@ const CreateModel = ({ user }) => {
               placeholder='Tell us more about yourself...'
             />
 
-            <h1 style={{ fontSize: 16, fontWeight: "bold" }}>What types of pictures are you looking for?</h1>
+            <h1 style={{ fontSize: 16, fontWeight: "bold" }}>What types of pictures are you interested in shooting?</h1>
             <Dropdown
               placeholder='Please select at least one type'
               fluid
@@ -120,17 +126,22 @@ const CreateModel = ({ user }) => {
             <br></br>
             <Button color='teal' fluid size='large'>
               Update Profile
-        </Button>          </Segment>
+          </Button>          </Segment>
         </Form>
       </Grid.Column>
     </Grid>
   )
 
+  console.log(shootingStyle)
+
+
+
   return (
     <div>
-      {createModel()}
+      {editPhotog()}
     </div>
   )
+
 }
 
-export default CreateModel
+export default EditPhotog
