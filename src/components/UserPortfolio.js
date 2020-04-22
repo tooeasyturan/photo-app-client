@@ -1,19 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import { Image, Container } from 'semantic-ui-react'
 import axios from 'axios'
-import { UserContext } from './UserContext'
 
 
-const UserPortfolioCloud = (props) => {
+const UserPortfolio = (props) => {
   const [uploads, setUploads] = useState([])
   const [user, setUser] = useState('')
 
-  // const username = props.match.params.username
   const username = props.username
   console.log('UPLOADS', uploads)
-
-
-
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
@@ -56,10 +52,6 @@ const UserPortfolioCloud = (props) => {
     }
   }
 
-
-
-
-
   const myPortfolio = uploads.map(upload => {
     return <Image key={upload}
       src={upload}
@@ -84,13 +76,11 @@ const UserPortfolioCloud = (props) => {
       <Container style={{ marginTop: 50 }} textAlign='center'>
         <h1>Pics</h1>
       </Container>
-
       <Image.Group style={{ textAlign: 'center', marginTop: 20 }} doubling stackable size="large">
         {props.username === user.username ? myPortfolio : usersPortfolio}
-        {/* <GetCloudUploads uploads={uploads} /> */}
       </Image.Group>
     </>
   )
 }
 
-export default UserPortfolioCloud
+export default UserPortfolio

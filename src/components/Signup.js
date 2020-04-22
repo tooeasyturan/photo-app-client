@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
@@ -13,7 +14,6 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [status, setStatus] = useState('')
-  const [date, setDate] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
   const [firstNameError, setFirstNameError] = useState(false)
@@ -101,14 +101,6 @@ const Signup = () => {
         firstName, lastName, username, email, status, password, date: new Date().toISOString()
       })
       console.log('USER', user)
-      // setUser(user)
-      // setFirstName('')
-      // setLastName('')
-      // setUsername('')
-      // setEmail('')
-      // setPassword('')
-      // setConfirmPassword('')
-      // setStatus(null)
       setIsSubmitted(true)
     } catch (error) {
       const errors = await error.response.data.errors

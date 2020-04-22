@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
-import { UserContext } from './UserContext'
+import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
 
+// Component for editing user with status 'photographer' after initial profile has been created. 
 
 
 import profilesService from '../services/profiles'
@@ -27,17 +28,9 @@ const EditPhotog = ({ user }) => {
   const [shootingStyle, setShootingStyle] = useState(user.profile[0].shootingStyle)
   const [socialMedia, setSocialMedia] = useState('')
 
-
-  // const [avatar, setAvatar] = useState(user.avatar[0].avatar)
-
   const [token, setToken] = useState(null)
   const [profile, setProfile] = useState(null)
 
-
-
-  // console.log('FETCHED USER', loggedInUser)
-
-  console.log('user from app avatar', user.profile[0].country)
 
 
   useEffect(() => {
@@ -49,7 +42,6 @@ const EditPhotog = ({ user }) => {
     }
   }, [])
 
-  // const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
 
   const handleSubmit = async (event) => {
@@ -67,11 +59,6 @@ const EditPhotog = ({ user }) => {
     }
   }
 
-  const handleAvatarClick = () => {
-
-  }
-
-
 
   const editPhotog = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
@@ -83,21 +70,11 @@ const EditPhotog = ({ user }) => {
           <Segment style={{ marginTop: 100 }}>
             <Popup
               trigger={
-                // <label htmlFor="image">
-                //   <input type="file" name="image" id="image" style={{ display: 'none' }} />
-                //   <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
-                // </label>
                 <AvatarUpload user={user} />
               }
             >
               <Popup.Header>Click to change avatar</Popup.Header>
             </Popup>
-
-            {/* <label htmlFor="image">
-              <input type="file" name="image" id="image" style={{ display: 'none' }} />
-              <Image src={avatar} size='huge' rounded centered onClick={handleAvatarClick} />
-            </label> */}
-
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
             <Form.Group>
@@ -120,7 +97,6 @@ const EditPhotog = ({ user }) => {
               multiple selection
               options={options}
               value={shootingStyle}
-              // onChange={({ target }) => setStyle(style.concat(target.innerText))}
               onChange={(e, { value }) => setShootingStyle([...value])}
             />
             <br></br>
@@ -132,7 +108,6 @@ const EditPhotog = ({ user }) => {
     </Grid>
   )
 
-  console.log(shootingStyle)
 
 
 

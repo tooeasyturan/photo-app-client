@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react'
 import loginService from '../services/login'
 import usersService from '../services/users'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-
-// import { Button, Form } from 'react-bootstrap'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-// import "../styles/Login.css"
-import { UserContext } from './UserContext'
 
-
+// Login with error handling. I should probably find a more central way to handle errors?
 
 
 const Login = () => {
@@ -69,15 +66,9 @@ const Login = () => {
       setUsername('')
       setPassword('')
     } catch (error) {
-
-
-
       if (error.response.status === 401) {
         setMatchError(true)
       }
-
-
-
       if (error) {
         setFormError(true)
         return

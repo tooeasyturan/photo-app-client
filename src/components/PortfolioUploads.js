@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
-import { Image, Icon, Popup, Button, Loader, Label, Container } from 'semantic-ui-react'
+import { Image, Icon, Popup, Loader, Container } from 'semantic-ui-react'
 import axios from 'axios'
 import uuid from 'uuid/v4'
 import { UserContext } from './UserContext'
@@ -9,22 +11,15 @@ const PortfolioUploads = () => {
 
   // SHOULD I KEEP ALL LOGIC FOR UPLOADING AND DISPLAYING PORTFOLIO PICS IN ONE COMPONENT OR SEPARATE? NEED TO KEEP IN MIND STATE CHANGE FOR UPLOADS
 
-  // const [user, setUser] = useState(null)
   const [user, setUser] = useContext(UserContext)
-  // const [file, setFile] = useState({})
   const [filename, setFilename] = useState('Choose File')
   const [uploadedFile, setUploadedFile] = useState({})
   const [uploads, setUploads] = useState([])
-
   const [isLoading, setIsLoading] = useState(false)
 
 
-  console.log("CLOUDINARY USER!!!", user)
 
-
-  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  const { username, token } = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 
 
   const onChangeHandler = async (event) => {
@@ -49,7 +44,7 @@ const PortfolioUploads = () => {
       const res = await axios.post('http://localhost:3004/uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${loggedInUser.token}`
+          'Authorization': `Bearer ${token}`
         },
       })
 
@@ -89,7 +84,6 @@ const PortfolioUploads = () => {
     // *** Uploads are retrieved directly from file, not through db. Need to query db for portfolio id. 
     // *** maybe images should be saved using portfolio id.
 
-    const token = loggedInUser.token
     const config = {
       'Content-Type': 'application/json',
       headers: { Authorization: 'bearer ' + token },

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react'
 import uploadsService from '../services/uploads'
 import { Image, Button, Popup, Loader } from 'semantic-ui-react'
@@ -6,6 +8,7 @@ import axios from 'axios'
 const AvatarUpload = ({ user }) => {
   console.log('avatar user', user)
   window.avatarUser = user
+
 
 
   const [loggedInUser, setLoggedInUser] = useState(null)
@@ -48,15 +51,6 @@ const AvatarUpload = ({ user }) => {
   }, [file])
 
 
-  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
-
-
-
-  // const onChangeHandler = (event) => {
-  //   console.log('triggered')
-  //   setFile(event.target.files[0])
-  //   setFilename(event.target.files[0].name)
-  // }
 
 
   const onSelectFile = e => {
@@ -80,7 +74,7 @@ const AvatarUpload = ({ user }) => {
     event.preventDefault()
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('username', username)
+    formData.append('username', loggedInUser.username)
     formData.append('folder', 'userimg')
 
     try {
@@ -111,7 +105,6 @@ const AvatarUpload = ({ user }) => {
     }
   }
 
-  const fileInput = useRef(null)
 
   return (
 
@@ -122,7 +115,6 @@ const AvatarUpload = ({ user }) => {
           id='avatarInput'
           onChange={onSelectFile}
           style={{ display: 'none' }}
-          ref={fileInput}
         />
         <Popup trigger={
           <label htmlFor='avatarInput'>

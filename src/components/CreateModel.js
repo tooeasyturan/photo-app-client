@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
-import { UserContext } from './UserContext'
+import { Button, Form, Grid, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
-
 import profilesService from '../services/profiles'
-import EditModel from './EditModel';
 
 
+
+// Component for creating user profile if status is 'model'
 
 const CreateModel = ({ user }) => {
   console.log('create model user', user)
@@ -19,7 +19,6 @@ const CreateModel = ({ user }) => {
     { key: 'fashion', text: 'Fashion', value: 'fashion' },
     { key: 'family', text: 'Family', value: 'family' },
     { key: 'event', text: 'Event', value: 'event' },
-    { key: 'nude', text: 'Nude', value: 'nude' }
   ]
 
   const [country, setCountry] = useState()
@@ -29,14 +28,8 @@ const CreateModel = ({ user }) => {
   const [socialMedia, setSocialMedia] = useState()
 
 
-  // const [avatar, setAvatar] = useState(user.avatar[0].avatar)
-
   const [token, setToken] = useState(null)
   const [profile, setProfile] = useState(null)
-
-
-
-  // console.log('FETCHED USER', loggedInUser)
 
 
 
@@ -48,8 +41,6 @@ const CreateModel = ({ user }) => {
       profilesService.setToken(result.token)
     }
   }, [])
-
-  // const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
 
   const handleSubmit = async (event) => {
@@ -67,30 +58,18 @@ const CreateModel = ({ user }) => {
     }
   }
 
-  const handleAvatarClick = () => {
-
-  }
-
-
-
   const createModel = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
-        {/* <Header as='h2' color='teal' textAlign='center'>
-        Edit Your Profile
-    </Header> */}
         <Form size='large' onSubmit={handleSubmit}>
           <Segment style={{ marginTop: 100 }}>
             <Popup
               trigger={
-
                 <AvatarUpload user={user} />
               }
             >
               <Popup.Header>Click to change avatar</Popup.Header>
             </Popup>
-
-
 
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
@@ -120,7 +99,8 @@ const CreateModel = ({ user }) => {
             <br></br>
             <Button color='teal' fluid size='large'>
               Update Profile
-        </Button>          </Segment>
+            </Button>
+          </Segment>
         </Form>
       </Grid.Column>
     </Grid>

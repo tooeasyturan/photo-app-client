@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Card, Image, Container } from 'semantic-ui-react'
@@ -5,7 +6,7 @@ import UserPortfolio from './UserPortfolio'
 import SendMessage from './SendMessage'
 
 
-
+// Get and display user profile (including portfolio) by username params
 
 const GetUserProfile = (props) => {
   const [user, setUser] = useState([])
@@ -31,9 +32,6 @@ const GetUserProfile = (props) => {
       setUser(user[0])
       setProfile(profile)
       console.log('location', user[0].profile[0].country)
-
-      // console.log('profile', profile)
-
 
     } catch (exception) {
       console.log('error')

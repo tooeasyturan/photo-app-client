@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
-import { Button, Form, Grid, Header, Message, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
 import profilesService from '../services/profiles'
-// import "../styles/Profile.css"
 
+// Component for creating user profile if status is 'photographer'
 
 const CreatePhotog = ({ user }) => {
   console.log('create model user', user)
@@ -16,7 +17,6 @@ const CreatePhotog = ({ user }) => {
     { key: 'fashion', text: 'Fashion', value: 'fashion' },
     { key: 'family', text: 'Family', value: 'family' },
     { key: 'event', text: 'Event', value: 'event' },
-    { key: 'nude', text: 'Nude', value: 'nude' }
   ]
 
   const [country, setCountry] = useState()
@@ -25,16 +25,8 @@ const CreatePhotog = ({ user }) => {
   const [shootingStyle, setShootingStyle] = useState([])
   const [socialMedia, setSocialMedia] = useState()
 
-
-  // const [avatar, setAvatar] = useState(user.avatar[0].avatar)
-
   const [token, setToken] = useState(null)
   const [profile, setProfile] = useState(null)
-
-
-
-  // console.log('FETCHED USER', loggedInUser)
-
 
 
   useEffect(() => {
@@ -45,8 +37,6 @@ const CreatePhotog = ({ user }) => {
       profilesService.setToken(result.token)
     }
   }, [])
-
-  // const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
 
 
   const handleSubmit = async (event) => {
@@ -64,18 +54,12 @@ const CreatePhotog = ({ user }) => {
     }
   }
 
-  const handleAvatarClick = () => {
-
-  }
-
 
 
   const createPhotog = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
-        {/* <Header as='h2' color='teal' textAlign='center'>
-        Edit Your Profile
-    </Header> */}
+
         <Form size='large' onSubmit={handleSubmit}>
           <Segment style={{ marginTop: 100 }}>
             <Popup
@@ -86,9 +70,6 @@ const CreatePhotog = ({ user }) => {
             >
               <Popup.Header>Click to change avatar</Popup.Header>
             </Popup>
-
-
-
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
             <Form.Group>
@@ -111,13 +92,13 @@ const CreatePhotog = ({ user }) => {
               multiple selection
               options={options}
               value={shootingStyle}
-              // onChange={({ target }) => setStyle(style.concat(target.innerText))}
               onChange={(e, { value }) => setShootingStyle([...value])}
             />
             <br></br>
             <Button color='teal' fluid size='large'>
               Update Profile
-        </Button>          </Segment>
+            </Button>
+          </Segment>
         </Form>
       </Grid.Column>
     </Grid>

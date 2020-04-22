@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// Component for deleting user and associated profile. Does not (yet) delete pictures from cloudinary. 
 
 const DeleteUser = () => {
   const [user, setUser] = useState('')

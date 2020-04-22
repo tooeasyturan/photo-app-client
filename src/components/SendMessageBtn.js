@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
 import messagesService from '../services/messages'
 import { UserContext } from './UserContext'

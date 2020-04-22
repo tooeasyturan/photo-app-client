@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { CountryDropdown } from 'react-country-region-selector';
 
@@ -6,14 +7,6 @@ import { CountryDropdown } from 'react-country-region-selector';
 const SearchUsers = ({ users }) => {
   const [country, setCountry] = useState('')
   const [searchedUsers, setSearchedUsers] = useState([])
-
-
-
-
-
-  // const usersByCountry = users.filter(user => user.profile[0].country === country)
-  // setSearchedUsers(usersByCountry)
-  // console.log("USERS BY COUNTRY", searchedUsers)
 
   const handleSearch = (val) => {
     setCountry(val)
@@ -27,8 +20,6 @@ const SearchUsers = ({ users }) => {
       setSearchedUsers(usersByCountry)
     }
   }
-
-  console.log("SET USERS BY SEARCH COUNTRY", searchedUsers)
 
 
   return (

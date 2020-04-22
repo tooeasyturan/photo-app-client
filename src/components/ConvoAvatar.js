@@ -1,6 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 import axios from 'axios'
+
+// Maps through each user in Convo (conversation) and gets their avatar
 
 const ConvoAvatar = ({ user, userToAvatar }) => {
   const [avatar, setAvatar] = useState([])

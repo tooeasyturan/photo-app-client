@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from 'react'
 import messagesService from '../services/messages'
 import { Button, Modal, Form, Header, TextArea, Container } from 'semantic-ui-react'
 import { UserContext } from './UserContext'

@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useContext } from 'react'
 import { UserContext } from './UserContext'
 import '../styles/Landing.css'
-import Navigation from './Navigation'
-import { Button, Segment, Grid, Header, Image, Divider, Container } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
 const Landing = () => {
   const [user, setUser] = useContext(UserContext)
   console.log('landing page user', user)
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+
 
   return (
     <>
@@ -25,9 +27,9 @@ const Landing = () => {
               </div>
 
               {
-                !user ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
+                !loggedInUser ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
                   <div>
-                    <Button secondary size='huge' href={`/${user.username}`}>Go to my profile</Button>
+                    <Button secondary size='huge' href={`/${loggedInUser.username}`}>Go to my profile</Button>
                     <Button secondary size='huge' href='/users'>Explore users</Button>
                   </div>
               }
@@ -35,7 +37,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <Segment style={{ padding: '8em 0em' }} vertical>
+      {/* <Segment style={{ padding: '8em 0em' }} vertical>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
             <Grid.Column width={8}>
@@ -64,10 +66,9 @@ const Landing = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Segment>
-      {/* </Row> */}
+      </Segment> */}
 
-      <Segment style={{ padding: '8em 0em' }} vertical>
+      {/* <Segment style={{ padding: '8em 0em' }} vertical>
         <Container text>
           <Header as='h3' style={{ fontSize: '2em' }}>
             Breaking The Grid, Grabs Your Attention
@@ -102,7 +103,7 @@ const Landing = () => {
             I'm Still Quite Interested
         </Button>
         </Container>
-      </Segment>
+      </Segment> */}
     </>
   )
 }

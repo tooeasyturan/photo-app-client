@@ -1,33 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment } from 'semantic-ui-react'
+import React from 'react'
+import { Comment } from 'semantic-ui-react'
 import '../styles/Messages.css'
-import ConvoAvatar from './ConvoAvatar'
 
-
-
-
+// Displays messages from parent GetAllMessages. Does not display list of convos. This is done in GetAllMessages for now.
+// Need to fix so that message (comment) avatars are displayed first time convo is opened. Currently requires double click.
 
 const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
 
 
   return (
     <>
-      {/* <Comment>
-        {userFrom.username === message.sender ? <Comment.Avatar avatar /> : <Comment.Avatar as='a' src={userToAvatar} />}
-        <Comment.Content>
-          <Comment.Author>{message.sender}</Comment.Author>
-          <Comment.Metadata>{message.date}</Comment.Metadata>
-          <Comment.Text>
-            <p>{message.content}</p>
-          </Comment.Text>
-       </Comment.Content> 
-      </Comment> */}
-
       {userFrom.username !== message.sender ?
         <Comment>
           <Comment.Avatar as='a' src={userToAvatar} />
           <Comment.Content>
-            <Comment.Author>{message.sender}</Comment.Author>
+            <Comment.Author href={`/users/${message.sender}`}>{message.sender}</Comment.Author>
             <Comment.Metadata>{message.date}</Comment.Metadata>
             <Comment.Text>
               <p>{message.content}</p>
@@ -43,17 +30,7 @@ const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
             </Comment.Text>
           </Comment.Content>
         </Comment>}
-
-
-
-
     </>
-
-    // <div>
-    //   <h3 style={{ fontWeight: 'bold' }}>{message.sender}</h3>
-    //   <h3>{message.content}</h3>
-    // </div>
-
   )
 }
 

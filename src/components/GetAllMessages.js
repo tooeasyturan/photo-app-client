@@ -1,25 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import messagesService from '../services/messages'
-import { Button, Modal, Form, Header, TextArea, Grid, Image, Comment, Container, List, Segment, Icon, Loader } from 'semantic-ui-react'
+import { Button, Form, Header, TextArea, Grid, Comment, Container, List, Segment } from 'semantic-ui-react'
 import { UserContext } from './UserContext'
-import { flatten, filter, map, zipObject, keyBy } from 'lodash'
-import SendMessageBtn from './SendMessageBtn'
+import { flatten, zipObject, } from 'lodash'
 import DisplayMessage from './DisplayMessages'
-
 import ConvoAvatar from './ConvoAvatar'
 
-
+// This component is probably too large and confusing with shitty variable names
 
 const GetAllMessages = () => {
   const [userFrom, setUserFrom] = useContext(UserContext)
   const [rawConvos, setRawConvos] = useState(null)
   const [users, setUsers] = useState([])
   const [cleanConvos, setCleanConvos] = useState([])
-  // const [convos, setConvos] = useState([])
   const [fetchedMessages, setFetchedMessages] = useState([])
   const [userSelected, setUserSelected] = useState(null)
-  // const [isLoading, setIsLoading] = useState(false)
 
   const [response, setResponse] = useState('')
 
@@ -46,7 +44,6 @@ const GetAllMessages = () => {
       setRawConvos(result)
       setCleanConvos(cleanData(result))
 
-      // setIsLoading(true)
 
 
     } catch (exception) {
@@ -105,11 +102,6 @@ const GetAllMessages = () => {
   )
 
 
-
-  // const convoAvatar = (avatar) => {
-  //   return <Image avatar src={avatar}></Image>
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('onSubmit', userSelected)
@@ -134,7 +126,6 @@ const GetAllMessages = () => {
     console.log(users)
     console.log(cleanConvos)
 
-    // 'updated' refers to updated users list without user that has been selected to be
     let updatedConvos = users.filter(updated => updated !== user)
     console.log(updatedConvos)
     setUsers(updatedConvos)
@@ -157,27 +148,23 @@ const GetAllMessages = () => {
     <div style={{ marginTop: 75, width: '100%' }}>
       <Container style={{ width: '70%', height: 600 }}>
         <Segment style={{ height: 600 }}>
-          {/* <Segment style={{ width: '50%' }}> */}
           <Header as='h1' style={{ textAlign: 'center' }}>Inbox</Header>
           <Grid>
             <Grid.Column width={5}>
               <List selection verticalAlign='middle'>
                 {users && cleanConvos ? users.map(user =>
-                  <List.Item style={{}} >
-                    {/* {isLoading ? <Loader active inline /> : <Image avatar src={userToAvatar[0]} />} */}
+                  <List.Item >
                     <ConvoAvatar user={user} />
                     <List.Content verticalAlign='middle' style={{ paddingTop: 5 }}>
                       <List.Header as='h4' onClick={handleFetchMessages} id={cleanConvos[user]} key={cleanConvos[user]}>
                         {user}
                       </List.Header>
                     </List.Content>
-                    {/* <List.Content> */}
                     <Button floated='right' icon='trash alternate outline' size='medium'
                       id={cleanConvos[user]}
                       onClick={(e) => handleRemoveConvo(e, user)}
                     >
                     </Button>
-                    {/* </List.Content> */}
                   </List.Item>
                 ) : <h1>Loading</h1>}
               </List>
@@ -199,9 +186,7 @@ const GetAllMessages = () => {
                 <Button content='Send' labelPosition='left' icon='edit' type='submit' primary />
               </Form>
             </Grid.Column>
-
           </Grid>
-          {/* </Segment> */}
         </Segment>
       </Container>
     </div>

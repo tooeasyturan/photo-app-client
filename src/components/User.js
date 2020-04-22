@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 import axios from 'axios'
 
-
+// Child component of Users for displaying profile (excluding portfolio). 
+// For some reason fetching avatar is in this component
 
 const User = ({ user }) => {
   const [avatar, setAvatar] = useState([])
 
   console.log(user)
-  // console.log('avatar', user.avatar[0].avatar)
 
   const fetchImages = async () => {
     const result = await axios.get(`http://localhost:3004/uploads/${user.username}/avatar`)
