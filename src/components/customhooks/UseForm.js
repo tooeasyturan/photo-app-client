@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-const UseLoginForm = (initialValues) => {
+const UseForm = (initialValues) => {
   const [values, setValues] = useState(initialValues)
 
 
@@ -17,4 +17,4 @@ const UseLoginForm = (initialValues) => {
 
 }
 
-export default UseLoginForm
+export default UseForm

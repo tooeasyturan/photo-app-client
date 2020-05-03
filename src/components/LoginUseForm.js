@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import loginService from '../services/login'
-import UseLoginForm from './customhooks/UseLoginForm';
+import UseLoginForm from './customhooks/UseForm';
 import LoginPage from '../pages/LoginPage';
 
 const CURRENT_USER = JSON.parse(window.localStorage.getItem('currentUser'))
