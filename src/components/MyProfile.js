@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react'
 import PortfolioUploads from './PortfolioUploads'
 import EditModel from './EditModel'
 import EditPhotog from './EditPhotog'
+import DeleteUser from './DeleteUser'
 
 // Parent is app component
 
@@ -12,6 +13,7 @@ const MyProfile = ({ user }) => {
       <Grid>
         <Grid.Column>
           {user.status === 'model' ? <EditModel user={user} /> : <EditPhotog user={user} />}
+          {/* <DeleteUser /> */}
           <PortfolioUploads />
         </Grid.Column>
       </Grid>

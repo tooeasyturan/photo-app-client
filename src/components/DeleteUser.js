@@ -23,6 +23,7 @@ const DeleteUser = () => {
     }
     console.log('token', token)
     const response = await axios.delete('http://localhost:3004/users/profile', config)
+    window.localStorage.removeItem('loggedTFPappUser')
     console.log(response)
   }
 

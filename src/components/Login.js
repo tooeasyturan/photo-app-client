@@ -33,11 +33,9 @@ const Login = () => {
     setUsernameError(false)
     setPasswordError(false)
     setMatchError(false)
-    // let error = false
     if (username === '' && password === '') {
       setUsernameError(true)
       setPasswordError(true)
-      // error = true
       return
     }
 
@@ -135,11 +133,6 @@ const Login = () => {
           /> : null}
       </Grid.Column>
     </Grid>
-
-
-
-
-
   )
 
   return (

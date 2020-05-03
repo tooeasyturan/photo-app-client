@@ -41,6 +41,7 @@ const Signup = () => {
     setLastNameError(false)
     setUsernameError(false)
     setEmailError(false)
+    setPasswordError(false)
     setMatchError(false)
     setStatusError(false)
     setErrorsList([])
@@ -74,6 +75,12 @@ const Signup = () => {
       errorList.push(emailErrorMsg)
     }
 
+    if (!password) {
+      setPasswordError(true)
+      let enterPasswordErrorMsg = 'You must enter a password'
+      errorList.push(enterPasswordErrorMsg)
+    }
+
     if (confirmPassword !== password) {
       console.log('passwords do not match')
       setMatchError(true)
@@ -86,32 +93,24 @@ const Signup = () => {
       let statusErrorMsg = 'You must select a status'
       errorList.push(statusErrorMsg)
     }
-
-    // if (passwordError || firstNameError || lastNameError || statusError) {
-    //   setErrorsList(errorList)
-    //   setErrors(true)
-    //   console.log('ERROR LIST', errorsList)
-    //   return
-    // }
-
     setErrorsList(errorList)
+    console.log('error list', errorList)
 
     try {
-      const user = await axios.post('http://localhost:3004/users', {
-        firstName, lastName, username, email, status, password, date: new Date().toISOString()
-      })
-      console.log('USER', user)
-      setIsSubmitted(true)
+      if (errorList.length === 0) {
+        const user = await axios.post('http://localhost:3004/users', {
+          firstName, lastName, username, email, status, password, date: new Date().toISOString()
+        })
+        console.log('USER', user)
+        setIsSubmitted(true)
+      }
     } catch (error) {
       const errors = await error.response.data.errors
       setErrors(errors)
       console.log('ERRORS', errors)
       const errorArray = errors.map(error => error.msg)
       console.log('error array', errorArray)
-      // console.log(error.response.data.errors)
     }
-
-
   }
 
 
@@ -156,7 +155,7 @@ const Signup = () => {
               type='password'
               value={password}
               onChange={({ target }) => setPassword(target.value)}
-              error={matchError}
+              error={passwordError}
             />
             <Form.Input fluid
               placeholder='Confirm Password'
@@ -200,7 +199,7 @@ const Signup = () => {
             error
             header='Passwords do not match'
           /> : null} */}
-        {firstNameError || lastNameError || usernameError || emailError || statusError || matchError ?
+        {firstNameError || lastNameError || usernameError || emailError || statusError || matchError || passwordError ?
           <Message
             error
             header='There were some errors with your submission'

@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom';
 const Navigation = () => {
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(UserContext)
-  console.log('nav user', user)
 
   const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
 

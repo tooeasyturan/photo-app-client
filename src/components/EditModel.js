@@ -31,6 +31,7 @@ const EditModel = ({ user }) => {
   const [profile, setProfile] = useState(null)
 
 
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
     if (loggedUserJSON) {

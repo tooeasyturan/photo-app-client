@@ -43,9 +43,6 @@ const GetAllMessages = () => {
         message.deleteBySender !== loggedInUser.username && message.deleteByReceiver !== loggedInUser.username)
       setRawConvos(result)
       setCleanConvos(cleanData(result))
-
-
-
     } catch (exception) {
       console.log(exception)
     }
@@ -72,6 +69,7 @@ const GetAllMessages = () => {
     setUserSelected(e.target.innerHTML)
     const result = await messagesService.getConvo(e.target.id)
     setFetchedMessages(result[0].message)
+    console.log('fetched convo messages', result)
     if (userSelected) {
       fetchImages(userSelected)
     }

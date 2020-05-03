@@ -118,7 +118,7 @@ const PortfolioUploads = () => {
 
   return (
     <>
-      <Container style={{ marginTop: 100, marginLeft: 100 }} textAlign='center'>
+      <Container style={{ marginTop: 150, marginLeft: 100 }} textAlign='center'>
         <input name="file" type="file" className="custom-file-input" id="portfolioInput" onChange={onChangeHandler} style={{ display: 'none' }} />
         {isLoading ? <Loader active inline /> :
           <>

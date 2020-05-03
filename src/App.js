@@ -13,6 +13,7 @@ import CreatePhotog from './components/CreatePhotog'
 import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
 import GetAllMessages from './components/GetAllMessages'
+import LoginUseForm from './components/LoginUseForm';
 
 
 
@@ -96,6 +97,7 @@ function App() {
           <Route exact path="/users/:username" component={GetUserProfile} />
           {/* <Route exact path="/createprofile" component={() => user.status === 'model' ? <CreateModel user={user} /> : <CreatePhotog user={user} />} /> */}
           <Route exact path="/inbox" component={GetAllMessages} />
+          <Route exact path="/loginuseform" component={LoginUseForm} />
         </>
       </UserProvider>
     </Router>
