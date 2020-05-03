@@ -16,15 +16,13 @@ const USER_SIGNNUP_OBJECT = {
 
 const SignupUseForm = () => {
   const [values, handleChange] = UseSignupForm(USER_SIGNNUP_OBJECT)
+  console.log(values)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
 
 
   const handleSubmit = async (e) => {
     try {
-      await axios.post('http://localhost:3004/users', {
-        firstName: values.firstName, lastName: values.lastName, username: values.username, email: values.email, status: values.status, password: values.password, date: new Date().toISOString()
-      })
+      await axios.post('http://localhost:3004/users', values)
       setIsSubmitted(true)
     } catch (error) {
       console.log(error)
