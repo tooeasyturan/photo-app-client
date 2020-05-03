@@ -5,7 +5,7 @@ const GridStyles = { height: '100vh' }
 const ColumnStyles = { maxWidth: 450 }
 const SegmentStyles = { width: 450 }
 
-const LoginPage = ({ values, handleChange, handleLogin }) => {
+const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin }) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>
@@ -18,8 +18,8 @@ const LoginPage = ({ values, handleChange, handleLogin }) => {
               placeholder='Username'
               name="username"
               type="text"
-              value={values.username}
-              onChange={handleChange}
+              value={userCredentials.username}
+              onChange={handleUserCredentials}
             />
             <Form.Input
               fluid
@@ -27,9 +27,9 @@ const LoginPage = ({ values, handleChange, handleLogin }) => {
               iconPosition='left'
               placeholder='Password'
               type="password"
-              value={values.password}
+              value={userCredentials.password}
               name="password"
-              onChange={handleChange}
+              onChange={handleUserCredentials}
             />
             <Button color='teal' fluid size='large'>
               Login
