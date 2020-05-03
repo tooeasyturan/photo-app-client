@@ -5,8 +5,11 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import UseLoginForm from './customhooks/UseLoginForm';
 
+const CURRENT_USER = JSON.parse(window.localStorage.getItem('currentUser'))
+const DEFAULT_USER = { token: '', username: '', status: '' }
+
 const LoginUseForm = () => {
-  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('currentUser')))
+  const [user, setUser] = useState(CURRENT_USER)
   const [values, handleChange] = UseLoginForm({ username: '', password: '' })
 
 
@@ -14,9 +17,7 @@ const LoginUseForm = () => {
     e.preventDefault()
 
     try {
-      const logInUser = await loginService.login({
-        username: values.username, password: values.password
-      })
+      const logInUser = await loginService.login(values)
       window.localStorage.setItem('currentUser', JSON.stringify(logInUser))
       usersService.setToken(logInUser.token)
       setUser(logInUser)
