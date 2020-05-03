@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import loginService from '../services/login'
-import usersService from '../services/users'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import UseLoginForm from './customhooks/UseLoginForm';
 import LoginPage from '../pages/LoginPage';
 
@@ -18,8 +15,6 @@ const LoginUseForm = () => {
 
     try {
       const logInUser = await loginService.login(values)
-      window.localStorage.setItem('currentUser', JSON.stringify(logInUser))
-      usersService.setToken(logInUser.token)
       setUser(logInUser)
     } catch (error) {
       console.log(error)
@@ -28,7 +23,8 @@ const LoginUseForm = () => {
 
   return (
     <>
-      {user === null ? <LoginPage values={values} handleChange={handleChange} handleLogin={handleLogin} /> :
+      {user === null ?
+        <LoginPage values={values} handleChange={handleChange} handleLogin={handleLogin} /> :
         <div style={{ marginTop: 100, textAlign: 'center' }}>
           <h1>
             {`${user.username} logged in`}
