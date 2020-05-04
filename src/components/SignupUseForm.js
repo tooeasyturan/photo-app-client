@@ -21,8 +21,12 @@ const SignupUseForm = () => {
 
   const handleCreateUser = (e) => {
     e.preventDefault()
-    usersService.createUser(userSignupFields)
-    setIsSubmitted(true)
+    try {
+      usersService.createUser(userSignupFields)
+      setIsSubmitted(true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
