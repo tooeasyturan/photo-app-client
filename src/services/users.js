@@ -41,9 +41,18 @@ const update = (id, newObject) => {
   return request.then(response => response.data)
 }
 
+const createUser = async newUser => {
+  try {
+    const res = await axios.post(baseUrl, newUser)
+    console.log(res)
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 // const deleteUser = () => {
 //   const request = axios.delete}
 
-export default { getAll, create, update, auth, setToken }
+export default { getAll, create, update, auth, setToken, createUser }

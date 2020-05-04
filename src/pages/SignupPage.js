@@ -1,11 +1,13 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
+const GridStyles = { height: '100vh' }
+const ColumnStyles = { maxWidth: 450 }
 
 const SignupPage = ({ userSignupFields, handleUserSignupFields, handleCreateUser }) => {
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
+    <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
+      <Grid.Column style={ColumnStyles}>
         <Header as='h2' color='teal' textAlign='center'>
           Create Your Account
       </Header>
