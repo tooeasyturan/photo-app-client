@@ -3,11 +3,12 @@ import loginService from '../services/login'
 import UseLoginForm from './customhooks/UseForm';
 import LoginPage from '../pages/LoginPage';
 
-const CURRENT_USER = JSON.parse(window.localStorage.getItem('currentUser'))
+const LOGGED_IN_USER = JSON.parse(window.localStorage.getItem('loggedInUser'))
+const USER_CREDENTIALS = { username: '', password: '' }
 
 const LoginUseForm = () => {
-  const [user, setUser] = useState(CURRENT_USER)
-  const [userCredentials, handleUserCredentials] = UseLoginForm({ username: '', password: '' })
+  const [user, setUser] = useState(LOGGED_IN_USER)
+  const [userCredentials, handleUserCredentials] = UseLoginForm(USER_CREDENTIALS)
 
 
   const handleLogin = async (e) => {
