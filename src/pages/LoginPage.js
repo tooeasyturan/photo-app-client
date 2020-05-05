@@ -1,11 +1,11 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react'
 
 const GridStyles = { height: '100vh' }
 const ColumnStyles = { maxWidth: 450 }
 const SegmentStyles = { width: 450 }
 
-const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin }) => {
+const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin, validation }) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>
@@ -20,6 +20,7 @@ const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin }) => {
               type="text"
               value={userCredentials.username}
               onChange={handleUserCredentials}
+              error={validation.usernameError}
             />
             <Form.Input
               fluid
@@ -30,12 +31,28 @@ const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin }) => {
               value={userCredentials.password}
               name="password"
               onChange={handleUserCredentials}
+              error={validation.passwordError}
             />
             <Button color='teal' fluid size='large'>
               Login
         </Button>
           </Segment>
         </Form>
+        {validation.usernameError ?
+          <Message
+            error
+            header="Please enter your username"
+          /> : null}
+        {validation.passwordError ?
+          <Message
+            error
+            header="Please enter your password"
+          /> : null}
+        {/* {matchError ?
+              <Message
+                error
+                header="Username and password do not match"
+              /> : null} */}
       </Grid.Column>
     </Grid>
   )
