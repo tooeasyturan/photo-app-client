@@ -5,12 +5,12 @@ const GridStyles = { height: '100vh' }
 const ColumnStyles = { maxWidth: 450 }
 const SegmentStyles = { width: 450 }
 
-const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin, validation }) => {
+const LoginPage = ({ values, handleChange, handleSubmit, errors }) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>
         <Header>Login</Header>
-        <Form size='large' onSubmit={handleLogin}>
+        <Form size='large' onSubmit={handleSubmit}>
           <Segment stacked style={SegmentStyles}>
             <Form.Input
               fluid icon='user'
@@ -18,9 +18,9 @@ const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin, valida
               placeholder='Username'
               name="username"
               type="text"
-              value={userCredentials.username}
-              onChange={handleUserCredentials}
-              error={validation.usernameError}
+              value={values.username}
+              onChange={handleChange}
+              error={errors.usernameError}
             />
             <Form.Input
               fluid
@@ -28,26 +28,26 @@ const LoginPage = ({ userCredentials, handleUserCredentials, handleLogin, valida
               iconPosition='left'
               placeholder='Password'
               type="password"
-              value={userCredentials.password}
+              value={values.password}
               name="password"
-              onChange={handleUserCredentials}
-              error={validation.passwordError}
+              onChange={handleChange}
+              error={errors.passwordError}
             />
             <Button color='teal' fluid size='large'>
               Login
         </Button>
           </Segment>
         </Form>
-        {validation.usernameError ?
+        {/* {errors.usernameError ?
           <Message
             error
             header="Please enter your username"
           /> : null}
-        {validation.passwordError ?
+        {errors.passwordError ?
           <Message
             error
             header="Please enter your password"
-          /> : null}
+          /> : null} */}
         {/* {matchError ?
               <Message
                 error
