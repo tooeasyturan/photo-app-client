@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import loginService from '../services/login'
-import useForm2 from './customhooks/useForm2';
+import useForm from './customhooks/useForm';
 import LoginPage from '../pages/LoginPage';
 import validateLogin from './validateLogin'
 
@@ -11,7 +11,7 @@ const USER_CREDENTIALS = { username: '', password: '' }
 
 const LoginUseForm = () => {
   const [user, setUser] = useState(LOGGED_IN_USER)
-  const { handleChange, handleSubmit, values, errors } = useForm2(USER_CREDENTIALS, submit, validateLogin)
+  const { handleChange, handleSubmit, values, errors } = useForm(USER_CREDENTIALS, submit, validateLogin)
 
 
   async function submit() {
