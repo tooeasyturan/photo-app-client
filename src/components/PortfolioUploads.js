@@ -19,7 +19,7 @@ const PortfolioUploads = () => {
 
 
 
-  const { username, token } = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  const { username, token } = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
 
   const onChangeHandler = async (event) => {

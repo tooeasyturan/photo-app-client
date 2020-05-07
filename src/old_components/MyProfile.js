@@ -38,7 +38,7 @@ const MyProfile = (props) => {
   }, [])
 
 
-  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
+  const username = JSON.parse(window.localStorage.getItem('loggedInUser')).username
 
 
   const fetchAvatar = async () => {

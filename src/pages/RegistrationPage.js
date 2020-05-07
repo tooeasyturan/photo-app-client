@@ -4,55 +4,61 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 const GridStyles = { height: '100vh' }
 const ColumnStyles = { maxWidth: 450 }
 
-const SignupPage = ({ userSignupFields, handleUserSignupFields, handleCreateUser }) => {
+const SignupPage = ({ values, handleChange, handleSubmit, errors }) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>
         <Header as='h2' color='teal' textAlign='center'>
           Create Your Account
       </Header>
-        <Form onSubmit={handleCreateUser} size="large" >
+        <Form onSubmit={handleSubmit} size="large" >
           <Segment style={{ width: 450 }}>
             <Form.Group widths='equal'>
               <Form.Input fluid
                 placeholder='First name'
                 name='firstName'
-                value={userSignupFields.firstName}
-                onChange={handleUserSignupFields}
+                value={values.firstName}
+                onChange={handleChange}
+                error={errors.firstNameError}
               />
               <Form.Input fluid
                 placeholder='Last name'
                 name='lastName'
-                value={userSignupFields.lastName}
-                onChange={handleUserSignupFields}
+                value={values.lastName}
+                onChange={handleChange}
+                error={errors.lastNameError}
               />
             </Form.Group>
             <Form.Input fluid
               placeholder='Username'
               name='username'
-              value={userSignupFields.username}
-              onChange={handleUserSignupFields}
+              value={values.username}
+              onChange={handleChange}
+              error={errors.usernameError}
             />
             <Form.Input fluid
               placeholder='Email'
               type='email'
               name='email'
-              value={userSignupFields.email}
-              onChange={handleUserSignupFields}
+              value={values.email}
+              onChange={handleChange}
+              error={errors.emailError}
             />
             <Form.Input fluid
               placeholder='Password'
               type='password'
               name='password'
-              value={userSignupFields.password}
-              onChange={handleUserSignupFields}
+              value={values.password}
+              onChange={handleChange}
+              error={errors.passwordError}
             />
             <Form.Input fluid
               placeholder='Confirm Password'
               type='password'
               name='confirmPassword'
-              value={userSignupFields.confirmPassword}
-              onChange={handleUserSignupFields}
+              value={values.confirmPassword}
+              onChange={handleChange}
+              error={errors.matchError}
             />
 
 

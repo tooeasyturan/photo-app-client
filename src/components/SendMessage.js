@@ -15,7 +15,7 @@ const SendMessage = ({ userTo }) => {
   const [userFrom, setUserFrom] = useContext(UserContext)
 
 
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
   messagesService.setToken(loggedInUser.token)
 
 

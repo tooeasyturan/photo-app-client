@@ -14,7 +14,7 @@ const Navigation = () => {
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(UserContext)
 
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
 
   const trigger = (

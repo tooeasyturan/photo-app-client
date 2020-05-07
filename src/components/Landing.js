@@ -7,7 +7,7 @@ import { Button } from 'semantic-ui-react'
 const Landing = () => {
   const [user, setUser] = useContext(UserContext)
   console.log('landing page user', user)
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
 
   return (

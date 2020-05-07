@@ -24,7 +24,7 @@ const GetAllMessages = () => {
   const [userToAvatar, setUserToAvatar] = useState([])
 
 
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
 
   useEffect(() => {

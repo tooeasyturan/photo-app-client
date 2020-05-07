@@ -22,7 +22,7 @@ export const UserProvider = (props) => {
 
   const getLoggedInUser = async () => {
     try {
-      const loggedInUser = await JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+      const loggedInUser = await JSON.parse(window.localStorage.getItem('loggedInUser'))
       console.log('LOGGED IN USER TOKEN', loggedInUser)
       if (loggedInUser) {
         let result = await axios.get('http://localhost:3004/auth', {

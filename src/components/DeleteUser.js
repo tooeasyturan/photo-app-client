@@ -7,7 +7,7 @@ const DeleteUser = () => {
   const [user, setUser] = useState('')
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -23,7 +23,7 @@ const DeleteUser = () => {
     }
     console.log('token', token)
     const response = await axios.delete('http://localhost:3004/users/profile', config)
-    window.localStorage.removeItem('loggedTFPappUser')
+    window.localStorage.removeItem('loggedInUser')
     console.log(response)
   }
 

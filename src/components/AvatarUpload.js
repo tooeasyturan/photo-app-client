@@ -23,7 +23,7 @@ const AvatarUpload = ({ user }) => {
 
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setLoggedInUser(user)

@@ -2,7 +2,7 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3004/messages'
 
 let token = null
-const loggedInUser = JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
 const setToken = newToken => {
   token = `bearer ${newToken}`

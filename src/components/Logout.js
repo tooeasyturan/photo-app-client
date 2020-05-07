@@ -8,7 +8,7 @@ const Logout = ({ hideFixedMenu }) => {
   const [toHome, setToHome] = useState(false)
 
   const handleLogout = () => {
-    localStorage.removeItem('loggedTFPappUser')
+    localStorage.removeItem('loggedInUser')
     setToHome(true)
     console.log('user logged out')
   }

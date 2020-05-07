@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { UserProvider } from './components/UserContext'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios'
-import Signup from './components/Signup'
-import Login from './components/Login'
 import Navigation from './components/Navigation'
 import Users from './components/Users'
 import GetUserProfile from './components/GetUserProfile'
@@ -13,7 +11,9 @@ import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
 import GetAllMessages from './components/GetAllMessages'
 import LoginUseForm from './components/LoginUseForm';
-import SignupUseForm from './components/SignupUseForm';
+import Register from './components/Register';
+
+
 
 
 
@@ -37,7 +37,7 @@ function App() {
 
   const getUserProfile = async () => {
     try {
-      const loggedInUser = await JSON.parse(window.localStorage.getItem('loggedTFPappUser'))
+      const loggedInUser = await JSON.parse(window.localStorage.getItem('loggedInUser'))
       console.log('LOGGED IN USER TOKEN', loggedInUser)
       if (loggedInUser) {
         let result = await axios.get('http://localhost:3004/auth', {
@@ -88,8 +88,8 @@ function App() {
         <>
           <Route path="/" component={Navigation} />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={LoginUseForm} />
+          <Route exact path="/signup" component={Register} />
           <Route exact path="/users" component={Users} />
           {/* <Route exact path={`/${user.username}`} component={() => <MyProfile user={user} />} /> */}
           <Route exact path={`/${user.username}`} component={profileOptions} />
@@ -98,7 +98,9 @@ function App() {
           {/* <Route exact path="/createprofile" component={() => user.status === 'model' ? <CreateModel user={user} /> : <CreatePhotog user={user} />} /> */}
           <Route exact path="/inbox" component={GetAllMessages} />
           <Route exact path="/loginuseform" component={LoginUseForm} />
-          <Route exact path="/signupuseform" component={SignupUseForm} />
+          {/* <Route exact path="/signupuseform" component={SignupUseForm} /> */}
+          {/* <Route exact path="/signupuseform" component={Register} /> */}
+
         </>
       </UserProvider>
     </Router>

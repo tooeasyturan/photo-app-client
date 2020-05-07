@@ -19,7 +19,7 @@ const Register = () => {
   const { handleChange, handleSubmit, values, errors } = useForm(USER_REGISTER_OBJECT, submit, validateRegistration)
 
   async function submit() {
-    usersService.createUser(values)
+    await usersService.createUser(values)
   }
 
 
