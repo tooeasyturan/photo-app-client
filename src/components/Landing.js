@@ -7,17 +7,14 @@ import { Button } from 'semantic-ui-react'
 const Landing = () => {
   const [user, setUser] = useContext(UserContext)
   console.log('landing page user', user)
-  const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
 
   return (
     <>
-
       <div className="landing-background" id="landing" >
         {/* <Row className="justify-content-md-center"> */}
         <div className="landing-box">
           <div className="ui vertical center aligned segment">
-
             <div className="ui text container">
               <h1 className="ui inverted header">
                 TFP Application
@@ -27,9 +24,9 @@ const Landing = () => {
               </div>
 
               {
-                !loggedInUser ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
+                !user ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
                   <div>
-                    <Button secondary size='huge' href={`/${loggedInUser.username}`}>Go to my profile</Button>
+                    <Button secondary size='huge' href={`/${user.username}`}>Go to my profile</Button>
                     <Button secondary size='huge' href='/users'>Explore users</Button>
                   </div>
               }

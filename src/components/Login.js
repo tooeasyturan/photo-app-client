@@ -10,7 +10,7 @@ import { UserContext } from './UserContext';
 
 const USER_CREDENTIALS = { username: '', password: '' }
 
-const LoginUseForm = () => {
+const Login = () => {
   const [user, setUser] = useContext(UserContext)
   const { handleChange, handleSubmit, values, errors } = useForm(USER_CREDENTIALS, submit, validateLogin)
 
@@ -33,4 +33,4 @@ const LoginUseForm = () => {
   )
 }
 
-export default LoginUseForm
+export default Login
