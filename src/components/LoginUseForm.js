@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import loginService from '../services/login'
 import useForm from './customhooks/useForm';
 import LoginPage from '../pages/LoginPage';
@@ -24,11 +25,9 @@ const LoginUseForm = () => {
     <>
       {user === null ?
         <LoginPage values={values} handleChange={handleChange} handleSubmit={handleSubmit} errors={errors} /> :
-        <div style={{ marginTop: 100, textAlign: 'center' }}>
-          <h1>
-            {`${user.username} logged in`}
-          </h1>
-        </div>
+        <>
+          <Redirect to='/' />
+        </>
       }
     </>
   )
