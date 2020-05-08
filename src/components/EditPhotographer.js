@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
-
-// Component for editing user with status 'photographer' after initial profile has been created. 
 import profilesService from '../services/profiles'
+// Component for editing user with status 'photographer' after initial profile has been created. 
+
 
 const PICTURE_OPTIONS = [
   { key: 'headshot', text: 'Headshot', value: 'headshot' },
@@ -16,8 +16,6 @@ const PICTURE_OPTIONS = [
   { key: 'event', text: 'Event', value: 'event' },
 ]
 
-
-
 const EditPhotographer = ({ user, loggedInUser }) => {
   const EDIT_PHOTOGRAPHER_OPTIONS = {
     country: user.profile[0].country,
@@ -27,19 +25,10 @@ const EditPhotographer = ({ user, loggedInUser }) => {
   }
   const [profileFields, setProfileFields] = useState(EDIT_PHOTOGRAPHER_OPTIONS)
 
-  // const [country, setCountry] = useState(user.profile[0].country)
-  // const [region, setRegion] = useState(user.profile[0].region)
-  // const [description, setDescription] = useState(user.profile[0].description)
-  // const [shootingStyle, setShootingStyle] = useState(user.profile[0].shootingStyle)
-
-  const [profile, setProfile] = useState(null)
-
   const { description, region, country, shootingStyle } = profileFields
 
 
   const handleChange = (val, e) => {
-    console.log(e.value)
-    // console.log(value)
     if (e.target) {
       const { name, value } = e.target
       setProfileFields({
@@ -59,12 +48,9 @@ const EditPhotographer = ({ user, loggedInUser }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const profile = await profilesService.create(loggedInUser, {
+      await profilesService.create(loggedInUser, {
         country, region, description, shootingStyle,
       })
-
-      setProfile(profile)
-
     } catch (exception) {
       console.log(exception)
     }

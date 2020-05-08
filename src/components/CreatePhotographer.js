@@ -23,16 +23,9 @@ const CREATE_PHOTOGRAPHER_OPTIONS = {
 
 const CreatePhotographer = ({ user, loggedInUser }) => {
   const [profileFields, setProfileFields] = useState(CREATE_PHOTOGRAPHER_OPTIONS)
-  const [profile, setProfile] = useState(null)
-
-  // const [country, setCountry] = useState()
-  // const [region, setRegion] = useState()
-  const [shootingStyle, setShootingStyle] = useState([])
 
 
-  const { description, country, region } = CREATE_PHOTOGRAPHER_OPTIONS
-
-
+  const { description, country, region, shootingStyle } = profileFields
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -41,19 +34,24 @@ const CreatePhotographer = ({ user, loggedInUser }) => {
         loggedInUser,
         { country, region, description, shootingStyle }
       )
-      setProfile(profile)
-      console.log('set profile', profile)
     } catch (exception) {
       console.log('error')
     }
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setProfileFields({
-      ...profileFields,
-      [name]: value
-    })
+  const handleChange = (val, e) => {
+    if (e.target) {
+      const { name, value } = e.target
+      setProfileFields({
+        ...profileFields,
+        [name]: value
+      })
+    } else {
+      setProfileFields({
+        ...profileFields,
+        [e.name]: e.value
+      })
+    }
   }
 
 
@@ -96,7 +94,7 @@ const CreatePhotographer = ({ user, loggedInUser }) => {
               options={PICTURE_OPTIONS}
               name='shootingStyle'
               value={shootingStyle}
-              onChange={(e, { value }) => setShootingStyle([...value])}
+              onChange={handleChange}
             />
             <br></br>
             <Button color='teal' fluid size='large'>
