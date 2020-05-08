@@ -33,16 +33,12 @@ const MyProfileOptions = () => {
     )
   }
 
-  const profileOptions = () => {
-    const { status } = user
-    if (status === 'model') {
-      return modelProfile()
-    }
-    return photogProfile()
-  }
+  // const profileOptions = () => {
+  //   return user.status === 'model' ? modelProfile() : photogProfile()
+  // }
 
   return (
-    profileOptions()
+    user.status === 'model' ? modelProfile() : photogProfile()
   )
 }
 
