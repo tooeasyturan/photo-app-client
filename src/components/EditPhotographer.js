@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
+
+// Component for editing user with status 'photographer' after initial profile has been created. 
 import profilesService from '../services/profiles'
 
-// Component for creating user profile if status is 'photographer'
 const PICTURE_OPTIONS = [
   { key: 'headshot', text: 'Headshot', value: 'headshot' },
   { key: 'dating', text: 'Dating', value: 'dating' },
@@ -14,59 +15,72 @@ const PICTURE_OPTIONS = [
   { key: 'family', text: 'Family', value: 'family' },
   { key: 'event', text: 'Event', value: 'event' },
 ]
-const CREATE_PHOTOGRAPHER_OPTIONS = {
-  country: '',
-  region: '',
-  description: '',
-  shootingStyle: [],
-}
 
-const CreatePhotographer = ({ user, loggedInUser }) => {
-  const [profileFields, setProfileFields] = useState(CREATE_PHOTOGRAPHER_OPTIONS)
+
+
+const EditPhotographer = ({ user, loggedInUser }) => {
+  const EDIT_PHOTOGRAPHER_OPTIONS = {
+    country: user.profile[0].country,
+    region: user.profile[0].region,
+    description: user.profile[0].description,
+    shootingStyle: user.profile[0].shootingStyle,
+  }
+  const [profileFields, setProfileFields] = useState(EDIT_PHOTOGRAPHER_OPTIONS)
+
+  // const [country, setCountry] = useState(user.profile[0].country)
+  // const [region, setRegion] = useState(user.profile[0].region)
+  // const [description, setDescription] = useState(user.profile[0].description)
+  // const [shootingStyle, setShootingStyle] = useState(user.profile[0].shootingStyle)
+
   const [profile, setProfile] = useState(null)
 
-  // const [country, setCountry] = useState()
-  // const [region, setRegion] = useState()
-  const [shootingStyle, setShootingStyle] = useState([])
+  const { description, region, country, shootingStyle } = profileFields
 
 
-  const { description, country, region } = CREATE_PHOTOGRAPHER_OPTIONS
+  const handleChange = (val, e) => {
+    console.log(e.value)
+    // console.log(value)
+    if (e.target) {
+      const { name, value } = e.target
+      setProfileFields({
+        ...profileFields,
+        [name]: value
+      })
+    } else {
+      setProfileFields({
+        ...profileFields,
+        [e.name]: e.value
+      })
+    }
+  }
 
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const profile = await profilesService.create(
-        loggedInUser,
-        { country, region, description, shootingStyle }
-      )
+      const profile = await profilesService.create(loggedInUser, {
+        country, region, description, shootingStyle,
+      })
+
       setProfile(profile)
-      console.log('set profile', profile)
+
     } catch (exception) {
-      console.log('error')
+      console.log(exception)
     }
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setProfileFields({
-      ...profileFields,
-      [name]: value
-    })
-  }
 
-
-
-  const createPhotographer = () => (
+  const editPhotog = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
-
+        {/* <Header as='h2' color='teal' textAlign='center'>
+          Edit Your Profile
+      </Header> */}
         <Form size='large' onSubmit={handleSubmit}>
           <Segment style={{ marginTop: 100 }}>
             <Popup
               trigger={
-
                 <AvatarUpload user={user} />
               }
             >
@@ -75,8 +89,8 @@ const CreatePhotographer = ({ user, loggedInUser }) => {
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
             <Form.Group>
-              <CountryDropdown name='country' value={country} onChange={handleChange} />
-              <RegionDropdown name='region' country={country} value={region} onChange={handleChange} />
+              <CountryDropdown name="country" value={country} onChange={handleChange} />
+              <RegionDropdown name="region" country={country} value={region} onChange={handleChange} />
             </Form.Group>
 
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>About Me</h1>
@@ -94,25 +108,28 @@ const CreatePhotographer = ({ user, loggedInUser }) => {
               fluid
               multiple selection
               options={PICTURE_OPTIONS}
-              name='shootingStyle'
               value={shootingStyle}
-              onChange={(e, { value }) => setShootingStyle([...value])}
+              name='shootingStyle'
+              onChange={handleChange}
             />
             <br></br>
             <Button color='teal' fluid size='large'>
               Update Profile
-            </Button>
-          </Segment>
+          </Button>          </Segment>
         </Form>
       </Grid.Column>
     </Grid>
   )
 
+
+
+
   return (
     <div>
-      {createPhotographer()}
+      {editPhotog()}
     </div>
   )
+
 }
 
-export default CreatePhotographer
+export default EditPhotographer
