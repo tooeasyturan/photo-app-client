@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import CreateModel from './CreateModel'
 import CreatePhotog from './CreatePhotog'
+import CreatePhotographer from './CreatePhotographer'
 import MyProfile from './MyProfile'
 import usersServices from '../services/users'
 import { UserContext } from './UserContext';
@@ -20,7 +21,7 @@ const MyProfileOptions = () => {
   const modelProfile = () => {
     return (
       <>
-        {!Array.isArray(user.profile) || !user.profile.length ? <CreateModel user={user} /> : <MyProfile user={user} />}
+        {!Array.isArray(user.profile) || !user.profile.length ? <CreateModel user={user} loggedInUser={loggedInUser} /> : <MyProfile user={user} loggedInUser={loggedInUser} />}
       </>
     )
   }
@@ -28,14 +29,10 @@ const MyProfileOptions = () => {
   const photogProfile = () => {
     return (
       <>
-        {!Array.isArray(user.profile) || !user.profile.length ? <CreatePhotog user={user} /> : <MyProfile user={user} />}
+        {!Array.isArray(user.profile) || !user.profile.length ? <CreatePhotographer user={user} loggedInUser={loggedInUser} /> : <MyProfile user={user} loggedInUser={loggedInUser} />}
       </>
     )
   }
-
-  // const profileOptions = () => {
-  //   return user.status === 'model' ? modelProfile() : photogProfile()
-  // }
 
   return (
     user.status === 'model' ? modelProfile() : photogProfile()

@@ -7,12 +7,13 @@ import DeleteUser from './DeleteUser'
 
 // Parent is app component
 
-const MyProfile = ({ user }) => {
+const MyProfile = ({ user, loggedInUser }) => {
   return (
     <>
       <Grid>
         <Grid.Column>
-          {user.status === 'model' ? <EditModel user={user} /> : <EditPhotog user={user} />}
+          {user.status === 'model' ? <EditModel user={user} loggedInUser={loggedInUser} /> :
+            <EditPhotog user={user} loggedInUser={loggedInUser} />}
           {/* <DeleteUser /> */}
           <PortfolioUploads />
         </Grid.Column>

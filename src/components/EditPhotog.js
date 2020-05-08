@@ -9,7 +9,7 @@ import AvatarUpload from './AvatarUpload'
 
 import profilesService from '../services/profiles'
 
-const EditPhotog = ({ user }) => {
+const EditPhotog = ({ user, loggedInUser }) => {
 
 
   const options = [
@@ -33,21 +33,21 @@ const EditPhotog = ({ user }) => {
 
 
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-    if (loggedUserJSON) {
-      const result = JSON.parse(loggedUserJSON)
-      setToken(result)
-      profilesService.setToken(result.token)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem('loggedInUser')
+  //   if (loggedUserJSON) {
+  //     const result = JSON.parse(loggedUserJSON)
+  //     setToken(result)
+  //     profilesService.setToken(result.token)
+  //   }
+  // }, [])
 
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const profile = await profilesService.create({
+      const profile = await profilesService.create(loggedInUser, {
         country, region, description, shootingStyle, socialMedia,
       })
 
@@ -55,7 +55,7 @@ const EditPhotog = ({ user }) => {
       console.log('set profile', profile)
 
     } catch (exception) {
-      console.log('error')
+      console.log(exception)
     }
   }
 

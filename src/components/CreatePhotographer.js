@@ -18,53 +18,47 @@ const CREATE_PHOTOGRAPHER_OPTIONS = {
   country: '',
   region: '',
   description: '',
-  shootingStyle: '',
+  shootingStyle: [],
 }
 
-const CreatePhotog = ({ user }) => {
-  console.log('create model user', user)
-
+const CreatePhotographer = ({ user, loggedInUser }) => {
+  const [profileFields, setProfileFields] = useState(CREATE_PHOTOGRAPHER_OPTIONS)
+  const [profile, setProfile] = useState(null)
 
   const [country, setCountry] = useState()
   const [region, setRegion] = useState()
-  const [description, setDescription] = useState()
   const [shootingStyle, setShootingStyle] = useState([])
-  const [socialMedia, setSocialMedia] = useState()
-
-  const [token, setToken] = useState(null)
-  const [profile, setProfile] = useState(null)
 
 
+  const { description } = CREATE_PHOTOGRAPHER_OPTIONS
 
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-    if (loggedUserJSON) {
-      const result = JSON.parse(loggedUserJSON)
-      setToken(result)
-      profilesService.setToken(result.token)
-    }
-  }, [])
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const profile = await profilesService.create({
-        country, region, description, shootingStyle,
-      })
-
+      const profile = await profilesService.create(
+        loggedInUser,
+        { country, region, description, shootingStyle }
+      )
       setProfile(profile)
       console.log('set profile', profile)
-
     } catch (exception) {
       console.log('error')
     }
   }
 
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setProfileFields({
+      ...profileFields,
+      [name]: value
+    })
+  }
 
 
-  const createPhotog = () => (
+
+  const createPhotographer = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
       <Grid.Column style={{ maxWidth: 450 }}>
 
@@ -89,7 +83,8 @@ const CreatePhotog = ({ user }) => {
             <Form.Field
               control={TextArea}
               value={description}
-              onChange={({ target }) => setDescription(target.value)}
+              name='description'
+              onChange={handleChange}
               placeholder='Tell us more about yourself...'
             />
 
@@ -99,6 +94,7 @@ const CreatePhotog = ({ user }) => {
               fluid
               multiple selection
               options={PICTURE_OPTIONS}
+              name='shootingStyle'
               value={shootingStyle}
               onChange={(e, { value }) => setShootingStyle([...value])}
             />
@@ -114,9 +110,9 @@ const CreatePhotog = ({ user }) => {
 
   return (
     <div>
-      {createPhotog()}
+      {createPhotographer()}
     </div>
   )
 }
 
-export default CreatePhotog
+export default CreatePhotographer
