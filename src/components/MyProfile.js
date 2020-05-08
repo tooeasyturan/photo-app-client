@@ -2,7 +2,6 @@ import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import PortfolioUploads from './PortfolioUploads'
 import EditModel from './EditModel'
-import EditPhotog from './EditPhotog'
 import EditPhotographer from './EditPhotographer'
 
 import DeleteUser from './DeleteUser'

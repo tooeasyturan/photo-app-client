@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import CreateModel from './CreateModel'
-import CreatePhotog from './CreatePhotog'
+
 import CreatePhotographer from './CreatePhotographer'
 import MyProfile from './MyProfile'
 import usersServices from '../services/users'

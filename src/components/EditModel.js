@@ -7,52 +7,51 @@ import profilesService from '../services/profiles'
 
 // Component for editing user with status 'model' after initial profile has been created. 
 
+const PICTURE_OPTIONS = [
+  { key: 'headshot', text: 'Headshot', value: 'headshot' },
+  { key: 'dating', text: 'Dating', value: 'dating' },
+  { key: 'portrait', text: 'Portrait', value: 'portrait' },
+  { key: 'fashion', text: 'Fashion', value: 'fashion' },
+  { key: 'family', text: 'Family', value: 'family' },
+  { key: 'event', text: 'Event', value: 'event' },
+  { key: 'nude', text: 'Nude', value: 'nude' }
+]
 
-const EditModel = ({ user }) => {
+const EditModel = ({ user, loggedInUser }) => {
 
-  const options = [
-    { key: 'headshot', text: 'Headshot', value: 'headshot' },
-    { key: 'dating', text: 'Dating', value: 'dating' },
-    { key: 'portrait', text: 'Portrait', value: 'portrait' },
-    { key: 'fashion', text: 'Fashion', value: 'fashion' },
-    { key: 'family', text: 'Family', value: 'family' },
-    { key: 'event', text: 'Event', value: 'event' },
-    { key: 'nude', text: 'Nude', value: 'nude' }
-  ]
+  const EDIT_MODEL_OPTIONS = {
+    country: user.profile[0].country,
+    region: user.profile[0].region,
+    description: user.profile[0].description,
+    shootingStyle: user.profile[0].shootingStyle,
+  }
 
-  const [country, setCountry] = useState(user.profile[0].country)
-  const [region, setRegion] = useState(user.profile[0].region)
-  const [description, setDescription] = useState(user.profile[0].description)
-  const [shootingStyle, setShootingStyle] = useState(user.profile[0].shootingStyle)
-  const [socialMedia, setSocialMedia] = useState('')
+  const [profileFields, setProfileFields] = useState(EDIT_MODEL_OPTIONS)
+  const { description, region, country, shootingStyle } = profileFields
 
-
-  const [token, setToken] = useState(null)
-  const [profile, setProfile] = useState(null)
-
-
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-    if (loggedUserJSON) {
-      const result = JSON.parse(loggedUserJSON)
-      setToken(result)
-      profilesService.setToken(result.token)
+  const handleChange = (val, e) => {
+    if (e.target) {
+      const { name, value } = e.target
+      setProfileFields({
+        ...profileFields,
+        [name]: value
+      })
+    } else {
+      setProfileFields({
+        ...profileFields,
+        [e.name]: e.value
+      })
     }
-  }, [])
+  }
 
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const profile = await profilesService.create({
-        country, region, description, shootingStyle, socialMedia,
+      await profilesService.create(loggedInUser, {
+        country, region, description, shootingStyle
       })
-
-      setProfile(profile)
-      console.log('set profile', profile)
-
     } catch (exception) {
       console.log('error')
     }
@@ -75,15 +74,16 @@ const EditModel = ({ user }) => {
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
             <Form.Group>
-              <CountryDropdown value={country} onChange={(val) => setCountry(val)} />
-              <RegionDropdown country={country} value={region} onChange={(val) => setRegion(val)} />
+              <CountryDropdown name='country' value={country} onChange={handleChange} />
+              <RegionDropdown name='region' country={country} value={region} onChange={handleChange} />
             </Form.Group>
 
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>About Me</h1>
             <Form.Field
               control={TextArea}
               value={description}
-              onChange={({ target }) => setDescription(target.value)}
+              name='description'
+              onChange={handleChange}
               placeholder='Tell us more about yourself...'
             />
 
@@ -92,10 +92,10 @@ const EditModel = ({ user }) => {
               placeholder='Please select at least one type'
               fluid
               multiple selection
-              options={options}
+              options={PICTURE_OPTIONS}
               value={shootingStyle}
-              // onChange={({ target }) => setStyle(style.concat(target.innerText))}
-              onChange={(e, { value }) => setShootingStyle([...value])}
+              name='shootingStyle'
+              onChange={handleChange}
             />
             <br></br>
             <Button color='teal' fluid size='large'>

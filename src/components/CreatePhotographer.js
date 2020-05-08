@@ -23,8 +23,6 @@ const CREATE_PHOTOGRAPHER_OPTIONS = {
 
 const CreatePhotographer = ({ user, loggedInUser }) => {
   const [profileFields, setProfileFields] = useState(CREATE_PHOTOGRAPHER_OPTIONS)
-
-
   const { description, country, region, shootingStyle } = profileFields
 
   const handleSubmit = async (event) => {

@@ -1,62 +1,63 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { Button, Form, Grid, Segment, TextArea, Dropdown, Image, Popup } from 'semantic-ui-react'
+import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
 import profilesService from '../services/profiles'
 
+// Component for editing user with status 'model' after initial profile has been created. 
 
+const PICTURE_OPTIONS = [
+  { key: 'headshot', text: 'Headshot', value: 'headshot' },
+  { key: 'dating', text: 'Dating', value: 'dating' },
+  { key: 'portrait', text: 'Portrait', value: 'portrait' },
+  { key: 'fashion', text: 'Fashion', value: 'fashion' },
+  { key: 'family', text: 'Family', value: 'family' },
+  { key: 'event', text: 'Event', value: 'event' },
+  { key: 'nude', text: 'Nude', value: 'nude' }
+]
 
-// Component for creating user profile if status is 'model'
+const CreateModel = ({ user, loggedInUser }) => {
 
-const CreateModel = ({ user }) => {
-  console.log('create model user', user)
+  const CREATE_MODEL_OPTIONS = {
+    country: '',
+    region: '',
+    description: '',
+    shootingStyle: []
+  }
 
-  const options = [
-    { key: 'headshot', text: 'Headshot', value: 'headshot' },
-    { key: 'dating', text: 'Dating', value: 'dating' },
-    { key: 'portrait', text: 'Portrait', value: 'portrait' },
-    { key: 'fashion', text: 'Fashion', value: 'fashion' },
-    { key: 'family', text: 'Family', value: 'family' },
-    { key: 'event', text: 'Event', value: 'event' },
-  ]
+  const [profileFields, setProfileFields] = useState(CREATE_MODEL_OPTIONS)
+  const { description, region, country, shootingStyle } = profileFields
 
-  const [country, setCountry] = useState()
-  const [region, setRegion] = useState()
-  const [description, setDescription] = useState()
-  const [shootingStyle, setShootingStyle] = useState([])
-  const [socialMedia, setSocialMedia] = useState()
-
-
-  const [token, setToken] = useState(null)
-  const [profile, setProfile] = useState(null)
-
-
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-    if (loggedUserJSON) {
-      const result = JSON.parse(loggedUserJSON)
-      setToken(result)
-      profilesService.setToken(result.token)
+  const handleChange = (val, e) => {
+    if (e.target) {
+      const { name, value } = e.target
+      setProfileFields({
+        ...profileFields,
+        [name]: value
+      })
+    } else {
+      setProfileFields({
+        ...profileFields,
+        [e.name]: e.value
+      })
     }
-  }, [])
+  }
+
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const profile = await profilesService.create({
-        country, region, description, shootingStyle, socialMedia,
+      await profilesService.create(loggedInUser, {
+        country, region, description, shootingStyle
       })
-
-      setProfile(profile)
-      console.log('set profile', profile)
-
     } catch (exception) {
       console.log('error')
     }
   }
+
+
 
   const createModel = () => (
     <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
@@ -70,19 +71,19 @@ const CreateModel = ({ user }) => {
             >
               <Popup.Header>Click to change avatar</Popup.Header>
             </Popup>
-
             <br></br>
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>Current Location</h1>
             <Form.Group>
-              <CountryDropdown value={country} onChange={(val) => setCountry(val)} />
-              <RegionDropdown country={country} value={region} onChange={(val) => setRegion(val)} />
+              <CountryDropdown name='country' value={country} onChange={handleChange} />
+              <RegionDropdown name='region' country={country} value={region} onChange={handleChange} />
             </Form.Group>
 
             <h1 style={{ fontSize: 16, fontWeight: "bold" }}>About Me</h1>
             <Form.Field
               control={TextArea}
               value={description}
-              onChange={({ target }) => setDescription(target.value)}
+              name='description'
+              onChange={handleChange}
               placeholder='Tell us more about yourself...'
             />
 
@@ -91,10 +92,10 @@ const CreateModel = ({ user }) => {
               placeholder='Please select at least one type'
               fluid
               multiple selection
-              options={options}
+              options={PICTURE_OPTIONS}
               value={shootingStyle}
-              // onChange={({ target }) => setStyle(style.concat(target.innerText))}
-              onChange={(e, { value }) => setShootingStyle([...value])}
+              name='shootingStyle'
+              onChange={handleChange}
             />
             <br></br>
             <Button color='teal' fluid size='large'>
@@ -106,11 +107,13 @@ const CreateModel = ({ user }) => {
     </Grid>
   )
 
+
   return (
     <div>
       {createModel()}
     </div>
   )
+
 }
 
 export default CreateModel
