@@ -1,14 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import profilesService from '../services/profiles'
 import ManageProfilePage from '../pages/ManageProfilePage'
 import useForm from './customhooks/useForm';
 
-
-
 // Component for editing user with status 'model' after initial profile has been created. 
-
-
 const EditModel = ({ user, loggedInUser }) => {
   const EDIT_MODEL_OPTIONS = {
     country: user.profile[0].country || '',
@@ -31,8 +27,6 @@ const EditModel = ({ user, loggedInUser }) => {
       console.log(error)
     }
   }
-
-
 
   return (
     <div>

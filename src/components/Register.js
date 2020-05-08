@@ -16,7 +16,7 @@ const USER_REGISTER_OBJECT = {
 }
 
 const Register = () => {
-  const { handleChange, handleSelect, handleSubmit, values, errors } = useForm(USER_REGISTER_OBJECT, submit, validateRegistration)
+  const { handleChange, handleStatus, handleSubmit, values, errors } = useForm(USER_REGISTER_OBJECT, submit, validateRegistration)
 
   async function submit() {
     await usersService.createUser(values)
@@ -26,7 +26,7 @@ const Register = () => {
   return (
     <div>
 
-      <RegistrationPage values={values} handleChange={handleChange} handleSelect={handleSelect} handleSubmit={handleSubmit} errors={errors} /> :
+      <RegistrationPage values={values} handleChange={handleChange} handleStatus={handleStatus} handleSubmit={handleSubmit} errors={errors} /> :
       {/* <>
         <Redirect to='/login' />
       </> */}

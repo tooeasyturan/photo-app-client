@@ -8,16 +8,21 @@ const useForm = (formInputs, callback, validate) => {
 
 
   const handleChange = (val, e) => {
-    console.log(e.value)
-    setValues({
-      ...values,
-      [e.name]: e.value
-    })
-    // }
+    if (e.target) {
+      const { name, value } = e.target
+      setValues({
+        ...values,
+        [name]: value
+      })
+    } else {
+      setValues({
+        ...values,
+        [e.name]: e.value
+      })
+    }
   }
 
-  const handleSelect = (val, e) => {
-    console.log(e.target)
+  const handleStatus = (e) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value
@@ -39,7 +44,7 @@ const useForm = (formInputs, callback, validate) => {
 
   return {
     handleChange,
-    handleSelect,
+    handleStatus,
     handleSubmit,
     values,
     errors
