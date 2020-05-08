@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 import CreateModel from './CreateModel'
-
 import CreatePhotographer from './CreatePhotographer'
 import MyProfile from './MyProfile'
+import ModelProfile from './ModelProfile'
 import usersServices from '../services/users'
 import { UserContext } from './UserContext';
 
@@ -21,7 +21,8 @@ const MyProfileOptions = () => {
   const modelProfile = () => {
     return (
       <>
-        {!Array.isArray(user.profile) || !user.profile.length ? <CreateModel user={user} loggedInUser={loggedInUser} /> : <MyProfile user={user} loggedInUser={loggedInUser} />}
+        {/* {!Array.isArray(user.profile) || !user.profile.length ? <CreateModel user={user} loggedInUser={loggedInUser} /> : <MyProfile user={user} loggedInUser={loggedInUser} />} */}
+        <ModelProfile user={user} loggedInUser={loggedInUser} />
       </>
     )
   }

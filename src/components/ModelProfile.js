@@ -3,14 +3,17 @@ import React from 'react'
 import profilesService from '../services/profiles'
 import ManageProfilePage from '../pages/ManageProfilePage'
 import useForm from './customhooks/useForm';
+import PortfolioUploads from './PortfolioUploads'
 
 // Component for editing user with status 'model' after initial profile has been created. 
 const EditModel = ({ user, loggedInUser }) => {
+  const profile = user.profile[0]
+
   const EDIT_MODEL_OPTIONS = {
-    country: user.profile[0].country || '',
-    region: user.profile[0].region || '',
-    description: user.profile[0].description || '',
-    shootingStyle: user.profile[0].shootingStyle || '',
+    country: profile ? profile.country : '',
+    region: profile ? profile.region : '',
+    description: profile ? profile.description : '',
+    shootingStyle: profile ? profile.shootingStyle : '',
   }
 
   const { handleChange, handleLocation, handleSubmit, values } = useForm(EDIT_MODEL_OPTIONS, submit, validateModel)
@@ -31,6 +34,8 @@ const EditModel = ({ user, loggedInUser }) => {
   return (
     <div>
       <ManageProfilePage user={user} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleLocation={handleLocation} />
+
+      {profile ? <PortfolioUploads /> : null}
     </div>
   )
 
