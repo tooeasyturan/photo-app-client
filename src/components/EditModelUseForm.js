@@ -17,7 +17,7 @@ const EditModel = ({ user, loggedInUser }) => {
     shootingStyle: user.profile[0].shootingStyle || '',
   }
 
-  const { handleChange, handleSubmit, values } = useForm(EDIT_MODEL_OPTIONS, submit, validateModel)
+  const { handleChange, handleLocation, handleSubmit, values } = useForm(EDIT_MODEL_OPTIONS, submit, validateModel)
 
   function validateModel() {
     let errors = {}
@@ -36,7 +36,7 @@ const EditModel = ({ user, loggedInUser }) => {
 
   return (
     <div>
-      <ManageProfilePage user={user} values={values} handleChange={handleChange} handleSubmit={handleSubmit} />
+      <ManageProfilePage user={user} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleLocation={handleLocation} />
     </div>
   )
 

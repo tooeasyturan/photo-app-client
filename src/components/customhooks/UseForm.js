@@ -7,28 +7,21 @@ const useForm = (formInputs, callback, validate) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
 
-  // const handleChange = e => {
-  //   const { name, value } = e.target
-  //   console.log(value)
-  //   setValues({
-  //     ...values,
-  //     [name]: value
-  //   })
-  // }
-
   const handleChange = (val, e) => {
-    if (e.target) {
-      const { name, value } = e.target
-      setValues({
-        ...values,
-        [name]: value
-      })
-    } else {
-      setValues({
-        ...values,
-        [e.name]: e.value
-      })
-    }
+    console.log(e.value)
+    setValues({
+      ...values,
+      [e.name]: e.value
+    })
+    // }
+  }
+
+  const handleSelect = (val, e) => {
+    console.log(e.target)
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value
+    })
   }
 
   const handleSubmit = e => {
@@ -46,6 +39,7 @@ const useForm = (formInputs, callback, validate) => {
 
   return {
     handleChange,
+    handleSelect,
     handleSubmit,
     values,
     errors
