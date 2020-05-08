@@ -4,6 +4,7 @@ import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
 import AvatarUpload from './AvatarUpload'
 import profilesService from '../services/profiles'
+import ManageProfilePage from '../pages/ManageProfilePage'
 
 // Component for editing user with status 'model' after initial profile has been created. 
 
@@ -110,7 +111,10 @@ const CreateModel = ({ user, loggedInUser }) => {
 
   return (
     <div>
-      {createModel()}
+      {/* {createModel()} */}
+      <ManageProfilePage user={user} country={country} region={region} descption={description} PICTURE_OPTIONS={PICTURE_OPTIONS}
+        shootingStyle={shootingStyle} handleChange={handleChange} handleSubmit={handleSubmit}
+      />
     </div>
   )
 
