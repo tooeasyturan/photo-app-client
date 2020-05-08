@@ -6,28 +6,25 @@ import useForm from './customhooks/useForm';
 import PortfolioUploads from './PortfolioUploads'
 
 // Component for editing user with status 'model' after initial profile has been created. 
-const EditModel = ({ user, loggedInUser }) => {
-  console.log('MODEL PROFILE', user)
-  // const { profile } = user.profile[0]
+const PhotographerProfile = ({ user, loggedInUser }) => {
 
-  // const EDIT_MODEL_OPTIONS = {
-  //   country: user.profile === undefined ? user.profile[0].country : '',
-  //   region: user.profile === undefined ? user.profile[0].region : '',
-  //   description: user.profile === undefined ? user.profile[0].description : '',
-  //   shootingStyle: user.profile === undefined ? user.profile[0].shootingStyle : '',
+  // const EDIT_PHOTOGRAPHER_OPTIONS = {
+  //   country: profile ? profile.country : '',
+  //   region: profile ? profile.region : '',
+  //   description: profile ? profile.description : '',
+  //   shootingStyle: profile ? profile.shootingStyle : '',
   // }
 
-  const EDIT_MODEL_OPTIONS = {
+  const EDIT_PHOTOGRAPHER_OPTIONS = {
     country: user.profile[0].country || '',
     region: user.profile[0].region || '',
     description: user.profile[0].description || '',
     shootingStyle: user.profile[0].shootingStyle || '',
   }
 
+  const { handleChange, handleLocation, handleSubmit, values } = useForm(EDIT_PHOTOGRAPHER_OPTIONS, submit, validatePhotographer)
 
-  const { handleChange, handleLocation, handleSubmit, values } = useForm(EDIT_MODEL_OPTIONS, submit, validateModel)
-
-  function validateModel() {
+  function validatePhotographer() {
     let errors = {}
     return errors
   }
@@ -43,11 +40,11 @@ const EditModel = ({ user, loggedInUser }) => {
   return (
     <div>
       <ManageProfilePage user={user} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleLocation={handleLocation} />
-      <PortfolioUploads />
 
+      {user.profile[0] ? <PortfolioUploads /> : null}
     </div>
   )
 
 }
 
-export default EditModel
+export default PhotographerProfile

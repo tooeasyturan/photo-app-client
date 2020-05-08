@@ -5,6 +5,9 @@ import EditModel from './EditModel'
 import EditModelUseForm from './EditModel'
 import EditPhotographer from './EditPhotographer'
 
+import ModelProfile from './ModelProfile'
+import PhotographerProfile from './PhotographerProfile'
+
 import DeleteUser from './DeleteUser'
 
 // Parent is app component
@@ -14,10 +17,10 @@ const MyProfile = ({ user, loggedInUser }) => {
     <>
       <Grid>
         <Grid.Column>
-          {user.status === 'model' ? <EditModel user={user} loggedInUser={loggedInUser} /> :
+          {loggedInUser.status === 'model' ? <EditModel user={user} loggedInUser={loggedInUser} /> :
             <EditPhotographer user={user} loggedInUser={loggedInUser} />}
           {/* <DeleteUser /> */}
-          <PortfolioUploads />
+          {/* <PortfolioUploads /> */}
         </Grid.Column>
       </Grid>
     </>
