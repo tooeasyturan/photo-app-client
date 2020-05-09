@@ -2,13 +2,7 @@ import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import PortfolioUploads from './PortfolioUploads'
 import EditModel from './EditModel'
-import EditModelUseForm from './EditModel'
 import EditPhotographer from './EditPhotographer'
-
-import ModelProfile from './ModelProfile'
-import PhotographerProfile from './PhotographerProfile'
-
-import DeleteUser from './DeleteUser'
 
 // Parent is app component
 
@@ -20,7 +14,7 @@ const MyProfile = ({ user, loggedInUser }) => {
           {loggedInUser.status === 'model' ? <EditModel user={user} loggedInUser={loggedInUser} /> :
             <EditPhotographer user={user} loggedInUser={loggedInUser} />}
           {/* <DeleteUser /> */}
-          {/* <PortfolioUploads /> */}
+          <PortfolioUploads />
         </Grid.Column>
       </Grid>
     </>

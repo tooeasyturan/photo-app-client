@@ -7,11 +7,13 @@ import useForm from './customhooks/useForm';
 // Component for editing user with status 'photographer' after initial profile has been created. 
 
 const EditPhotographer = ({ user, loggedInUser }) => {
+  const profile = user.profile[0]
+
   const EDIT_PHOTOGRAPHER_OPTIONS = {
-    country: user.profile[0].country,
-    region: user.profile[0].region,
-    description: user.profile[0].description,
-    shootingStyle: user.profile[0].shootingStyle,
+    country: profile.country,
+    region: profile.region,
+    description: profile.description,
+    shootingStyle: profile.shootingStyle,
   }
 
   const { handleChange, handleLocation, handleSubmit, values } = useForm(EDIT_PHOTOGRAPHER_OPTIONS, submit, validatePhotographer)

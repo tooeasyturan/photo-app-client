@@ -6,11 +6,12 @@ import useForm from './customhooks/useForm';
 
 // Component for editing user with status 'model' after initial profile has been created. 
 const EditModel = ({ user, loggedInUser }) => {
+  const profile = user.profile[0]
   const EDIT_MODEL_OPTIONS = {
-    country: user.profile[0].country || '',
-    region: user.profile[0].region || '',
-    description: user.profile[0].description || '',
-    shootingStyle: user.profile[0].shootingStyle || '',
+    country: profile.country,
+    region: profile.region,
+    description: profile.description,
+    shootingStyle: profile.shootingStyle,
   }
 
   const { handleChange, handleSubmit, values } = useForm(EDIT_MODEL_OPTIONS, submit, validateModel)
