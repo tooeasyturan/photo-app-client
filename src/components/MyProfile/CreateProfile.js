@@ -16,8 +16,7 @@ const CREATE_PROFILE_OPTIONS = {
   shootingStyle: []
 }
 
-const CreateProfile = () => {
-  const [user, setUser] = useContext(UserContext)
+const CreateProfile = ({ user }) => {
   const { handleChange, handleSubmit, values } = useFormHandling(CREATE_PROFILE_OPTIONS, submit, validateModel)
 
   function validateModel() {

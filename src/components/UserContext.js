@@ -11,6 +11,7 @@ const DEFAULT_USER = {
   lastName: '',
   username: loggedInUser ? loggedInUser.username : '',
   status: '',
+  token: loggedInUser ? loggedInUser.token : '',
   profile: [],
   upload: [],
   avatar: []
@@ -20,7 +21,6 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState(DEFAULT_USER)
 
   useEffect(() => {
-    const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
     if (loggedInUser) {
       usersServices.auth(loggedInUser)
         .then(result => setUser({ ...result, token: loggedInUser.token }))

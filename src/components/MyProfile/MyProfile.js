@@ -14,9 +14,9 @@ const MyProfile = () => {
   return (
     <Grid>
       <Grid.Column>
-        {profile.length === 0 ? <CreateProfile /> : <EditProfile />}
-        {/* <PortfolioUploads /> */}
-        <FetchPortfolioUploads user={user} />
+        {profile.length === 0 ? <CreateProfile user={user} /> : <EditProfile user={user} />}
+        <PortfolioUploads />
+        {/* <FetchPortfolioUploads user={user} /> */}
       </Grid.Column>
     </Grid>
   )

@@ -8,8 +8,7 @@ import { UserContext } from '../UserContext';
 
 // Component for editing user with status 'photographer' after initial profile has been created. 
 
-const EditProfile = () => {
-  const [user, setUser] = useContext(UserContext)
+const EditProfile = ({ user }) => {
 
   const profile = user.profile[0]
 

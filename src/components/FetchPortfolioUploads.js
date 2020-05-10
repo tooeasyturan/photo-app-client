@@ -1,36 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react'
-
-import uploadsService from '../services/uploads'
 import uuid from 'uuid/v4'
 import useFetchImages from './ImageHandling/useFetchImages'
+import useUploadImage from './ImageHandling/useUploadImage'
 import { UserContext } from './UserContext';
-
-
 import { Image } from 'semantic-ui-react'
 
 
 
 const FetchPortfolioUploads = () => {
   const [user, setUser] = useContext(UserContext)
-  const { fetchImages, images, fetchAvatar, avatar } = useFetchImages(user)
-  // console.log('my profile user', user)
-
-  // const [images, setImages] = useState([])
-
-  // const { username } = loggedInUser
-
-  // useEffect(() => {
-  //   uploadsService.getImages(`uploads/${username}`).then(pics => setImages(pics))
-  // }, [])
-
-  // console.log(images)
+  const { fetchImages, images, handleChange } = useFetchImages(user)
+  // const { uploads, handleChange } = useUploadImage(user, images)
 
   useEffect(() => {
     fetchImages()
-    fetchAvatar()
   }, [])
 
-  console.log('AVATAR', avatar)
+
+  console.log('images', images)
+
 
   const displayImages = images.map(img => {
     return (<Image key={uuid()}
@@ -42,12 +30,14 @@ const FetchPortfolioUploads = () => {
     />)
   })
 
+
   return (
     <>
       <h1 style={{ marginTop: 200, textAlign: 'center' }}>Test</h1>
       <Image.Group style={{ marginTop: -30, textAlign: 'center' }} doubling stackable size="large">
         {displayImages}
 \      </Image.Group>
+      <input name="file" type="file" className="custom-file-input" id="portfolioInput" onChange={handleChange} />
     </>
   )
 
