@@ -24,7 +24,7 @@ export const UserProvider = (props) => {
       usersServices.auth(loggedInUser)
         .then(result => setUser(result))
     }
-    console.log(user)
+
   }, [])
 
   console.log('user from context', user)
