@@ -4,10 +4,12 @@ import usersServices from '../services/users'
 
 export const UserContext = createContext(null)
 
+const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
+
 const DEFAULT_USER = {
   firstName: '',
   lastName: '',
-  username: '',
+  username: loggedInUser ? loggedInUser.username : '',
   status: '',
   profile: [],
   upload: [],

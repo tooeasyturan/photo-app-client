@@ -6,7 +6,6 @@ import { Image, Button, Popup, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 
 const AvatarUpload = ({ user }) => {
-  console.log('avatar user', user)
   window.avatarUser = user
 
 

@@ -5,6 +5,8 @@ import CreateProfile from './CreateProfile'
 import EditProfile from './EditProfile'
 import { UserContext } from '../UserContext';
 
+import FetchPortfolioUploads from '../FetchPortfolioUploads'
+
 const MyProfile = () => {
   const [user, setUser] = useContext(UserContext)
   const { profile } = user
@@ -13,7 +15,8 @@ const MyProfile = () => {
     <Grid>
       <Grid.Column>
         {profile.length === 0 ? <CreateProfile /> : <EditProfile />}
-        <PortfolioUploads />
+        {/* <PortfolioUploads /> */}
+        <FetchPortfolioUploads user={user} />
       </Grid.Column>
     </Grid>
   )
