@@ -6,7 +6,6 @@ import { Button } from 'semantic-ui-react'
 
 const Landing = () => {
   const [user, setUser] = useContext(UserContext)
-  console.log('landing page user', user)
 
 
   return (

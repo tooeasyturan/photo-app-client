@@ -15,24 +15,18 @@ const DEFAULT_USER = {
 }
 
 export const UserProvider = (props) => {
-  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(window.localStorage.getItem('loggedInUser')))
   const [user, setUser] = useState(DEFAULT_USER)
 
   useEffect(() => {
-    // const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
+    const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
     if (loggedInUser) {
       usersServices.auth(loggedInUser)
-        .then(result => setUser(result))
+        .then(result => setUser({ ...result, token: loggedInUser.token }))
     }
-
   }, [])
 
-  console.log('user from context', user)
-
-
-
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <UserContext.Provider value={[user, setUser]}>
       {props.children}
     </UserContext.Provider>
   )
