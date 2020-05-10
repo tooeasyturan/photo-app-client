@@ -15,15 +15,14 @@ const useFetchImages = (user) => {
     await uploadsService.getImages(`uploads/${user.username}/avatar`).then(pics => setAvatar(pics[0]))
   }
 
+
   const handleChange = async (e) => {
     console.log(e)
     const file = e.target.files[0]
-
     const formData = new FormData()
     formData.append('file', file)
     formData.append('username', user.username)
     formData.append('folder', 'userimg')
-
     try {
       const upload = await uploadsService.uploadImage(formData, user.token)
       setImages([...images, upload.url])

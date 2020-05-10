@@ -31,7 +31,6 @@ const useUploadImage = (user, images) => {
   return {
     uploads,
     handleChange
-    // <input name="file" type="file" className="custom-file-input" id="portfolioInput" onChange={handleChange} />
   }
 }
 

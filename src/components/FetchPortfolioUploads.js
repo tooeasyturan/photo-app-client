@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import uuid from 'uuid/v4'
-import useFetchImages from './ImageHandling/useFetchImages'
+import useImageHandling from './ImageHandling/useImageHandling'
 import useUploadImage from './ImageHandling/useUploadImage'
 import { UserContext } from './UserContext';
 import { Image } from 'semantic-ui-react'
@@ -9,7 +9,7 @@ import { Image } from 'semantic-ui-react'
 
 const FetchPortfolioUploads = () => {
   const [user, setUser] = useContext(UserContext)
-  const { fetchImages, images, handleChange } = useFetchImages(user)
+  const { fetchImages, images, handleChange } = useImageHandling(user)
   // const { uploads, handleChange } = useUploadImage(user, images)
 
   useEffect(() => {
