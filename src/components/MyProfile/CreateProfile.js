@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
-import profilesService from '../services/profiles'
-import ManageProfilePage from '../pages/ManageProfilePage'
-import useFormHandling from './customhooks/useFormHandling'
-import { UserContext } from './UserContext';
+import profilesService from '../../services/profiles'
+import ManageProfilePage from './ManageProfilePage'
+import useFormHandling from '../FormHandling/useFormHandling'
+import { UserContext } from '../UserContext';
 
 
 // Component for editing user with status 'model' after initial profile has been created. 
