@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <>
-      {user === null ?
+      {user.username.length === 0 ?
         <LoginPage values={values} handleChange={handleChange} handleSubmit={handleSubmit} errors={errors} /> :
         <>
           <Redirect to='/' />

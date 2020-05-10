@@ -13,18 +13,20 @@ import { Link } from 'react-router-dom';
 const Navigation = () => {
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(UserContext)
+  console.log('navigation user', user)
 
+  let isUser = user.username.length > 0 ? true : false
 
 
   const trigger = (
     <span>
-      <Icon name='user' /> Hello, {user ? user.username : <div></div>}
+      <Icon name='user' /> Hello, {isUser ? user.username : <div></div>}
     </span>
   )
 
 
   const options = [
-    { key: 'profile', text: 'My Profile', as: Link, to: `/${user ? user.username : '/'}` },
+    { key: 'profile', text: 'My Profile', as: Link, to: `/${isUser ? user.username : '/'}` },
     { key: 'explore', text: 'Explore', as: Link, to: '/users' },
     { key: 'inbox', text: 'Inbox', as: Link, to: '/inbox' },
     { key: 'sign-out', text: 'Sign Out', as: Logout },
@@ -66,7 +68,7 @@ const Navigation = () => {
                 <Menu.Item as='a'>About</Menu.Item>
                 <Menu.Item as='a'>Contact</Menu.Item>
                 <Menu.Menu position='right'>
-                  {user ? <>
+                  {isUser ? <>
                     <Menu.Item><Dropdown trigger={trigger} options={options} /></Menu.Item>
                     <Menu.Item href='/inbox'><Icon name='envelope outline' /></Menu.Item>
                   </> :
@@ -107,7 +109,7 @@ const Navigation = () => {
             vertical
             visible={sideBarOpen}
           >
-            {user ?
+            {isUser ?
               <>
                 <Menu.Item as='a' active href='/'>Home</Menu.Item>
                 <Menu.Item as='a'>About</Menu.Item>
@@ -134,7 +136,7 @@ const Navigation = () => {
                     <Icon name='sidebar' />
                   </Menu.Item>
                   <Menu.Item position='right'>
-                    {user ? <Dropdown position='right' trigger={trigger} options={options} />
+                    {isUser ? <Dropdown position='right' trigger={trigger} options={options} />
                       :
                       <>
                         <Button href="/login" as='a' >

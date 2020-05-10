@@ -7,6 +7,8 @@ import { Button } from 'semantic-ui-react'
 const Landing = () => {
   const [user, setUser] = useContext(UserContext)
 
+  let isUser = user.username.length > 0 ? true : false
+
 
   return (
     <>
@@ -23,7 +25,7 @@ const Landing = () => {
               </div>
 
               {
-                !user ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
+                !isUser ? <Button secondary size='huge' href="/signup">Sign Up</Button> :
                   <div>
                     <Button secondary size='huge' href={`/${user.username}`}>Go to my profile</Button>
                     <Button secondary size='huge' href='/users'>Explore users</Button>
