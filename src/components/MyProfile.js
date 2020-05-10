@@ -4,6 +4,8 @@ import PortfolioUploads from './PortfolioUploads'
 import EditModel from './EditModel'
 import EditPhotographer from './EditPhotographer'
 
+import FetchPortfolioUploads from './FeatchPortfolioUploads'
+
 // Parent is app component
 
 const MyProfile = ({ user, loggedInUser }) => {
@@ -15,6 +17,7 @@ const MyProfile = ({ user, loggedInUser }) => {
             <EditPhotographer user={user} loggedInUser={loggedInUser} />}
           {/* <DeleteUser /> */}
           <PortfolioUploads />
+          {/* <FetchPortfolioUploads user={user} loggedInUser={loggedInUser} /> */}
         </Grid.Column>
       </Grid>
     </>

@@ -15,6 +15,7 @@ const Navigation = () => {
   const [user, setUser] = useContext(UserContext)
 
 
+
   const trigger = (
     <span>
       <Icon name='user' /> Hello, {user ? user.username : <div></div>}
