@@ -133,7 +133,7 @@ const PortfolioUploads = () => {
           </>
         }
       </Container>
-      <Image.Group style={{ marginTop: -30, textAlign: 'center' }} doubling stackable size="large">
+      <Image.Group style={{ marginTop: -30, textAlign: 'center' }} doubling='true' stackable='true' size="large">
         {usersPortfolio}
       </Image.Group>
     </>
