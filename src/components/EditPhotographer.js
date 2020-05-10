@@ -2,7 +2,7 @@
 import React from 'react'
 import profilesService from '../services/profiles'
 import ManageProfilePage from '../pages/ManageProfilePage'
-import useForm from './customhooks/useForm';
+import useFormHandling from './customhooks/useFormHandling';
 
 // Component for editing user with status 'photographer' after initial profile has been created. 
 
@@ -16,7 +16,7 @@ const EditPhotographer = ({ user, loggedInUser }) => {
     shootingStyle: profile.shootingStyle,
   }
 
-  const { handleChange, handleLocation, handleSubmit, values } = useForm(EDIT_PHOTOGRAPHER_OPTIONS, submit, validatePhotographer)
+  const { handleChange, handleLocation, handleSubmit, values } = useFormHandling(EDIT_PHOTOGRAPHER_OPTIONS, submit, validatePhotographer)
 
   function validatePhotographer() {
     let errors = {}

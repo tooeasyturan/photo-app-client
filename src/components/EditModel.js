@@ -2,7 +2,7 @@
 import React from 'react'
 import profilesService from '../services/profiles'
 import ManageProfilePage from '../pages/ManageProfilePage'
-import useForm from './customhooks/useForm';
+import useFormHandling from './customhooks/useFormHandling';
 
 // Component for editing user with status 'model' after initial profile has been created. 
 const EditModel = ({ user, loggedInUser }) => {
@@ -14,7 +14,7 @@ const EditModel = ({ user, loggedInUser }) => {
     shootingStyle: profile.shootingStyle,
   }
 
-  const { handleChange, handleSubmit, values } = useForm(EDIT_MODEL_OPTIONS, submit, validateModel)
+  const { handleChange, handleSubmit, values } = useFormHandling(EDIT_MODEL_OPTIONS, submit, validateModel)
 
   function validateModel() {
     let errors = {}

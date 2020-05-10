@@ -2,7 +2,7 @@
 import React from 'react'
 import profilesService from '../services/profiles'
 import ManageProfilePage from '../pages/ManageProfilePage'
-import useForm from './customhooks/useForm'
+import useFormHandling from './customhooks/useFormHandling'
 
 
 // Component for creating user profile if status is 'photographer'
@@ -14,7 +14,7 @@ const CREATE_PHOTOGRAPHER_OPTIONS = {
 }
 
 const CreatePhotographer = ({ user, loggedInUser }) => {
-  const { handleChange, handleSubmit, values } = useForm(CREATE_PHOTOGRAPHER_OPTIONS, submit, validatePhotographer)
+  const { handleChange, handleSubmit, values } = useFormHandling(CREATE_PHOTOGRAPHER_OPTIONS, submit, validatePhotographer)
 
   function validatePhotographer() {
     let errors = {}
