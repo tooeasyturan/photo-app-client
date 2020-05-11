@@ -8,7 +8,7 @@ import GetAllMessages from './components/GetAllMessages'
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile'
-import GetOtherUserProfle from './components/ExploreOtherProfile/GetOtherUserProfile'
+import GetOtherUserProfle from './components/ExploreOtherProfiles/GetOtherUserProfile'
 
 import LoginPage from './components/Login/LoginPage'
 

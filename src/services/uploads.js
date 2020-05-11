@@ -26,6 +26,14 @@ const uploadImage = async (formData, userToken) => {
   return res.data
 }
 
+const uploadAvatar = async (formData, userToken) => {
+  const config = {
+    headers: { Authorization: `bearer ${userToken}` }
+  }
+  const res = await axios.post(`${baseUrl}/avatar`, formData, config)
+  return res.data
+}
+
 const deleteImage = async (userToken, imageToDelete) => {
   console.log('token', userToken)
   const config = {
@@ -57,4 +65,4 @@ const create = async newObject => {
 
 
 
-export default { getUploads, getAvatar, create, setToken, getImages, uploadImage, deleteImage }
+export default { getUploads, getAvatar, create, setToken, getImages, uploadImage, deleteImage, uploadAvatar }

@@ -11,7 +11,6 @@ const LabelStyles = { cursor: 'pointer', marginBottom: 45 }
 const ImageGroupStyles = { marginTop: -30, textAlign: 'center' }
 
 
-
 const ManageMyPortfolio = () => {
   const [user, setUser] = useContext(UserContext)
   const { fetchImages, images, handleChange, isLoading, handleDeleteImage } = useImageHandling(user)

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import uploadsService from '../../services/uploads'
 
 
-const useFetchImages = (user) => {
+const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
   const [images, setImages] = useState([])
   const [avatar, setAvatar] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -17,17 +17,27 @@ const useFetchImages = (user) => {
   }
 
 
-  const handleChange = async (e) => {
-    const file = e.target.files[0]
+  const uploadImage = async (formData) => {
     setIsLoading(true)
+    if (!isAvatar) {
+      const upload = await uploadsService.uploadImage(formData, user.token)
+      setImages([...images, upload.url])
+    } else if (isAvatar) {
+      const upload = await uploadsService.uploadAvatar(formData, user.token)
+      setAvatar(upload.url)
+      setIsUpdated(true)
+    }
+    setIsLoading(false)
+  }
+
+  const handleChange = async (e) => {
+    const file = e.target.files ? e.target.files[0] : avatarFile
     const formData = new FormData()
     formData.append('file', file)
     formData.append('username', user.username)
     formData.append('folder', 'userimg')
     try {
-      const upload = await uploadsService.uploadImage(formData, user.token)
-      setImages([...images, upload.url])
-      setIsLoading(false)
+      uploadImage(formData)
     } catch (error) {
       setIsLoading(false)
       console.log(error)

@@ -1,7 +1,9 @@
 import React from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { Button, Form, Grid, Segment, TextArea, Dropdown, Popup } from 'semantic-ui-react'
-import AvatarUpload from '../AvatarUpload'
+import ManageMyAvatar from './ManageMyAvatar'
+
+
 
 const PICTURE_OPTIONS = [
   { key: 'headshot', text: 'Headshot', value: 'headshot' },
@@ -27,7 +29,7 @@ const ManageProfilePage = ({ user, values, handleChange, handleSubmit }) => {
           <Segment style={SegmentStyle}>
             <Popup
               trigger={
-                <AvatarUpload user={user} />
+                <ManageMyAvatar user={user} />
               }
             >
               <Popup.Header>Click to change avatar</Popup.Header>

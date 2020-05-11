@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react'
-import uploadsService from '../services/uploads'
+import uploadsService from '../src/services/uploads'
 import { Image, Button, Popup, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 
