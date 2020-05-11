@@ -92,7 +92,7 @@ const PortfolioUploads = () => {
 
     if (window.confirm("Are you sure you want to delete this image")) {
 
-      console.log('token', token)
+      console.log('image to delete', upload)
       const response = await axios.delete('http://localhost:3004/uploads', config)
       const uploads = await axios.get(`http://localhost:3004/uploads/${username}`)
       setUploads(uploads.data)

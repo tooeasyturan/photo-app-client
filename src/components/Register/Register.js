@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import useFormHandling from '../FormHandling/useFormHandling';
+import useFormHandling from '../CustomHooks/useFormHandling';
 import usersService from '../../services/users'
 import RegistrationPage from './RegistrationPage';
 import validateRegistration from './validateRegistration'

@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import profilesService from '../../services/profiles'
 import ManageProfilePage from './ManageProfilePage'
-import useFormHandling from '../FormHandling/useFormHandling'
+import useFormHandling from '../CustomHooks/useFormHandling'
 import { UserContext } from '../UserContext';
 
 

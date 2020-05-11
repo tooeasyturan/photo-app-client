@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import { Grid } from 'semantic-ui-react'
-import PortfolioUploads from '../PortfolioUploads'
 import CreateProfile from './CreateProfile'
 import EditProfile from './EditProfile'
 import { UserContext } from '../UserContext';
 
-import FetchPortfolioUploads from '../FetchPortfolioUploads'
+import ManageMyPortfolio from './ManageMyPortfolio'
 
 const MyProfile = () => {
   const [user, setUser] = useContext(UserContext)
@@ -15,8 +14,7 @@ const MyProfile = () => {
     <Grid>
       <Grid.Column>
         {profile.length === 0 ? <CreateProfile user={user} /> : <EditProfile user={user} />}
-        <PortfolioUploads />
-        {/* <FetchPortfolioUploads user={user} /> */}
+        <ManageMyPortfolio user={user} />
       </Grid.Column>
     </Grid>
   )

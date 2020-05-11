@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import loginService from '../../services/login'
-import useFormHandling from '../FormHandling/useFormHandling';
+import useFormHandling from '../CustomHooks/useFormHandling';
 import LoginPage from './LoginPage';
 import validateLogin from './validateLogin'
 import { UserContext } from '../UserContext';
