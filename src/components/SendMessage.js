@@ -24,7 +24,7 @@ const SendMessage = ({ userTo }) => {
 
     try {
       if (message.length > 0) {
-        const result = await messagesService.create({ userFrom: userFrom.id, userTo: userTo.username, message: message })
+        const result = await messagesService.create({ userFrom: userFrom.id, userTo: userTo, message: message })
         setModalOpen(false)
         console.log('send message', result)
       }

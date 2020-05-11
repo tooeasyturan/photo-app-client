@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import profilesServices from '../services/profiles'
+import profilesServices from '../../services/profiles'
 import uuid from 'uuid/v4'
-import { Image, Container, Card } from 'semantic-ui-react'
+import OtherUserProfilePage from './OtherUserProfilePage'
+import { Image } from 'semantic-ui-react'
 
-const CardStyles = { marginTop: 100 }
-const ImageGroupStyles = { marginTop: 100, textAlign: 'center' }
+
 
 const DEFAULT_USER_PROFILE = {
   userInfo: [],
@@ -46,22 +46,7 @@ const GetOtherUserProfile = (props) => {
   })
 
   return (
-    <div>
-      <Container>
-        <Card className="ui centered card" style={CardStyles}>
-          <Image key={avatar} src={avatar} alt="" />
-          <Card.Content >
-            <p>{userInfo.username}</p>
-            <p>{profile.profile.country + ' ' + profile.profile.region}</p>
-            <p>{userInfo.firstName + ' ' + userInfo.lastName}</p>
-            <p>{userInfo.email}</p>
-          </Card.Content>
-        </Card>
-      </Container>
-      <Image.Group style={ImageGroupStyles} doubling='true' stackable='true' size="large">
-        {displayImages}
-      </Image.Group>
-    </div>
+    <OtherUserProfilePage profile={profile} displayImages={displayImages} username={username} />
   )
 }
 

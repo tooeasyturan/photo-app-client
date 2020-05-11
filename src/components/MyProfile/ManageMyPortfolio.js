@@ -20,8 +20,6 @@ const ManageMyPortfolio = () => {
     fetchImages()
   }, [])
 
-  console.log('isLoading', isLoading)
-
 
   const displayImages = images.map(img => {
     return (<Image key={uuid()}
