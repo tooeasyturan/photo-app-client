@@ -1,5 +1,4 @@
 import { useState } from 'react'
-// import uploadssService from '../../services/profiles'
 import uploadsService from '../../services/uploads'
 
 
@@ -19,7 +18,6 @@ const useFetchImages = (user) => {
 
 
   const handleChange = async (e) => {
-    console.log(e)
     const file = e.target.files[0]
     setIsLoading(true)
     const formData = new FormData()
