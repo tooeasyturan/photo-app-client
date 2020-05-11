@@ -9,7 +9,7 @@ const useFetchImages = (user) => {
 
 
   const fetchImages = async () => {
-    await uploadsService.getImages(`uploads/${user.username}`).then(pics => setImages(pics))
+    await uploadsService.getImages(`uploads/${user.username ? user.username : user}`).then(pics => setImages(pics))
   }
 
   const fetchAvatar = async () => {

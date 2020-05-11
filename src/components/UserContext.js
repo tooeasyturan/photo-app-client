@@ -6,7 +6,7 @@ export const UserContext = createContext(null)
 
 const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInUser'))
 
-const DEFAULT_USER = {
+const DEFAULT_CURRENT_USER = {
   firstName: '',
   lastName: '',
   username: loggedInUser ? loggedInUser.username : '',
@@ -18,7 +18,7 @@ const DEFAULT_USER = {
 }
 
 export const UserProvider = (props) => {
-  const [user, setUser] = useState(DEFAULT_USER)
+  const [user, setUser] = useState(DEFAULT_CURRENT_USER)
 
   useEffect(() => {
     if (loggedInUser) {
