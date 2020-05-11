@@ -10,7 +10,7 @@ const setToken = newToken => {
 
 const auth = async credentials => {
   const config = {
-    headers: { Authorization: token }
+    headers: { Authorization: `bearer ${credentials.token}` }
   }
   const response = await axios.get(authUrl, config)
   return response.data

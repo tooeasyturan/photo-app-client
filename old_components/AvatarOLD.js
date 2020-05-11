@@ -9,7 +9,7 @@ const Avatar = () => {
   const [uploadedFile, setUploadedFile] = useState({})
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedTFPappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -19,7 +19,7 @@ const Avatar = () => {
 
   console.log('user', user)
 
-  const username = JSON.parse(window.localStorage.getItem('loggedTFPappUser')).username
+  const username = JSON.parse(window.localStorage.getItem('loggedInUser')).username
 
   console.log('uploadedfile', uploadedFile)
   console.log('username', username)

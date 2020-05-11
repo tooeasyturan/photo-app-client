@@ -6,5 +6,4 @@ const auth = async credentials => {
   return response.data
 }
 
-
 export default { auth }

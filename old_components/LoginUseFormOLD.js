@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import loginService from '../services/login'
 import UseLoginForm from '../components/customhooks/UseForm';
 import LoginPage from '../pages/LoginPage';
@@ -45,11 +46,9 @@ const LoginUseForm = () => {
     <>
       {user === null ?
         <LoginPage userCredentials={userCredentials} handleUserCredentials={handleUserCredentials} handleLogin={handleLogin} validation={validation} /> :
-        <div style={{ marginTop: 100, textAlign: 'center' }}>
-          <h1>
-            {`${user.username} logged in`}
-          </h1>
-        </div>
+        <>
+          <Redirect to='/' />
+        </>
       }
     </>
   )

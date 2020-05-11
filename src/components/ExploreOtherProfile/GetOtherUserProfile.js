@@ -4,8 +4,6 @@ import uuid from 'uuid/v4'
 import OtherUserProfilePage from './OtherUserProfilePage'
 import { Image } from 'semantic-ui-react'
 
-
-
 const DEFAULT_USER_PROFILE = {
   userInfo: [],
   profile: [],
@@ -35,15 +33,15 @@ const GetOtherUserProfile = (props) => {
   }
 
 
-  const displayImages = upload.map(image => {
-    return (<Image key={uuid()}
+  const displayImages = upload.map(image =>
+    <Image key={uuid()}
       src={image.portfolio}
       wrapped ui={true}
       alt=""
       rounded
       style={{ cursor: 'pointer', margin: '0.5em' }}
-    />)
-  })
+    />
+  )
 
   return (
     <OtherUserProfilePage profile={profile} displayImages={displayImages} username={username} />

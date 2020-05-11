@@ -1,0 +1,7 @@
+When to create custom hook? (ex. should I create hook for fetching and uploading images? or just add inside component)
+How much abstraction is too much? (ex. for different profile components with single manage profile page)
+How to group components and functions together?
+How to add backend validation?
+Where to add try/catch? In component or helper function?
+
+Is it better to fetch entire user profile at once and then map through portfolio images, or to directly fetch portfolio images?

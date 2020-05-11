@@ -8,21 +8,23 @@ const setToken = newToken => {
 }
 
 
-const create = async newObject => {
+const create = async (credentials, newObject) => {
   const config = {
-    headers: { Authorization: token },
+    headers: { Authorization: `bearer ${credentials.token}` },
   }
   const response = await axios.post(baseUrl, newObject, config)
+  console.log('response', response)
   return response.data
 }
 
 
 
-const get = (username) => {
-  const request = axios.get(`/users/${username}`)
-  return request.then(response => response.data)
+const getProfile = async (username) => {
+  console.log('username', username)
+  const req = await axios.get(`http://localhost:3004/users/${username}`)
+  return req.data[0]
 }
 
 
 
-export default { create, setToken, get }
+export default { create, setToken, getProfile }
