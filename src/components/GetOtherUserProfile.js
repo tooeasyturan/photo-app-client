@@ -16,6 +16,8 @@ const DEFAULT_USER_PROFILE = {
 const GetOtherUserProfile = (props) => {
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE)
   const username = props.match.params.username
+  const { userInfo, avatar, upload } = profile
+  console.log(userInfo, avatar, upload)
 
 
   useEffect(() => {
@@ -26,16 +28,16 @@ const GetOtherUserProfile = (props) => {
     try {
       let user = await profilesServices.getProfile(username)
       console.log('profile', profile)
-      setProfile({ ...profile, userInfo: user, profile: user.profile[0], avatar: user.avatar[0], upload: user.upload })
+      setProfile({ ...profile, userInfo: user, profile: user.profile[0], avatar: user.avatar[0].avatar, upload: user.upload })
     } catch (error) {
       console.log(error)
     }
   }
 
 
-  const displayImages = profile.upload.map(upload => {
+  const displayImages = upload.map(image => {
     return (<Image key={uuid()}
-      src={upload.portfolio}
+      src={image.portfolio}
       wrapped ui={true}
       alt=""
       rounded
@@ -47,12 +49,12 @@ const GetOtherUserProfile = (props) => {
     <div>
       <Container>
         <Card className="ui centered card" style={CardStyles}>
-          <Image key={profile.avatar.avatar} src={profile.avatar.avatar} alt="" />
+          <Image key={avatar} src={avatar} alt="" />
           <Card.Content >
-            <p>{profile.userInfo.username}</p>
+            <p>{userInfo.username}</p>
             <p>{profile.profile.country + ' ' + profile.profile.region}</p>
-            <p>{profile.userInfo.firstName + ' ' + profile.userInfo.lastName}</p>
-            <p>{profile.userInfo.email}</p>
+            <p>{userInfo.firstName + ' ' + userInfo.lastName}</p>
+            <p>{userInfo.email}</p>
           </Card.Content>
         </Card>
       </Container>
