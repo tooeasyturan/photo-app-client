@@ -9,7 +9,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile'
 import GetOtherUserProfle from './components/ExploreOtherProfiles/GetOtherUserProfile'
-
+import Profiles from './components/Profiles'
 import LoginPage from './components/Login/LoginPage'
 
 

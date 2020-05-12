@@ -11,6 +11,8 @@ const DEFAULT_USER_PROFILE = {
   upload: []
 }
 
+// Names are pretty confusing here. Could help to update db schema as well.
+
 const GetOtherUserProfile = (props) => {
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE)
   const username = props.match.params.username
