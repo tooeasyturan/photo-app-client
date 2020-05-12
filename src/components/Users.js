@@ -33,7 +33,6 @@ const Users = (props) => {
     setCountry(val)
     const usersByCountry = users.filter(user => user.profile[0].country === val)
 
-
     if (usersByCountry.length === 0) {
       console.log('There are no users in this country')
       setSearchedUsers([])
@@ -54,7 +53,7 @@ const Users = (props) => {
       <form>
         <CountryDropdown value={country} onChange={(val) => handleSearch(val)} />
       </form>
-      <Card.Group className="doubling stackable" itemsPerRow={6} style={{ marginTop: 10 }}>
+      <Card.Group className="doubling stackable" itemsPerRow={6} style={{ marginTop: 10 }} >
         {usersList()}
       </Card.Group>
     </div>

@@ -9,7 +9,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile'
 import GetOtherUserProfle from './components/ExploreOtherProfiles/GetOtherUserProfile'
-import Profiles from './components/Profiles'
+import ShortProfiles from './components/ShortProfiles'
 import LoginPage from './components/Login/LoginPage'
 
 
@@ -30,6 +30,7 @@ function App() {
           <Route exact path={`/${user.username}`} component={MyProfile} />
           <Route exact path="/users/:username" component={GetOtherUserProfle} />
           <Route exact path="/inbox" component={GetAllMessages} />
+          <Route exact path="/profiles" component={ShortProfiles} />
         </>
       </UserProvider>
     </Router>
