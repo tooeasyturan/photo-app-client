@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import usersService from '../services/users'
+import usersService from '../../services/users'
 import { Card } from 'semantic-ui-react'
 import ShortProfile from './ShortProfile'
 
@@ -11,8 +11,6 @@ const ShortProfiles = () => {
       return { id, avatar, username, profile }
     })).then(profiles => setProfiles(profiles))
   }, [])
-
-  window.profiles = profiles
 
   const displayProfiles = profiles.map(profile =>
     <ShortProfile profile={profile} key={profile.id} />

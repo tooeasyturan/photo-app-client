@@ -8,8 +8,8 @@ import GetAllMessages from './components/GetAllMessages'
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile'
-import GetOtherUserProfle from './components/ExploreOtherProfiles/GetOtherUserProfile'
-import ShortProfiles from './components/ShortProfiles'
+import GetOtherUserProfle from './components/ViewSingleUserProfile/GetOtherUserProfile'
+import ShortProfiles from './components/ExploreUsers/ShortProfiles'
 import LoginPage from './components/Login/LoginPage'
 
 
