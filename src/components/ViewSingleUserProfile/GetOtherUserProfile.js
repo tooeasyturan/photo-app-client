@@ -16,8 +16,9 @@ const DEFAULT_USER_PROFILE = {
 const GetOtherUserProfile = (props) => {
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE)
   const username = props.match.params.username
-  const { userInfo, avatar, upload } = profile
-  console.log(userInfo, avatar, upload)
+  const { upload } = profile
+  const [state, setState] = useState();
+
 
 
   useEffect(() => {
@@ -25,13 +26,13 @@ const GetOtherUserProfile = (props) => {
   }, [])
 
   const getProfile = async () => {
-    try {
-      let user = await profilesServices.getProfile(username)
-      console.log('profile', profile)
-      setProfile({ ...profile, userInfo: user, profile: user.profile[0], avatar: user.avatar[0].avatar, upload: user.upload })
-    } catch (error) {
-      console.log(error)
+    let user = await profilesServices.getProfile(username)
+    if (!user) {
+      setState(() => {
+        throw new Error('User does not exist')
+      })
     }
+    setProfile({ ...profile, userInfo: user, profile: user.profile[0], avatar: user.avatar[0].avatar, upload: user.upload })
   }
 
 

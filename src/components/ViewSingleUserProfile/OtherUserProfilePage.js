@@ -8,6 +8,7 @@ const ImageGroupStyles = { marginTop: 100, textAlign: 'center' }
 const OtherUserProfilePage = ({ profile, displayImages, username }) => {
   const { userInfo, avatar } = profile
 
+
   return (
     <>
       <Container>

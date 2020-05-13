@@ -10,6 +10,7 @@ import Register from './components/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile'
 import GetOtherUserProfle from './components/ViewSingleUserProfile/GetOtherUserProfile'
 import ShortProfiles from './components/ExploreUsers/ShortProfiles'
+import ErrorBoundary from './components/ErrorBoundary'
 import LoginPage from './components/Login/LoginPage'
 
 
@@ -21,7 +22,7 @@ function App() {
   return (
     <Router>
       <UserProvider>
-        <>
+        <ErrorBoundary>
           <Route path="/" component={Navigation} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
@@ -31,7 +32,7 @@ function App() {
           <Route exact path="/users/:username" component={GetOtherUserProfle} />
           <Route exact path="/inbox" component={GetAllMessages} />
           <Route exact path="/profiles" component={ShortProfiles} />
-        </>
+        </ErrorBoundary>
       </UserProvider>
     </Router>
   );
