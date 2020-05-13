@@ -22,8 +22,8 @@ function App() {
 
   return (
     <Router>
-      <UserProvider>
-        <ErrorBoundary>
+      <ErrorBoundary>
+        <UserProvider>
           <Route path="/" component={Navigation} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
@@ -33,8 +33,8 @@ function App() {
           <Route exact path="/users/:username" component={GetFullProfle} />
           <Route exact path="/inbox" component={GetAllMessages} />
           <Route exact path="/profiles" component={GetShortProfile} />
-        </ErrorBoundary>
-      </UserProvider>
+        </UserProvider>
+      </ErrorBoundary>
     </Router>
   );
 }

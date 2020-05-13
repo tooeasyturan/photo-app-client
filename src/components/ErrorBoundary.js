@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 
 class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props)
 
-    this.state = {
-      hasError: false
-    }
+  state = {
+    errorMessage: ''
   }
-
 
   static getDerivedStateFromError(error) {
     return {
-      hasError: true
+      errorMessage: error.toString()
     }
   }
 
@@ -22,8 +18,8 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    if (this.state.hasError) {
-      return <h1>User does not exist....</h1>
+    if (this.state.errorMessage) {
+      return <h1>{this.state.errorMessage}</h1>
     }
     return this.props.children
   }

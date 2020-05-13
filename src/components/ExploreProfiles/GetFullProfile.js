@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import profilesServices from '../../services/profiles'
 import uuid from 'uuid/v4'
 import FullProfilePage from './FullProfilePage'
 import { Image } from 'semantic-ui-react'
 import { useError } from '../ErrorBoundaryContext'
+
+
 
 const DEFAULT_USER_PROFILE = {
   info: [],
@@ -15,11 +17,11 @@ const DEFAULT_USER_PROFILE = {
 // Names are pretty confusing here. Could help to update db schema as well.
 
 const FullProfile = (props) => {
+  const errorMessage = useError()
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE)
   const username = props.match.params.username
   const { upload } = profile
   const [error, setError] = useState();
-
 
 
   useEffect(() => {

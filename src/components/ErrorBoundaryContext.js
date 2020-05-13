@@ -24,6 +24,7 @@ export class ErrorBoundaryProvider extends Component {
   //       break;
   //   }
   // }
+
   componentDidCatch(error) {
     this.setState({ error });
   }
