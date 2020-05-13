@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import usersService from '../../services/users'
 import { Card } from 'semantic-ui-react'
-import ShortProfile from './ShortProfile'
+import ShortProfilePage from './ShortProfilePage'
 
 const ShortProfiles = () => {
   const [profiles, setProfiles] = useState([])
@@ -13,7 +13,7 @@ const ShortProfiles = () => {
   }, [])
 
   const displayProfiles = profiles.map(profile =>
-    <ShortProfile profile={profile} key={profile.id} />
+    <ShortProfilePage profile={profile} key={profile.id} />
   )
 
   return (

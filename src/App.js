@@ -8,9 +8,10 @@ import GetAllMessages from './components/GetAllMessages'
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile'
-import GetOtherUserProfle from './components/ViewSingleUserProfile/GetOtherUserProfile'
-import ShortProfiles from './components/ExploreUsers/ShortProfiles'
+import GetFullProfle from './components/ExploreProfiles/GetFullProfile'
+import GetShortProfile from './components/ExploreProfiles/GetShortProfile'
 import ErrorBoundary from './components/ErrorBoundary'
+import { ErrorBoundaryProvider } from './components/ErrorBoundaryContext'
 import LoginPage from './components/Login/LoginPage'
 
 
@@ -29,9 +30,9 @@ function App() {
           <Route exact path="/signup" component={Register} />
           <Route exact path="/users" component={Users} />
           <Route exact path={`/${user.username}`} component={MyProfile} />
-          <Route exact path="/users/:username" component={GetOtherUserProfle} />
+          <Route exact path="/users/:username" component={GetFullProfle} />
           <Route exact path="/inbox" component={GetAllMessages} />
-          <Route exact path="/profiles" component={ShortProfiles} />
+          <Route exact path="/profiles" component={GetShortProfile} />
         </ErrorBoundary>
       </UserProvider>
     </Router>

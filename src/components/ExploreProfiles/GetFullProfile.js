@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import profilesServices from '../../services/profiles'
 import uuid from 'uuid/v4'
-import OtherUserProfilePage from './OtherUserProfilePage'
+import FullProfilePage from './FullProfilePage'
 import { Image } from 'semantic-ui-react'
+import { useError } from '../ErrorBoundaryContext'
 
 const DEFAULT_USER_PROFILE = {
-  userInfo: [],
+  info: [],
   profile: [],
   avatar: [],
   upload: []
@@ -13,11 +14,11 @@ const DEFAULT_USER_PROFILE = {
 
 // Names are pretty confusing here. Could help to update db schema as well.
 
-const GetOtherUserProfile = (props) => {
+const FullProfile = (props) => {
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE)
   const username = props.match.params.username
   const { upload } = profile
-  const [state, setState] = useState();
+  const [error, setError] = useState();
 
 
 
@@ -28,11 +29,11 @@ const GetOtherUserProfile = (props) => {
   const getProfile = async () => {
     let user = await profilesServices.getProfile(username)
     if (!user) {
-      setState(() => {
+      setError(() => {
         throw new Error('User does not exist')
       })
     }
-    setProfile({ ...profile, userInfo: user, profile: user.profile[0], avatar: user.avatar[0].avatar, upload: user.upload })
+    setProfile({ ...profile, info: user, profile: user.profile[0], avatar: user.avatar[0].avatar, upload: user.upload })
   }
 
 
@@ -47,8 +48,8 @@ const GetOtherUserProfile = (props) => {
   )
 
   return (
-    <OtherUserProfilePage profile={profile} displayImages={displayImages} username={username} />
+    <FullProfilePage profile={profile} displayImages={displayImages} username={username} />
   )
 }
 
-export default GetOtherUserProfile
+export default FullProfile
