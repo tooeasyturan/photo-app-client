@@ -4,7 +4,7 @@ import { CountryDropdown } from 'react-country-region-selector';
 
 
 
-const SearchUsers = ({ users }) => {
+const SearchProfiles = ({ users }) => {
   const [country, setCountry] = useState('')
   const [searchedUsers, setSearchedUsers] = useState([])
 
@@ -23,12 +23,10 @@ const SearchUsers = ({ users }) => {
 
 
   return (
-    <div>
-      <form>
-        <CountryDropdown value={country} onChange={(val) => handleSearch(val)} />
-      </form>
-    </div>
+    <form>
+      <CountryDropdown value={country} onChange={(val) => handleSearch(val)} />
+    </form>
   )
 }
 
-export default SearchUsers
+export default SearchProfiles

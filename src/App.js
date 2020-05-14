@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/signup" component={Register} />
           <Route exact path="/users" component={Users} />
           <Route exact path={`/${user.username}`} component={MyProfile} />
-          <Route exact path="/users/:username" component={GetFullProfle} />
+          <Route exact path="/profile/:username" component={GetFullProfle} />
           <Route exact path="/inbox" component={GetAllMessages} />
           <Route exact path="/profiles" component={GetShortProfile} />
         </UserProvider>

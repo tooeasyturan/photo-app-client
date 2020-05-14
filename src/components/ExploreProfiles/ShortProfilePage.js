@@ -10,7 +10,7 @@ const ShortProfile = ({ profile }) => {
   const { description, country, region } = profile.profile[0]
 
   return (
-    <Card href={`/users/${username}`} className="user">
+    <Card href={`/profile/${username}`} className="user">
       <Image src={avatar} alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
       <Card.Content>
         <Card.Header>{username}</Card.Header>
