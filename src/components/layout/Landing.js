@@ -21,7 +21,7 @@ const Landing = () => {
               <div></div>
 
               {!isUser ? (
-                <Button secondary size="huge" href="/signup">
+                <Button secondary size="huge" href="/register">
                   Sign Up
                 </Button>
               ) : (

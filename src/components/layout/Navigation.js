@@ -98,7 +98,7 @@ const Navigation = () => {
                         Log in
                       </Button>
                       <Button
-                        href="/signup"
+                        href="/register"
                         as="a"
                         inverted={!hideFixedMenu}
                         primary={hideFixedMenu}
@@ -153,7 +153,7 @@ const Navigation = () => {
                 <Menu.Item as="a" href="/login">
                   Log in
                 </Menu.Item>
-                <Menu.Item as="a" href="/signup">
+                <Menu.Item as="a" href="/register">
                   Sign Up
                 </Menu.Item>
               </>
@@ -184,7 +184,7 @@ const Navigation = () => {
                           Log in
                         </Button>
                         <Button
-                          href="/signup"
+                          href="/register"
                           as="a"
                           style={{ marginLeft: "0.5em" }}
                         >

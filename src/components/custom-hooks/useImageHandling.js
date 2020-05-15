@@ -8,13 +8,13 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
 
   const fetchPortfolioPictures = async () => {
     await uploadsService
-      .getPortfolioPictures(`uploads/${user.username ? user.username : user}`)
+      .getImages(`uploads/${user.username ? user.username : user}`)
       .then((pics) => setPortfolioPictures(pics));
   };
 
   const fetchAvatar = async () => {
     await uploadsService
-      .getPortfolioPictures(`uploads/${user.username}/avatar`)
+      .getImages(`uploads/${user.username}/avatar`)
       .then((pics) => setAvatar(pics[0]));
   };
 

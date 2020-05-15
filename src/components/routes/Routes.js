@@ -4,6 +4,8 @@ import ErrorBoundary from "../ErrorBoundary";
 import { UserProvider } from "../UserContext";
 import Navigation from "../layout/Navigation";
 import Landing from "../layout/Landing";
+import Login from "../login/Login";
+
 import Register from "../register/Register";
 import MyProfile from "../my-profile/MyProfile";
 import GetAllMessages from "../GetAllMessages";
@@ -21,6 +23,7 @@ const Routes = () => {
           <UserProvider>
             <Route path="/" component={Navigation} />
             <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route
               exact
