@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import profilesServices from "../../services/profiles";
 import uuid from "uuid/v4";
-import FullProfilePage from "./FullProfileView";
+import FullProfileView from "./FullProfileView";
 import { Image } from "semantic-ui-react";
 import { useError } from "../ErrorBoundaryContext";
 
@@ -41,10 +41,10 @@ const FullProfile = (props) => {
     });
   };
 
-  const displayImages = upload.map((image) => (
+  const displayPortfolioPictures = upload.map((portfolioPicture) => (
     <Image
       key={uuid()}
-      src={image.portfolio}
+      src={portfolioPicture.portfolio}
       wrapped
       ui={true}
       alt=""
@@ -54,9 +54,9 @@ const FullProfile = (props) => {
   ));
 
   return (
-    <FullProfilePage
+    <FullProfileView
       profile={profile}
-      displayImages={displayImages}
+      displayPortfolioPictures={displayPortfolioPictures}
       username={username}
     />
   );

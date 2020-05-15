@@ -5,7 +5,7 @@ import SendMessage from "../SendMessage";
 const CardStyles = { marginTop: 100 };
 const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
 
-const FullProfileView = ({ profile, displayImages, username }) => {
+const FullProfileView = ({ profile, displayPortfolioPictures, username }) => {
   const { info, avatar } = profile;
 
   return (
@@ -28,7 +28,7 @@ const FullProfileView = ({ profile, displayImages, username }) => {
         stackable="true"
         size="large"
       >
-        {displayImages}
+        {displayPortfolioPictures}
       </Image.Group>
     </>
   );

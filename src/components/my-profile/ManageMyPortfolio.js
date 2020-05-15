@@ -13,18 +13,18 @@ const ImageGroupStyles = { marginTop: -30, textAlign: "center" };
 const ManageMyPortfolio = () => {
   const [user, setUser] = useContext(UserContext);
   const {
-    fetchImages,
-    images,
+    fetchPortfolioPictures,
+    portfolioPictures,
     handleChange,
     isLoading,
-    handleDeleteImage,
+    handleDeletePortfolioPicture,
   } = useImageHandling(user);
 
   useEffect(() => {
-    fetchImages();
+    fetchPortfolioPictures();
   }, []);
 
-  const displayImages = images.map((img) => {
+  const displayPortfolioPictures = portfolioPictures.map((img) => {
     return (
       <Image
         key={uuid()}
@@ -34,7 +34,7 @@ const ManageMyPortfolio = () => {
         alt=""
         rounded
         style={{ cursor: "pointer", margin: "0.5em" }}
-        onClick={() => handleDeleteImage(img)}
+        onClick={() => handleDeletePortfolioPicture(img)}
       />
     );
   });
@@ -77,7 +77,7 @@ const ManageMyPortfolio = () => {
         stackable="true"
         size="large"
       >
-        {displayImages}
+        {displayPortfolioPictures}
       </Image.Group>
     </>
   );
