@@ -99,6 +99,8 @@ const GetAllMessages = () => {
     }
   };
 
+  window.cleanConvos = cleanConvos;
+
   const handleRemoveConvo = async (e, user) => {
     console.log(e.target.id);
     console.log(user);

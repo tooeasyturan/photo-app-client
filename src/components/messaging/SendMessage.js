@@ -18,13 +18,15 @@ const SendMessage = ({ userTo }) => {
   const [userFrom, setUserFrom] = useContext(UserContext);
 
   const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
-  messagesService.setToken(loggedInUser.token);
+  messagesService.setToken(userFrom.token);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       if (message.length > 0) {
+        console.log(userFrom.token);
+
         const result = await messagesService.create({
           userFrom: userFrom.id,
           userTo: userTo,
