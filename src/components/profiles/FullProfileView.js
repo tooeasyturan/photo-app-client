@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Container, Card } from "semantic-ui-react";
-import SendMessage from "../SendMessage";
+import SendMessage from "../messaging/SendMessage";
 
 const CardStyles = { marginTop: 100 };
 const ImageGroupStyles = { marginTop: 100, textAlign: "center" };

@@ -8,7 +8,7 @@ import Login from "../login/Login";
 
 import Register from "../register/Register";
 import MyProfile from "../my-profile/MyProfile";
-import GetAllMessages from "../GetAllMessages";
+import GetAllMessages from "../messaging/GetAllMessages";
 import FullProfile from "../profiles/FullProfile";
 import ShortProfile from "../profiles/ShortProfile";
 
