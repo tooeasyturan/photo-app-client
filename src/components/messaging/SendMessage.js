@@ -15,7 +15,6 @@ const SendMessage = ({ userTo }) => {
   const [saved, setSaved] = useState(false);
   const [message, setMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  // fetchedUser is currently logged in user
   const [userFrom, setUserFrom] = useContext(UserContext);
 
   const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));

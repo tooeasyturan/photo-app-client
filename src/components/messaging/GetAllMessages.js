@@ -12,14 +12,14 @@ import useImageHandling from "../custom-hooks/useImageHandling";
 
 const GetAllMessages = () => {
   const [userFrom, setUserFrom] = useContext(UserContext);
-  const [rawConvos, setRawConvos] = useState(null);
+  // const [rawConvos, setRawConvos] = useState(null);
   const [users, setUsers] = useState([]);
   const [cleanConvos, setCleanConvos] = useState([]);
   const [fetchedMessages, setFetchedMessages] = useState([]);
   const [userSelected, setUserSelected] = useState(null);
   const [response, setResponse] = useState("");
 
-  const { fetchAvatar, avatar } = useImageHandling(userSelected);
+  const { fetchAvatar, avatar } = useImageHandling();
 
   useEffect(() => {
     getUserMessages();
@@ -29,20 +29,16 @@ const GetAllMessages = () => {
     try {
       // Fetch all conversations for logged in user
       let result = await messagesService.getAll();
-      console.log("result!", result);
       result = result.filter(
         (message) =>
           message.deleteBySender !== userFrom.username &&
           message.deleteByReceiver !== userFrom.username
       );
-      setRawConvos(result);
       setCleanConvos(cleanData(result));
     } catch (exception) {
       console.log(exception);
     }
   };
-
-  window.rawConvos = rawConvos;
 
   const cleanData = (rawConvos) => {
     // This function "cleans" the data and returns an object with the userTo name and corresponding conversationID for each conversation. ex {emil: "5eb9499e9f2581ac9e791cc7", jon: "5ebfefd38756654cfd41f4a6"}
@@ -58,33 +54,19 @@ const GetAllMessages = () => {
     let ids = rawConvos.map((convo) => convo.id);
     // Returns the conversation ID for each conversation
 
-    let combined = zipObject(users, ids);
+    return zipObject(users, ids);
     // Creates an object with key: userTo.username, value: conversation ID
-
-    return combined;
   };
 
   window.cleanConvos = cleanConvos;
 
   const handleFetchMessages = async (e) => {
     // Fetch messages between logged in user and user that is selected onClick
-    console.log(e.target);
     setUserSelected(e.target.innerHTML);
+    fetchAvatar(e.target.innerHTML);
     const result = await messagesService.getConvo(e.target.id);
     setFetchedMessages(result[0].message);
-    console.log("fetched convo messages", result);
-    if (userSelected) {
-      fetchAvatar(userSelected);
-    }
   };
-
-  window.avatar = avatar;
-
-  window.userSelected = userSelected;
-
-  window.userSelected = userSelected;
-  window.userFrom = userFrom;
-  window.messages = fetchedMessages;
 
   const messagesToDisplay = () =>
     fetchedMessages.map((message) => (
@@ -129,7 +111,6 @@ const GetAllMessages = () => {
 
     try {
       const result = await messagesService.removeConvo(e.target.id);
-
       console.log(result);
     } catch (error) {
       console.log(error);

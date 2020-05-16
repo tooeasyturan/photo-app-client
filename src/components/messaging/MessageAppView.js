@@ -14,6 +14,7 @@ import {
 
 const MessageAppView = ({
   users,
+  avatar,
   cleanConvos,
   handleFetchMessages,
   handleRemoveConvo,
