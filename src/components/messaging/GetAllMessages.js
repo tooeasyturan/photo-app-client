@@ -18,6 +18,7 @@ import { UserContext } from "../UserContext";
 import { flatten, zipObject } from "lodash";
 import DisplayMessage from "./DisplayMessages";
 import ConvoAvatar from "./ConvoAvatar";
+import MessageAppView from "./MessageAppView";
 
 // This component is probably too large and confusing with shitty variable names
 
@@ -153,78 +154,89 @@ const GetAllMessages = () => {
   window.users = users;
 
   return (
-    <div style={{ marginTop: 75, width: "100%" }}>
-      <Container style={{ width: "70%", height: 600 }}>
-        <Segment style={{ height: 600 }}>
-          <Header as="h1" style={{ textAlign: "center" }}>
-            Inbox
-          </Header>
-          <Grid>
-            <Grid.Column width={5}>
-              <List selection verticalAlign="middle">
-                {users && cleanConvos ? (
-                  users.map((user) => (
-                    <List.Item>
-                      <ConvoAvatar user={user} />
-                      <List.Content
-                        verticalAlign="middle"
-                        style={{ paddingTop: 5 }}
-                      >
-                        <List.Header
-                          as="h4"
-                          onClick={handleFetchMessages}
-                          id={cleanConvos[user]}
-                          key={cleanConvos[user]}
-                        >
-                          {user}
-                        </List.Header>
-                      </List.Content>
-                      <Button
-                        floated="right"
-                        icon="trash alternate outline"
-                        size="medium"
-                        id={cleanConvos[user]}
-                        onClick={(e) => handleRemoveConvo(e, user)}
-                      ></Button>
-                    </List.Item>
-                  ))
-                ) : (
-                  <h1>Loading</h1>
-                )}
-              </List>
-            </Grid.Column>
-            <Grid.Column width={10} style={{ height: 400 }}>
-              <Comment.Group
-                style={{
-                  height: "100%",
-                  overflow: "auto",
-                  border: "2px solid black",
-                  background: "ghostwhite",
-                  borderRadius: "5px",
-                }}
-              >
-                {fetchedMessages ? messagesToDisplay() : null}
-              </Comment.Group>
-              <Form reply onSubmit={handleSubmit}>
-                <Form.TextArea
-                  control={TextArea}
-                  value={response}
-                  onChange={(e) => setResponse(e.target.value)}
-                  placeholder="Write a response"
-                />
-                <Button
-                  content="Send"
-                  labelPosition="left"
-                  icon="edit"
-                  type="submit"
-                  primary
-                />
-              </Form>
-            </Grid.Column>
-          </Grid>
-        </Segment>
-      </Container>
-    </div>
+    <MessageAppView
+      users={users}
+      cleanConvos={cleanConvos}
+      handleFetchMessages={handleFetchMessages}
+      handleRemoveConvo={handleRemoveConvo}
+      fetchedMessages={fetchedMessages}
+      messagesToDisplay={messagesToDisplay}
+      handleSubmit={handleSubmit}
+      response={response}
+      setResponse={setResponse}
+    />
+    // <div style={{ marginTop: 75, width: "100%" }}>
+    //   <Container style={{ width: "70%", height: 600 }}>
+    //     <Segment style={{ height: 600 }}>
+    //       <Header as="h1" style={{ textAlign: "center" }}>
+    //         Inbox
+    //       </Header>
+    //       <Grid>
+    //         <Grid.Column width={5}>
+    //           <List selection verticalAlign="middle">
+    //             {users && cleanConvos ? (
+    //               users.map((user) => (
+    //                 <List.Item>
+    //                   <ConvoAvatar user={user} />
+    //                   <List.Content
+    //                     verticalAlign="middle"
+    //                     style={{ paddingTop: 5 }}
+    //                   >
+    //                     <List.Header
+    //                       as="h4"
+    //                       onClick={handleFetchMessages}
+    //                       id={cleanConvos[user]}
+    //                       key={cleanConvos[user]}
+    //                     >
+    //                       {user}
+    //                     </List.Header>
+    //                   </List.Content>
+    //                   <Button
+    //                     floated="right"
+    //                     icon="trash alternate outline"
+    //                     size="medium"
+    //                     id={cleanConvos[user]}
+    //                     onClick={(e) => handleRemoveConvo(e, user)}
+    //                   ></Button>
+    //                 </List.Item>
+    //               ))
+    //             ) : (
+    //               <h1>Loading</h1>
+    //             )}
+    //           </List>
+    //         </Grid.Column>
+    //         <Grid.Column width={10} style={{ height: 400 }}>
+    //           <Comment.Group
+    //             style={{
+    //               height: "100%",
+    //               overflow: "auto",
+    //               border: "2px solid black",
+    //               background: "ghostwhite",
+    //               borderRadius: "5px",
+    //             }}
+    //           >
+    //             {fetchedMessages ? messagesToDisplay() : null}
+    //           </Comment.Group>
+    //           <Form reply onSubmit={handleSubmit}>
+    //             <Form.TextArea
+    //               control={TextArea}
+    //               value={response}
+    //               onChange={(e) => setResponse(e.target.value)}
+    //               placeholder="Write a response"
+    //             />
+    //             <Button
+    //               content="Send"
+    //               labelPosition="left"
+    //               icon="edit"
+    //               type="submit"
+    //               primary
+    //             />
+    //           </Form>
+    //         </Grid.Column>
+    //       </Grid>
+    //     </Segment>
+    //   </Container>
+    // </div>
   );
 };
 
