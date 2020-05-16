@@ -13,8 +13,9 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
   };
 
   const fetchAvatar = async () => {
+    const username = user.username ? user.username : user;
     await uploadsService
-      .getImages(`uploads/${user.username}/avatar`)
+      .getImages(`uploads/${username}/avatar`)
       .then((pics) => setAvatar(pics[0]));
   };
 

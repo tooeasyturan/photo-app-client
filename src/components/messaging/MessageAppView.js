@@ -1,5 +1,4 @@
 import React from "react";
-import DisplayMessage from "./DisplayMessages";
 import ConvoAvatar from "./ConvoAvatar";
 import {
   Button,

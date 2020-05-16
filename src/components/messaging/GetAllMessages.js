@@ -1,24 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import messagesService from "../../services/messages";
-import {
-  Button,
-  Form,
-  Header,
-  TextArea,
-  Grid,
-  Comment,
-  Container,
-  List,
-  Segment,
-} from "semantic-ui-react";
 import { UserContext } from "../UserContext";
 import { flatten, zipObject } from "lodash";
 import DisplayMessage from "./DisplayMessages";
-import ConvoAvatar from "./ConvoAvatar";
 import MessageAppView from "./MessageAppView";
+import useImageHandling from "../custom-hooks/useImageHandling";
 
 // This component is probably too large and confusing with shitty variable names
 
@@ -29,28 +17,23 @@ const GetAllMessages = () => {
   const [cleanConvos, setCleanConvos] = useState([]);
   const [fetchedMessages, setFetchedMessages] = useState([]);
   const [userSelected, setUserSelected] = useState(null);
-
   const [response, setResponse] = useState("");
 
-  const [userToAvatar, setUserToAvatar] = useState([]);
-
-  const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
+  const { fetchAvatar, avatar } = useImageHandling(userSelected);
 
   useEffect(() => {
-    async function getUser() {
-      await getUserMessages();
-    }
-    getUser();
+    getUserMessages();
   }, []);
 
   const getUserMessages = async () => {
     try {
+      // Fetch all conversations for logged in user
       let result = await messagesService.getAll();
       console.log("result!", result);
       result = result.filter(
         (message) =>
-          message.deleteBySender !== loggedInUser.username &&
-          message.deleteByReceiver !== loggedInUser.username
+          message.deleteBySender !== userFrom.username &&
+          message.deleteByReceiver !== userFrom.username
       );
       setRawConvos(result);
       setCleanConvos(cleanData(result));
@@ -62,39 +45,42 @@ const GetAllMessages = () => {
   window.rawConvos = rawConvos;
 
   const cleanData = (rawConvos) => {
-    console.log("raw con");
+    // This function "cleans" the data and returns an object with the userTo name and corresponding conversationID for each conversation. ex {emil: "5eb9499e9f2581ac9e791cc7", jon: "5ebfefd38756654cfd41f4a6"}
+
     let convos = rawConvos.map((convo) => convo.members);
-    let users = flatten(convos).filter(
-      (name) => name !== loggedInUser.username
-    );
+    // Returns an array of size 2 arrays consisting of the members of each conversation.
+    // ex. [['emil', 'josh'], ['josh','jon'],...[loggedInUser, userTo]]
+
+    let users = flatten(convos).filter((name) => name !== userFrom.username);
     setUsers(users);
-    console.log("users set", users);
+    // Returns an array of strings consisting of all the other users the logged in user has an existing conversation object with. ex ['emil', 'jon'] ....where 'josh' is the logged in user
+
     let ids = rawConvos.map((convo) => convo.id);
+    // Returns the conversation ID for each conversation
+
     let combined = zipObject(users, ids);
+    // Creates an object with key: userTo.username, value: conversation ID
 
     return combined;
   };
 
+  window.cleanConvos = cleanConvos;
+
   const handleFetchMessages = async (e) => {
+    // Fetch messages between logged in user and user that is selected onClick
+    console.log(e.target);
     setUserSelected(e.target.innerHTML);
     const result = await messagesService.getConvo(e.target.id);
     setFetchedMessages(result[0].message);
     console.log("fetched convo messages", result);
     if (userSelected) {
-      fetchImages(userSelected);
+      fetchAvatar(userSelected);
     }
   };
 
-  window.userToAvatar = userToAvatar;
-  window.userSelected = userSelected;
+  window.avatar = avatar;
 
-  const fetchImages = async (userSelected) => {
-    const result = await axios.get(
-      `http://localhost:3004/uploads/${userSelected}/avatar`
-    );
-    setUserToAvatar(result.data[0]);
-    console.log("RESULT.DATA", result.data);
-  };
+  window.userSelected = userSelected;
 
   window.userSelected = userSelected;
   window.userFrom = userFrom;
@@ -106,7 +92,7 @@ const GetAllMessages = () => {
         key={message._id}
         message={message}
         userFrom={userFrom}
-        userToAvatar={userToAvatar}
+        userToAvatar={avatar}
       />
     ));
 
@@ -124,7 +110,6 @@ const GetAllMessages = () => {
         content: response,
         date: new Date().toLocaleString(),
       };
-
       setFetchedMessages([...fetchedMessages, { ...newMessage }]);
       setResponse("");
     } catch (exception) {
@@ -165,78 +150,6 @@ const GetAllMessages = () => {
       response={response}
       setResponse={setResponse}
     />
-    // <div style={{ marginTop: 75, width: "100%" }}>
-    //   <Container style={{ width: "70%", height: 600 }}>
-    //     <Segment style={{ height: 600 }}>
-    //       <Header as="h1" style={{ textAlign: "center" }}>
-    //         Inbox
-    //       </Header>
-    //       <Grid>
-    //         <Grid.Column width={5}>
-    //           <List selection verticalAlign="middle">
-    //             {users && cleanConvos ? (
-    //               users.map((user) => (
-    //                 <List.Item>
-    //                   <ConvoAvatar user={user} />
-    //                   <List.Content
-    //                     verticalAlign="middle"
-    //                     style={{ paddingTop: 5 }}
-    //                   >
-    //                     <List.Header
-    //                       as="h4"
-    //                       onClick={handleFetchMessages}
-    //                       id={cleanConvos[user]}
-    //                       key={cleanConvos[user]}
-    //                     >
-    //                       {user}
-    //                     </List.Header>
-    //                   </List.Content>
-    //                   <Button
-    //                     floated="right"
-    //                     icon="trash alternate outline"
-    //                     size="medium"
-    //                     id={cleanConvos[user]}
-    //                     onClick={(e) => handleRemoveConvo(e, user)}
-    //                   ></Button>
-    //                 </List.Item>
-    //               ))
-    //             ) : (
-    //               <h1>Loading</h1>
-    //             )}
-    //           </List>
-    //         </Grid.Column>
-    //         <Grid.Column width={10} style={{ height: 400 }}>
-    //           <Comment.Group
-    //             style={{
-    //               height: "100%",
-    //               overflow: "auto",
-    //               border: "2px solid black",
-    //               background: "ghostwhite",
-    //               borderRadius: "5px",
-    //             }}
-    //           >
-    //             {fetchedMessages ? messagesToDisplay() : null}
-    //           </Comment.Group>
-    //           <Form reply onSubmit={handleSubmit}>
-    //             <Form.TextArea
-    //               control={TextArea}
-    //               value={response}
-    //               onChange={(e) => setResponse(e.target.value)}
-    //               placeholder="Write a response"
-    //             />
-    //             <Button
-    //               content="Send"
-    //               labelPosition="left"
-    //               icon="edit"
-    //               type="submit"
-    //               primary
-    //             />
-    //           </Form>
-    //         </Grid.Column>
-    //       </Grid>
-    //     </Segment>
-    //   </Container>
-    // </div>
   );
 };
 
