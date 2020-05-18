@@ -17,9 +17,12 @@ const ShortProfile = () => {
       .then((profiles) => setProfiles(profiles));
   }, []);
 
-  const displayProfiles = profiles.map((profile) => (
-    <ShortProfileView profile={profile} key={profile.id} />
-  ));
+  const displayProfiles = profiles.map((profile) => {
+    // Only display profiles if a user profile has been created
+    if (profile.profile.length > 0) {
+      return <ShortProfileView profile={profile} key={profile.id} />;
+    }
+  });
 
   return (
     <div style={{ marginTop: 200 }}>

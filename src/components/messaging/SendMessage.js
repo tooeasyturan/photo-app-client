@@ -19,6 +19,7 @@ const SendMessage = ({ userTo }) => {
 
   const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
   messagesService.setToken(userFrom.token);
+  console.log("userTo", userTo);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,11 +65,7 @@ const SendMessage = ({ userTo }) => {
           open={modalOpen}
           onClose={() => setModalOpen(false)}
         >
-          <Header
-            icon="pencil"
-            content={`Message ${userTo.username}`}
-            as="h2"
-          />
+          <Header icon="pencil" content={`Message ${userTo}`} as="h2" />
           <Modal.Content>
             <Form.Field
               control={TextArea}

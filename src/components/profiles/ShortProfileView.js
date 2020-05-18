@@ -3,6 +3,7 @@ import { Card, Image } from "semantic-ui-react";
 
 const ShortProfileView = ({ profile }) => {
   // Really need to update db schema to have less confusing objects when fetching data
+  console.log(profile);
   const avatar = profile.avatar[0].avatar;
   const username = profile.username;
   const { description, country, region } = profile.profile[0];

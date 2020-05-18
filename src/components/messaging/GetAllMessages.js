@@ -12,7 +12,6 @@ import useImageHandling from "../custom-hooks/useImageHandling";
 
 const GetAllMessages = () => {
   const [userFrom, setUserFrom] = useContext(UserContext);
-  // const [rawConvos, setRawConvos] = useState(null);
   const [users, setUsers] = useState([]);
   const [cleanConvos, setCleanConvos] = useState([]);
   const [fetchedMessages, setFetchedMessages] = useState([]);

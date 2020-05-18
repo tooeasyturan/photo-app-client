@@ -49,7 +49,4 @@ const createUser = async (newUser) => {
   }
 };
 
-// const deleteUser = () => {
-//   const request = axios.delete}
-
 export default { setToken, getAll, create, update, auth, createUser };
