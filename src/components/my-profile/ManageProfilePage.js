@@ -27,7 +27,8 @@ const SegmentStyle = { marginTop: 100 };
 const FieldHeaderStyle = { fontSize: 16, fontWeight: "bold" };
 
 const ManageProfilePage = ({ user, values, handleChange, handleSubmit }) => {
-  const { description, region, country, shootingStyle } = values;
+  console.log("VALUES", values);
+  const { description, location, shootingStyle } = values;
   return (
     <Grid textAlign="center" verticalAlign="middle" style={GridStyle}>
       <Grid.Column style={ColumnStyle}>
@@ -41,13 +42,13 @@ const ManageProfilePage = ({ user, values, handleChange, handleSubmit }) => {
             <Form.Group>
               <CountryDropdown
                 name="country"
-                value={country}
+                value={location.country}
                 onChange={handleChange}
               />
               <RegionDropdown
                 name="region"
-                country={country}
-                value={region}
+                country={location.country}
+                value={location.region}
                 onChange={handleChange}
               />
             </Form.Group>

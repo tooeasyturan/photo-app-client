@@ -8,13 +8,16 @@ import { UserContext } from "../UserContext";
 // Component for editing user with status 'model' after initial profile has been created.
 
 const CREATE_PROFILE_OPTIONS = {
-  country: "",
-  region: "",
+  location: {
+    country: "",
+    region: "",
+  },
   description: "",
   shootingStyle: [],
 };
 
 const CreateProfile = ({ user }) => {
+  console.log("CREATE PROFILE");
   const { handleChange, handleSubmit, values } = useFormHandling(
     CREATE_PROFILE_OPTIONS,
     submit,
