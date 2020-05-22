@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Container, Card, Image } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 
 const CardStyles = { marginTop: 100 };
 
@@ -11,8 +11,6 @@ const UserCard = ({ profile, isFullProfile, ...children }) => {
   const { country, region, description } = isFullProfile
     ? profile.profile
     : profile.profile[0];
-
-  window.profile = profile;
 
   return (
     <Card

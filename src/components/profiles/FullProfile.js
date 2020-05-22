@@ -3,16 +3,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import profilesServices from "../../services/profiles";
 import uuid from "uuid/v4";
-import FullProfileView from "./FullProfileView";
+import UserCard from "./UserCard";
+import SendMessage from "../messaging/SendMessage";
+
 import { Image } from "semantic-ui-react";
 import { useError } from "../ErrorBoundaryContext";
-
-// const DEFAULT_USER_PROFILE = {
-//   info: [],
-//   profile: [],
-//   avatar: [],
-//   upload: [],
-// };
 
 const DEFAULT_USER_PROFILE = {
   username: "",
@@ -25,12 +20,15 @@ const DEFAULT_USER_PROFILE = {
   upload: [],
 };
 
+const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
+
 // Names are pretty confusing here. Could help to update db schema as well.
 
-const FullProfile = (props) => {
+const FullProfile = ({ username }) => {
+  console.log("full profile username", username);
   const errorMessage = useError();
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE);
-  const username = props.match.params.username;
+  // const username = props.match.params.username;
   const { upload } = profile;
   const [error, setError] = useState();
 
@@ -73,11 +71,21 @@ const FullProfile = (props) => {
   ));
 
   return (
-    <FullProfileView
-      profile={profile}
-      displayPortfolioPictures={displayPortfolioPictures}
-      username={username}
-    />
+    <>
+      <UserCard
+        profile={profile}
+        isFullProfile
+        sendMessage={<SendMessage userTo={username} />}
+      />
+      <Image.Group
+        style={ImageGroupStyles}
+        doubling='true'
+        stackable='true'
+        size='large'
+      >
+        {displayPortfolioPictures}
+      </Image.Group>
+    </>
   );
 };
 

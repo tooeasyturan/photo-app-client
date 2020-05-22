@@ -5,7 +5,6 @@ import { Image, Container, Card } from "semantic-ui-react";
 import SendMessage from "../messaging/SendMessage";
 import UserCard from "./UserCard";
 
-const CardStyles = { marginTop: 100 };
 const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
 
 const FullProfileView = ({ profile, displayPortfolioPictures, username }) => {

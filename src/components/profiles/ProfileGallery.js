@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
-import ShortProfileView from "./ShortProfileView";
 import UserCard from "./UserCard";
 
 const ShortProfile = () => {
