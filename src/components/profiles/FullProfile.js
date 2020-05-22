@@ -7,10 +7,21 @@ import FullProfileView from "./FullProfileView";
 import { Image } from "semantic-ui-react";
 import { useError } from "../ErrorBoundaryContext";
 
+// const DEFAULT_USER_PROFILE = {
+//   info: [],
+//   profile: [],
+//   avatar: [],
+//   upload: [],
+// };
+
 const DEFAULT_USER_PROFILE = {
-  info: [],
-  profile: [],
-  avatar: [],
+  username: "",
+  firstName: "",
+  lastName: "",
+  status: "",
+  email: "",
+  profile: {},
+  avatar: "",
   upload: [],
 };
 
@@ -36,12 +47,18 @@ const FullProfile = (props) => {
     }
     setProfile({
       ...profile,
-      info: user,
+      username: username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      status: user.status,
+      email: user.email,
       profile: user.profile[0],
       avatar: user.avatar[0].avatar,
       upload: user.upload,
     });
   };
+
+  console.log("full profile", profile);
 
   const displayPortfolioPictures = upload.map((portfolioPicture) => (
     <Image

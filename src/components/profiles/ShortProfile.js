@@ -1,7 +1,10 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
 import ShortProfileView from "./ShortProfileView";
+import UserCard from "./UserCard";
 
 const ShortProfile = () => {
   const [profiles, setProfiles] = useState([]);
@@ -20,7 +23,8 @@ const ShortProfile = () => {
   const displayProfiles = profiles.map((profile) => {
     // Only display profiles if a user profile has been created
     if (profile.profile.length > 0) {
-      return <ShortProfileView profile={profile} key={profile.id} />;
+      console.log(profile);
+      return <UserCard profile={profile} key={profile.id} />;
     }
   });
 
@@ -28,7 +32,7 @@ const ShortProfile = () => {
     <div style={{ marginTop: 200 }}>
       <h1 style={{ textAlign: "center" }}>Explore Users</h1>
       <Card.Group
-        className="doubling stackable"
+        className='doubling stackable'
         itemsPerRow={6}
         style={{ marginTop: 10 }}
         centered

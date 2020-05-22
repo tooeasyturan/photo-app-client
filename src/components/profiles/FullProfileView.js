@@ -10,6 +10,7 @@ const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
 
 const FullProfileView = ({ profile, displayPortfolioPictures, username }) => {
   const { info, avatar } = profile;
+  console.log(profile);
 
   return (
     <>
