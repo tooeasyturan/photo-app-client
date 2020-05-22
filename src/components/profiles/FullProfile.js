@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState, useContext } from "react";
 import profilesServices from "../../services/profiles";
 import uuid from "uuid/v4";
@@ -47,7 +49,7 @@ const FullProfile = (props) => {
       src={portfolioPicture.portfolio}
       wrapped
       ui={true}
-      alt=""
+      alt=''
       rounded
       style={{ cursor: "pointer", margin: "0.5em" }}
     />

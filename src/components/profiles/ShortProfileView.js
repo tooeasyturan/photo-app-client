@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { Card, Image } from "semantic-ui-react";
 
@@ -9,10 +11,10 @@ const ShortProfileView = ({ profile }) => {
   const { description, country, region } = profile.profile[0];
 
   return (
-    <Card href={`/profile/${username}`} className="user">
+    <Card href={`/profile/${username}`} className='user'>
       <Image
         src={avatar}
-        alt="https://react.semantic-ui.com/images/avatar/large/elliot.jpg"
+        alt='https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
         wrapped
         ui={false}
       />

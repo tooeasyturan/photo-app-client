@@ -8,16 +8,16 @@ import { UserContext } from "../UserContext";
 // Component for editing user with status 'photographer' after initial profile has been created.
 
 const EditProfile = ({ user }) => {
-  console.log("EDIT PROFILE");
-  const profile = user.profile;
+  // const [user, setUser] = useContext(UserContext);
+
+  // console.log("EDIT PROFILE");
+  const profile = user.profile[0];
 
   const EDIT_PROFILE_OPTIONS = {
-    location: {
-      country: profile.location.country,
-      region: profile.location.region,
-    },
-    description: profile.description,
-    shootingStyle: profile.shootingStyle,
+    country: profile.country ? profile.country : "",
+    region: profile.region ? profile.region : "",
+    description: profile.description ? profile.description : "",
+    shootingStyle: profile.shootingStyle ? profile.shootingStyle : "",
   };
 
   const {

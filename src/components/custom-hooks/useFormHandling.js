@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useFormHandling = (formInputs, callback, validate) => {
+  console.log("form inputs", formInputs);
   const [values, setValues] = useState(formInputs);
   const [errors, setErrors] = useState({});
 
@@ -25,6 +26,8 @@ const useFormHandling = (formInputs, callback, validate) => {
     console.log(formErrors.length);
     Object.keys(formErrors).length === 0 ? callback() : setErrors(formErrors);
   };
+
+  console.log("values", values);
 
   return {
     handleChange,

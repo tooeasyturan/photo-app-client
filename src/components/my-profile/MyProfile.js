@@ -9,12 +9,12 @@ import ManageMyPortfolio from "./ManageMyPortfolio";
 const MyProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const { profile } = user;
-  console.log("user from db", user.profile);
+  console.log("my profile", user);
 
   return (
     <Grid>
       <Grid.Column>
-        {!profile.id ? (
+        {profile.length === 0 ? (
           <CreateProfile user={user} />
         ) : (
           <EditProfile user={user} />
