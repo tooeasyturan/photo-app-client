@@ -7,7 +7,6 @@ import { UserProvider } from "../UserContext";
 import Navigation from "../layout/Navigation";
 import Landing from "../layout/Landing";
 import Login from "../login/Login";
-
 import Register from "../register/Register";
 import MyProfile from "../my-profile/MyProfile";
 import GetAllMessages from "../messaging/GetAllMessages";

@@ -5,7 +5,7 @@ import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
 import UserCard from "./UserCard";
 
-const ShortProfile = () => {
+const ProfileGallery = () => {
   const [profiles, setProfiles] = useState([]);
 
   useEffect(() => {
@@ -42,4 +42,4 @@ const ShortProfile = () => {
   );
 };
 
-export default ShortProfile;
+export default ProfileGallery;

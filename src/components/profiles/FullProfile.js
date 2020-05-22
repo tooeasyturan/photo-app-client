@@ -6,6 +6,8 @@ import uuid from "uuid/v4";
 import UserCard from "./UserCard";
 import SendMessage from "../messaging/SendMessage";
 
+import PortfolioPictures from "./PortfolioPictures";
+
 import { Image } from "semantic-ui-react";
 import { useError } from "../ErrorBoundaryContext";
 
@@ -19,8 +21,6 @@ const DEFAULT_USER_PROFILE = {
   avatar: "",
   upload: [],
 };
-
-const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
 
 // Names are pretty confusing here. Could help to update db schema as well.
 
@@ -56,20 +56,6 @@ const FullProfile = ({ username }) => {
     });
   };
 
-  console.log("full profile", profile);
-
-  const displayPortfolioPictures = upload.map((portfolioPicture) => (
-    <Image
-      key={uuid()}
-      src={portfolioPicture.portfolio}
-      wrapped
-      ui={true}
-      alt=''
-      rounded
-      style={{ cursor: "pointer", margin: "0.5em" }}
-    />
-  ));
-
   return (
     <>
       <UserCard
@@ -77,14 +63,7 @@ const FullProfile = ({ username }) => {
         isFullProfile
         sendMessage={<SendMessage userTo={username} />}
       />
-      <Image.Group
-        style={ImageGroupStyles}
-        doubling='true'
-        stackable='true'
-        size='large'
-      >
-        {displayPortfolioPictures}
-      </Image.Group>
+      <PortfolioPictures portfolioPictures={upload} />
     </>
   );
 };
