@@ -1,10 +1,9 @@
 /** @format */
 
-import React, { useState, useEffect, useContext } from "react";
-import uuid from "uuid/v4";
+import React, { useEffect, useContext } from "react";
 import useImageHandling from "../custom-hooks/useImageHandling";
 import { UserContext } from "../UserContext";
-import { Image, Container, Loader, Popup, Icon } from "semantic-ui-react";
+import { Container, Loader, Popup, Icon } from "semantic-ui-react";
 import PortfolioPictures from "../profiles/PortfolioPictures";
 
 const ContainerStyles = { marginTop: 150, marginLeft: 100 };

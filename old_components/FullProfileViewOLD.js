@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Image, Container, Card } from "semantic-ui-react";
-import SendMessage from "../messaging/SendMessage";
-import UserCard from "./UserCard";
+import SendMessage from "../src/components/messaging/SendMessage";
+import UserCard from "../src/components/profiles/UserCard";
 
 const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
 

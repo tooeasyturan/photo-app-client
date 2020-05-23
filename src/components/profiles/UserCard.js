@@ -12,10 +12,12 @@ const UserCard = ({ profile, isFullProfile, ...children }) => {
     ? profile.profile
     : profile.profile[0];
 
+  //Ask question about passing props that haven't been mapped (i.e. from FullProfile)
+
   return (
     <Card
       className='ui centered card'
-      href={!isFullProfile ? `/profile/${username}` : null}
+      href={!isFullProfile ? `/profiles/${username}` : null}
       style={CardStyles}
     >
       <Image key={avatar} src={avatar} alt='' />
@@ -27,6 +29,7 @@ const UserCard = ({ profile, isFullProfile, ...children }) => {
             <>
               <p>{firstName + " " + lastName}</p>
               <p>{email}</p>
+              <p>{`Description: ${description}`}</p>
             </>
           ) : (
             <p>{`Description: ${description}`}</p>

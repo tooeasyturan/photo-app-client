@@ -1,4 +1,9 @@
-/* eslint-disable no-unused-vars */
+/**
+ * /* eslint-disable no-unused-vars
+ *
+ * @format
+ */
+
 import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import "../../styles/Landing.css";
@@ -11,25 +16,25 @@ const Landing = () => {
 
   return (
     <>
-      <div className="landing-background" id="landing">
+      <div className='landing-background' id='landing'>
         {/* <Row className="justify-content-md-center"> */}
-        <div className="landing-box">
-          <div className="ui vertical center aligned segment">
-            <div className="ui text container">
-              <h1 className="ui inverted header">TFP Application</h1>
+        <div className='landing-box'>
+          <div className='ui vertical center aligned segment'>
+            <div className='ui text container'>
+              <h1 className='ui inverted header'>TFP Application</h1>
               <h2>Do whatever you want when you want to.</h2>
               <div></div>
 
               {!isUser ? (
-                <Button secondary size="huge" href="/register">
+                <Button secondary size='huge' href='/register'>
                   Sign Up
                 </Button>
               ) : (
                 <div>
-                  <Button secondary size="huge" href={`/${user.username}`}>
+                  <Button secondary size='huge' href={`/${user.username}`}>
                     Go to my profile
                   </Button>
-                  <Button secondary size="huge" href="/users">
+                  <Button secondary size='huge' href='/profiles'>
                     Explore users
                   </Button>
                 </div>

@@ -5,24 +5,37 @@ import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
 import UserCard from "./UserCard";
 
-const ProfileGallery = () => {
+const Profiles = () => {
   const [profiles, setProfiles] = useState([]);
 
+  // useEffect(() => {
+  //   usersService
+  //     .getAll()
+  //     .then((profiles) =>
+  //       profiles.map(({ id, avatar, username, profile }) => {
+  //         return { id, avatar, username, profile };
+  //       })
+  //     )
+  //     .then((profiles) => setProfiles(profiles));
+  // }, []);
+
   useEffect(() => {
-    usersService
-      .getAll()
-      .then((profiles) =>
-        profiles.map(({ id, avatar, username, profile }) => {
-          return { id, avatar, username, profile };
-        })
-      )
-      .then((profiles) => setProfiles(profiles));
+    fetchProfiles();
   }, []);
+
+  const fetchProfiles = async () => {
+    const profiles = await usersService.getAll();
+    const mappedProfiles = profiles.map(({ id, avatar, username, profile }) => {
+      return { id, avatar, username, profile };
+    });
+    setProfiles(mappedProfiles);
+  };
+
+  console.log(profiles);
 
   const displayProfiles = profiles.map((profile) => {
     // Only display profiles if a user profile has been created
     if (profile.profile.length > 0) {
-      console.log(profile);
       return <UserCard profile={profile} key={profile.id} />;
     }
   });
@@ -42,4 +55,4 @@ const ProfileGallery = () => {
   );
 };
 
-export default ProfileGallery;
+export default Profiles;

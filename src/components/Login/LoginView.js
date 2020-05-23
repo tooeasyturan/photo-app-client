@@ -1,12 +1,7 @@
+/** @format */
+
 import React from "react";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Segment,
-  Message,
-} from "semantic-ui-react";
+import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 
 const GridStyles = { height: "100vh" };
 const ColumnStyles = { maxWidth: 450 };
@@ -14,34 +9,34 @@ const SegmentStyles = { width: 450 };
 
 const LoginPage = ({ values, handleChange, handleSubmit, errors }) => {
   return (
-    <Grid textAlign="center" style={GridStyles} verticalAlign="middle">
+    <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>
         <Header>Login</Header>
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form size='large' onSubmit={handleSubmit}>
           <Segment stacked style={SegmentStyles}>
             <Form.Input
               fluid
-              icon="user"
-              iconPosition="left"
-              placeholder="Username"
-              name="username"
-              type="text"
+              icon='user'
+              iconPosition='left'
+              placeholder='Username'
+              name='username'
+              type='text'
               value={values.username}
               onChange={handleChange}
               error={errors.usernameError}
             />
             <Form.Input
               fluid
-              icon="lock"
-              iconPosition="left"
-              placeholder="Password"
-              type="password"
+              icon='lock'
+              iconPosition='left'
+              placeholder='Password'
+              type='password'
               value={values.password}
-              name="password"
+              name='password'
               onChange={handleChange}
               error={errors.passwordError}
             />
-            <Button color="teal" fluid size="large">
+            <Button color='teal' fluid size='large'>
               Login
             </Button>
           </Segment>

@@ -4,12 +4,12 @@ import React from "react";
 import uuid from "uuid/v4";
 import { Image } from "semantic-ui-react";
 
-const ImageGroupStyles = { marginTop: 100, textAlign: "center" };
+const ImageGroupStyles = { marginTop: 20, textAlign: "center" };
 
 const PortfolioPictures = ({
   portfolioPictures,
-  handleDeletePortfolioPicture,
   isLoggedInUser,
+  handleDeletePortfolioPicture,
 }) => {
   const displayPortfolioPictures = portfolioPictures.map((img) => {
     return (

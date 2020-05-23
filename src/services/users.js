@@ -1,3 +1,5 @@
+/** @format */
+
 import axios from "axios";
 const baseUrl = "http://localhost:3004/users";
 const authUrl = "http://localhost:3004/auth";
@@ -16,9 +18,14 @@ const auth = async (credentials) => {
   return response.data;
 };
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+// const getAll = () => {
+//   const request = axios.get(baseUrl);
+//   return request.then((response) => response.data);
+// };
+
+const getAll = async () => {
+  const res = await axios.get(baseUrl);
+  return res.data;
 };
 
 const create = async (newObject) => {

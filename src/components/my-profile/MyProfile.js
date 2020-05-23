@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useContext } from "react";
 import { Grid } from "semantic-ui-react";
 import CreateProfile from "./CreateProfile";
@@ -9,7 +11,6 @@ import ManageMyPortfolio from "./ManageMyPortfolio";
 const MyProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const { profile } = user;
-  console.log("my profile", user);
 
   return (
     <Grid>

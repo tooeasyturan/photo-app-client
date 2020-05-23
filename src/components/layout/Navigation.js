@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useContext } from "react";
 import Logout from "../Logout";
 import { UserContext } from "../UserContext";
@@ -24,7 +26,7 @@ const Navigation = () => {
 
   const trigger = (
     <span>
-      <Icon name="user" /> Hello, {isUser ? user.username : <div></div>}
+      <Icon name='user' /> Hello, {isUser ? user.username : <div></div>}
     </span>
   );
 
@@ -35,7 +37,7 @@ const Navigation = () => {
       as: Link,
       to: `/${isUser ? user.username : "/"}`,
     },
-    { key: "explore", text: "Explore", as: Link, to: "/profile" },
+    { key: "explore", text: "Explore", as: Link, to: "/profiles" },
     { key: "inbox", text: "Inbox", as: Link, to: "/inbox" },
     { key: "sign-out", text: "Sign Out", as: Logout },
   ];
@@ -65,41 +67,41 @@ const Navigation = () => {
               inverted
             > */}
             <Menu
-              fixed="top"
+              fixed='top'
               inverted
               secondary
-              size="large"
+              size='large'
               style={{ background: "black" }}
             >
               <Container>
-                <Menu.Item as="a" active href="/">
+                <Menu.Item as='a' active href='/'>
                   Home
                 </Menu.Item>
-                <Menu.Item as="a">About</Menu.Item>
-                <Menu.Item as="a">Contact</Menu.Item>
-                <Menu.Menu position="right">
+                <Menu.Item as='a'>About</Menu.Item>
+                <Menu.Item as='a'>Contact</Menu.Item>
+                <Menu.Menu position='right'>
                   {isUser ? (
                     <>
                       <Menu.Item>
                         <Dropdown trigger={trigger} options={options} />
                       </Menu.Item>
-                      <Menu.Item href="/inbox">
-                        <Icon name="envelope outline" />
+                      <Menu.Item href='/inbox'>
+                        <Icon name='envelope outline' />
                       </Menu.Item>
                     </>
                   ) : (
                     <>
                       <Button
-                        href="/login"
-                        as="a"
+                        href='/login'
+                        as='a'
                         inverted={!hideFixedMenu}
                         style={{ margin: "auto" }}
                       >
                         Log in
                       </Button>
                       <Button
-                        href="/register"
-                        as="a"
+                        href='/register'
+                        as='a'
                         inverted={!hideFixedMenu}
                         primary={hideFixedMenu}
                         style={{ margin: "auto", marginLeft: "1em" }}
@@ -130,7 +132,7 @@ const Navigation = () => {
         >
           <Sidebar
             as={Menu}
-            animation="push"
+            animation='push'
             inverted
             onHide={() => setSideBarOpen(!sideBarOpen)}
             vertical
@@ -138,22 +140,22 @@ const Navigation = () => {
           >
             {isUser ? (
               <>
-                <Menu.Item as="a" active href="/">
+                <Menu.Item as='a' active href='/'>
                   Home
                 </Menu.Item>
-                <Menu.Item as="a">About</Menu.Item>
+                <Menu.Item as='a'>About</Menu.Item>
                 {/* <Menu.Item as='a' href='/users'>Explore Users</Menu.Item> */}
               </>
             ) : (
               <>
-                <Menu.Item as="a" active href="/">
+                <Menu.Item as='a' active href='/'>
                   Home
                 </Menu.Item>
-                <Menu.Item as="a">About</Menu.Item>
-                <Menu.Item as="a" href="/login">
+                <Menu.Item as='a'>About</Menu.Item>
+                <Menu.Item as='a' href='/login'>
                   Log in
                 </Menu.Item>
-                <Menu.Item as="a" href="/register">
+                <Menu.Item as='a' href='/register'>
                   Sign Up
                 </Menu.Item>
               </>
@@ -162,30 +164,30 @@ const Navigation = () => {
           <Sidebar.Pusher dimmed={sideBarOpen}>
             <Segment
               inverted
-              textAlign="center"
+              textAlign='center'
               style={{ minHeight: 120, padding: "1em 0em" }}
               vertical
             >
               <Container>
-                <Menu inverted pointing secondary size="large">
+                <Menu inverted pointing secondary size='large'>
                   <Menu.Item onClick={() => setSideBarOpen(!sideBarOpen)}>
-                    <Icon name="sidebar" />
+                    <Icon name='sidebar' />
                   </Menu.Item>
-                  <Menu.Item position="right">
+                  <Menu.Item position='right'>
                     {isUser ? (
                       <Dropdown
-                        position="right"
+                        position='right'
                         trigger={trigger}
                         options={options}
                       />
                     ) : (
                       <>
-                        <Button href="/login" as="a">
+                        <Button href='/login' as='a'>
                           Log in
                         </Button>
                         <Button
-                          href="/register"
-                          as="a"
+                          href='/register'
+                          as='a'
                           style={{ marginLeft: "0.5em" }}
                         >
                           Sign Up
