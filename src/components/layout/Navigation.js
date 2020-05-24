@@ -20,9 +20,9 @@ import { Link } from "react-router-dom";
 
 const Navigation = () => {
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-  let isUser = user.username.length > 0 ? true : false;
+  let isUser = user ? true : false;
 
   const trigger = (
     <span>

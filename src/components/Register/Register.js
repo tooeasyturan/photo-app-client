@@ -1,4 +1,9 @@
-/* eslint-disable no-unused-vars */
+/**
+ * /* eslint-disable no-unused-vars
+ *
+ * @format
+ */
+
 import React from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import useFormHandling from "../custom-hooks/useFormHandling";

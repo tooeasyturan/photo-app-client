@@ -11,7 +11,7 @@ import { UserContext } from "../UserContext";
 const USER_CREDENTIALS = { username: "", password: "" };
 
 const Login = () => {
-  const [user, setUser] = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { handleChange, handleSubmit, values, errors } = useFormHandling(
     USER_CREDENTIALS,
     submit,
@@ -25,7 +25,7 @@ const Login = () => {
 
   return (
     <>
-      {user.username.length === 0 ? (
+      {!user ? (
         <LoginPage
           values={values}
           handleChange={handleChange}

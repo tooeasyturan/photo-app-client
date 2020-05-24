@@ -23,21 +23,30 @@ const DEFAULT_CURRENT_USER = {
 };
 
 export const UserProvider = (props) => {
-  const [user, setUser] = useState(DEFAULT_CURRENT_USER);
+  const [user, setUser] = useState(loggedInUser);
+  console.log("user context user", user);
 
-  useEffect(() => {
-    fetchLoggedInUser();
-  }, []);
+  // currently user is fetched every time a component that has UserContext is loaded. how to fix??
+  // useEffect(() => {
+  //   fetchLoggedInUser();
 
-  const fetchLoggedInUser = async () => {
-    if (loggedInUser) {
-      const authorizedUser = await usersServices.auth(loggedInUser);
-      setUser({ ...authorizedUser, token: loggedInUser.token });
-    }
-  };
+  //   return () => {
+  //     console.log("cleaned up");
+  //   };
+  // }, []);
+
+  // const fetchLoggedInUser = async () => {
+  //   console.log("fetching user...");
+  //   if (loggedInUser) {
+  //     const authorizedUser = await usersServices.auth(loggedInUser);
+  //     setUser({ ...authorizedUser, token: loggedInUser.token });
+  //   }
+  // };
+
+  // console.log("fetched user", user);
 
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <UserContext.Provider value={{ user, setUser }}>
       {props.children}
     </UserContext.Provider>
   );

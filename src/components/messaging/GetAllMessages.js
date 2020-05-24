@@ -1,4 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/**
+ * /* eslint-disable react-hooks/exhaustive-deps
+ *
+ * @format
+ */
+
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from "react";
 import messagesService from "../../services/messages";
@@ -11,7 +16,7 @@ import useImageHandling from "../custom-hooks/useImageHandling";
 // This component is probably too large and confusing with shitty variable names
 
 const GetAllMessages = () => {
-  const [userFrom, setUserFrom] = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const [cleanConvos, setCleanConvos] = useState([]);
   const [fetchedMessages, setFetchedMessages] = useState([]);
@@ -30,8 +35,8 @@ const GetAllMessages = () => {
       let result = await messagesService.getAll();
       result = result.filter(
         (message) =>
-          message.deleteBySender !== userFrom.username &&
-          message.deleteByReceiver !== userFrom.username
+          message.deleteBySender !== user.username &&
+          message.deleteByReceiver !== user.username
       );
       setCleanConvos(cleanData(result));
     } catch (exception) {
@@ -46,7 +51,7 @@ const GetAllMessages = () => {
     // Returns an array of size 2 arrays consisting of the members of each conversation.
     // ex. [['emil', 'josh'], ['josh','jon'],...[loggedInUser, userTo]]
 
-    let users = flatten(convos).filter((name) => name !== userFrom.username);
+    let users = flatten(convos).filter((name) => name !== user.username);
     setUsers(users);
     // Returns an array of strings consisting of all the other users the logged in user has an existing conversation object with. ex ['emil', 'jon'] ....where 'josh' is the logged in user
 
@@ -72,7 +77,7 @@ const GetAllMessages = () => {
       <DisplayMessage
         key={message._id}
         message={message}
-        userFrom={userFrom}
+        userFrom={user}
         userToAvatar={avatar}
       />
     ));
@@ -82,12 +87,12 @@ const GetAllMessages = () => {
     console.log("onSubmit", userSelected);
     try {
       await messagesService.create({
-        userFrom: userFrom.id,
+        userFrom: user.id,
         userTo: userSelected,
         message: response,
       });
       let newMessage = {
-        sender: userFrom.username,
+        sender: user.username,
         content: response,
         date: new Date().toLocaleString(),
       };

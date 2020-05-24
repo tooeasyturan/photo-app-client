@@ -10,9 +10,9 @@ import "../../styles/Landing.css";
 import { Button } from "semantic-ui-react";
 
 const Landing = () => {
-  const [user, setUser] = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  let isUser = user.username.length > 0 ? true : false;
+  let isUser = user ? true : false;
 
   return (
     <>

@@ -11,8 +11,8 @@ const InputStyles = { display: "none" };
 const HeaderStyles = { display: "inline", marginRight: 10 };
 const LabelStyles = { cursor: "pointer", marginBottom: 45 };
 
-const ManageMyPortfolio = () => {
-  const [user, setUser] = useContext(UserContext);
+const ManageMyPortfolio = ({ user }) => {
+  // const [user, setUser] = useContext(UserContext);
   const {
     fetchPortfolioPictures,
     portfolioPictures,

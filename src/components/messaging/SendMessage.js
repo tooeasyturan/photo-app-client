@@ -1,4 +1,9 @@
-/* eslint-disable no-unused-vars */
+/**
+ * /* eslint-disable no-unused-vars
+ *
+ * @format
+ */
+
 import React, { useState, useContext } from "react";
 import messagesService from "../../services/messages";
 import {
@@ -15,10 +20,12 @@ const SendMessage = ({ userTo }) => {
   const [saved, setSaved] = useState(false);
   const [message, setMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [userFrom, setUserFrom] = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  console.log("userFrom", user);
 
   const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
-  messagesService.setToken(userFrom.token);
+
+  messagesService.setToken(loggedInUser.token);
   console.log("userTo", userTo);
 
   const handleSubmit = async (e) => {
@@ -26,10 +33,8 @@ const SendMessage = ({ userTo }) => {
 
     try {
       if (message.length > 0) {
-        console.log(userFrom.token);
-
         const result = await messagesService.create({
-          userFrom: userFrom.id,
+          userFrom: user.id,
           userTo: userTo,
           message: message,
         });
@@ -58,32 +63,32 @@ const SendMessage = ({ userTo }) => {
           }}
           as={Form}
           onSubmit={handleSubmit}
-          size="tiny"
+          size='tiny'
           trigger={
             <Button onClick={() => setModalOpen(true)}>Message User</Button>
           }
           open={modalOpen}
           onClose={() => setModalOpen(false)}
         >
-          <Header icon="pencil" content={`Message ${userTo}`} as="h2" />
+          <Header icon='pencil' content={`Message ${userTo}`} as='h2' />
           <Modal.Content>
             <Form.Field
               control={TextArea}
               value={message}
               onChange={handleChange}
-              placeholder="Tell us more about yourself..."
+              placeholder='Tell us more about yourself...'
             />
             {saved ? <div>Saved!</div> : null}
           </Modal.Content>
           <Modal.Actions>
             <Button
-              type="submit"
-              color="red"
-              icon="times"
-              content="Close"
+              type='submit'
+              color='red'
+              icon='times'
+              content='Close'
               onClick={() => setModalOpen(false)}
             />
-            <Button type="submit" color="green" icon="save" content="Send" />
+            <Button type='submit' color='green' icon='save' content='Send' />
           </Modal.Actions>
         </Modal>
       </Container>
