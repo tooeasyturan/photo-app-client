@@ -18,11 +18,6 @@ const auth = async (credentials) => {
   return response.data;
 };
 
-// const getAll = () => {
-//   const request = axios.get(baseUrl);
-//   return request.then((response) => response.data);
-// };
-
 const getAll = async () => {
   const res = await axios.get(baseUrl);
   return res.data;
@@ -30,11 +25,7 @@ const getAll = async () => {
 
 const create = async (newObject) => {
   try {
-    // const config = {
-    //   headers: { 'Content-Type': 'application/json' }
-    // }
     const response = await axios.post(baseUrl, newObject);
-    // console.log('RESPONSE', response)
     return response.data;
   } catch (error) {
     console.log(error.response.data.errors);

@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState } from "react";
 import uploadsService from "../../services/uploads";
 
@@ -7,16 +9,16 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPortfolioPictures = async () => {
-    await uploadsService
-      .getImages(`uploads/${user.username ? user.username : user}`)
-      .then((pics) => setPortfolioPictures(pics));
+    const portfolioPictures = await uploadsService.getImages(
+      `uploads/${user.username ? user.username : user}`
+    );
+    setPortfolioPictures(portfolioPictures);
   };
 
   const fetchAvatar = async (username) => {
     username = user ? user.username : username;
-    await uploadsService
-      .getImages(`uploads/${username}/avatar`)
-      .then((pics) => setAvatar(pics[0]));
+    const avatar = await uploadsService.getImages(`uploads/${username}/avatar`);
+    setAvatar(avatar[0]);
   };
 
   const uploadImage = async (formData) => {

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import loginService from "../../services/login";
@@ -32,7 +34,7 @@ const Login = () => {
         />
       ) : (
         <>
-          <Redirect to="/" />
+          <Redirect to='/' />
         </>
       )}
     </>

@@ -1,3 +1,5 @@
+/** @format */
+
 import axios from "axios";
 const baseUrl = "http://localhost:3004/users/profile";
 
@@ -17,7 +19,6 @@ const create = async (credentials, newObject) => {
 };
 
 const getProfile = async (username) => {
-  console.log("username", username);
   const req = await axios.get(`http://localhost:3004/users/${username}`);
   return req.data[0];
 };

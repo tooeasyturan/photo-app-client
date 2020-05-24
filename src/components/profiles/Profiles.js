@@ -8,23 +8,13 @@ import UserCard from "./UserCard";
 const Profiles = () => {
   const [profiles, setProfiles] = useState([]);
 
-  // useEffect(() => {
-  //   usersService
-  //     .getAll()
-  //     .then((profiles) =>
-  //       profiles.map(({ id, avatar, username, profile }) => {
-  //         return { id, avatar, username, profile };
-  //       })
-  //     )
-  //     .then((profiles) => setProfiles(profiles));
-  // }, []);
-
   useEffect(() => {
     fetchProfiles();
   }, []);
 
   const fetchProfiles = async () => {
     const profiles = await usersService.getAll();
+    console.log(profiles);
     const mappedProfiles = profiles.map(({ id, avatar, username, profile }) => {
       return { id, avatar, username, profile };
     });

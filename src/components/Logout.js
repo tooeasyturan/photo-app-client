@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Dropdown } from "semantic-ui-react";
@@ -13,8 +15,8 @@ const Logout = ({ hideFixedMenu }) => {
 
   return (
     <>
-      {toHome ? <Redirect to="/login" /> : null}
-      <Dropdown.Item inverted={!hideFixedMenu} as="a" onClick={handleLogout}>
+      {toHome ? <Redirect to='/login' /> : null}
+      <Dropdown.Item inverted={!hideFixedMenu} as='a' onClick={handleLogout}>
         Sign Out
       </Dropdown.Item>
     </>

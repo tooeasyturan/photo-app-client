@@ -1,4 +1,9 @@
-/* eslint-disable no-unused-vars */
+/**
+ * /* eslint-disable no-unused-vars
+ *
+ * @format
+ */
+
 import React, { useState, createContext, useEffect } from "react";
 import usersServices from "../services/users";
 
@@ -21,12 +26,15 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState(DEFAULT_CURRENT_USER);
 
   useEffect(() => {
-    if (loggedInUser) {
-      usersServices
-        .auth(loggedInUser)
-        .then((result) => setUser({ ...result, token: loggedInUser.token }));
-    }
+    fetchLoggedInUser();
   }, []);
+
+  const fetchLoggedInUser = async () => {
+    if (loggedInUser) {
+      const authorizedUser = await usersServices.auth(loggedInUser);
+      setUser({ ...authorizedUser, token: loggedInUser.token });
+    }
+  };
 
   return (
     <UserContext.Provider value={[user, setUser]}>
