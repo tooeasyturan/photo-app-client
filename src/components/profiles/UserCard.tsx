@@ -5,7 +5,26 @@ import { Card, Image } from "semantic-ui-react";
 
 const CardStyles = { marginTop: 100 };
 
-const UserCard = ({ profile, isFullProfile, ...children }) => {
+interface Profile {
+  avatar: any;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profile: {
+    country: string;
+    region: string;
+    description: string;
+  };
+}
+
+interface Props {
+  profile: Profile;
+  isFullProfile: boolean;
+  children: any;
+}
+
+const UserCard: React.FC<Props> = ({ profile, isFullProfile, ...children }) => {
   const { username, firstName, lastName, email } = profile;
   const { avatar } = isFullProfile ? profile : profile.avatar[0];
   const { country, region, description } = isFullProfile

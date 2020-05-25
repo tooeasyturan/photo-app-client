@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
-import UserCard from "./UserCard";
+import UserCard from "./UserCard.tsx";
 
 const Profiles = () => {
   const [profiles, setProfiles] = useState([]);

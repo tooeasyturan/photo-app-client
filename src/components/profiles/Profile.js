@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import profilesServices from "../../services/profiles";
-import UserCard from "./UserCard";
+import UserCard from "./UserCard.tsx";
 import SendMessage from "../messaging/SendMessage";
 import PortfolioPictures from "./PortfolioPictures";
 import { useError } from "../ErrorBoundaryContext";
@@ -30,10 +30,6 @@ const Profile = (props) => {
   useEffect(() => {
     getProfile();
   }, []);
-
-  if (!error) {
-    throw new Error("test");
-  }
 
   const getProfile = async () => {
     let user = await profilesServices.getProfile(username);
