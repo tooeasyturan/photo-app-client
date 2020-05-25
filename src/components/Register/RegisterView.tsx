@@ -6,11 +6,37 @@ import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 const GridStyles = { height: "100vh" };
 const ColumnStyles = { maxWidth: 450 };
 
-const RegisterView = ({
+interface RegistrationFields {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface RegistrationErrors {
+  firstNameError: string;
+  lastNameError: string;
+  usernameError: string;
+  emailError: string;
+  passwordError: string;
+  matchError: string;
+}
+
+interface Props {
+  values: RegistrationFields;
+  errors: RegistrationErrors;
+  handleChange: () => void;
+  handleSubmit: () => void;
+  handleStatus: () => void;
+}
+
+const RegisterView: React.FC<Props> = ({
   values,
+  errors,
   handleChange,
   handleSubmit,
-  errors,
   handleStatus,
 }) => {
   return (

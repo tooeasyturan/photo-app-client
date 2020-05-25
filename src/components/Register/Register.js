@@ -5,10 +5,9 @@
  */
 
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import useFormHandling from "../custom-hooks/useFormHandling";
 import usersService from "../../services/users";
-import RegistrationPage from "./RegisterView";
+import RegisterView from "./RegisterView.tsx";
 import validateRegistration from "./validateRegistration";
 
 const USER_REGISTER_OBJECT = {
@@ -35,7 +34,7 @@ const Register = () => {
 
   return (
     <div>
-      <RegistrationPage
+      <RegisterView
         values={values}
         handleChange={handleChange}
         handleStatus={handleStatus}
