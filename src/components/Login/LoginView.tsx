@@ -7,7 +7,29 @@ const GridStyles = { height: "100vh" };
 const ColumnStyles = { maxWidth: 450 };
 const SegmentStyles = { width: 450 };
 
-const LoginPage = ({ values, handleChange, handleSubmit, errors }) => {
+interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+interface LoginErrors {
+  usernameError: string;
+  passwordError: string;
+}
+
+interface Props {
+  values: LoginCredentials;
+  errors: LoginErrors;
+  handleChange: () => void;
+  handleSubmit: () => void;
+}
+
+const LoginPage: React.FC<Props> = ({
+  values,
+  errors,
+  handleChange,
+  handleSubmit,
+}) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>

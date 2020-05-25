@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import loginService from "../../services/login";
 import useFormHandling from "../custom-hooks/useFormHandling";
-import LoginPage from "./LoginView";
+import LoginView from "./LoginView.tsx";
 import validateLogin from "./validateLogin";
 import { UserContext } from "../UserContext";
 
@@ -26,7 +26,7 @@ const Login = () => {
   return (
     <>
       {!user ? (
-        <LoginPage
+        <LoginView
           values={values}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
