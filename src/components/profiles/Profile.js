@@ -31,6 +31,10 @@ const Profile = (props) => {
     getProfile();
   }, []);
 
+  if (!error) {
+    throw new Error("test");
+  }
+
   const getProfile = async () => {
     let user = await profilesServices.getProfile(username);
     if (!user) {

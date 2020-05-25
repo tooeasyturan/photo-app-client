@@ -8,13 +8,13 @@ import { UserProvider } from "./components/UserContext";
 
 function App() {
   return (
-    <Router>
+    <UserProvider>
       <ErrorBoundary>
-        <UserProvider>
+        <Router>
           <Route component={Routes} />
-        </UserProvider>
+        </Router>
       </ErrorBoundary>
-    </Router>
+    </UserProvider>
   );
 }
 

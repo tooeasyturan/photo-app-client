@@ -17,6 +17,7 @@ const Logout = ({ hideFixedMenu }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
+    //Call logout on backend
     setUser(null);
     history.push("/");
   };

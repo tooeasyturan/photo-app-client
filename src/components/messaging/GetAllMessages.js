@@ -29,6 +29,7 @@ const GetAllMessages = () => {
     getUserMessages();
   }, []);
 
+  // Go through with mark on how to do this with user testing in typescript
   const getUserMessages = async () => {
     try {
       // Fetch all conversations for logged in user
