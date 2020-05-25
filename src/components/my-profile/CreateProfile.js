@@ -1,7 +1,12 @@
-/* eslint-disable no-unused-vars */
+/**
+ * /* eslint-disable no-unused-vars
+ *
+ * @format
+ */
+
 import React, { useContext } from "react";
 import profilesService from "../../services/profiles";
-import ManageProfilePage from "./ManageProfilePage";
+import ManageProfilePage from "./ManageProfilePage.tsx";
 import useFormHandling from "../custom-hooks/useFormHandling";
 import { UserContext } from "../UserContext";
 

@@ -21,12 +21,10 @@ const SendMessage = ({ userTo }) => {
   const [message, setMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
-  console.log("userFrom", user);
 
   const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
 
   messagesService.setToken(loggedInUser.token);
-  console.log("userTo", userTo);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

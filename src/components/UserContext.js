@@ -24,7 +24,6 @@ const DEFAULT_CURRENT_USER = {
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(loggedInUser);
-  console.log("user context user", user);
 
   // currently user is fetched every time a component that has UserContext is loaded. how to fix??
   // useEffect(() => {

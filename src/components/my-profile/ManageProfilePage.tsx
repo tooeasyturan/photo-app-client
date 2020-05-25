@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import {
@@ -26,12 +28,36 @@ const ColumnStyle = { maxWidth: 450 };
 const SegmentStyle = { marginTop: 100 };
 const FieldHeaderStyle = { fontSize: 16, fontWeight: "bold" };
 
-const ManageProfilePage = ({ user, values, handleChange, handleSubmit }) => {
+interface User {
+  username: string;
+  token: string;
+}
+
+interface Profile {
+  description: string;
+  country: string;
+  region: string;
+  shootingStyle: string[];
+}
+
+interface Props {
+  user: User;
+  values: Profile;
+  handleChange: () => void;
+  handleSubmit: () => void;
+}
+
+const ManageProfilePage: React.FC<Props> = ({
+  user,
+  values,
+  handleChange,
+  handleSubmit,
+}) => {
   const { description, country, region, shootingStyle } = values;
   return (
-    <Grid textAlign="center" verticalAlign="middle" style={GridStyle}>
+    <Grid textAlign='center' verticalAlign='middle' style={GridStyle}>
       <Grid.Column style={ColumnStyle}>
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form size='large' onSubmit={handleSubmit}>
           <Segment style={SegmentStyle}>
             <Popup trigger={<ManageMyAvatar user={user} />}>
               <Popup.Header>Click to change avatar</Popup.Header>
@@ -40,12 +66,12 @@ const ManageProfilePage = ({ user, values, handleChange, handleSubmit }) => {
             <h1 style={FieldHeaderStyle}>Current Location</h1>
             <Form.Group>
               <CountryDropdown
-                name="country"
+                name='country'
                 value={country}
                 onChange={handleChange}
               />
               <RegionDropdown
-                name="region"
+                name='region'
                 country={country}
                 value={region}
                 onChange={handleChange}
@@ -56,26 +82,26 @@ const ManageProfilePage = ({ user, values, handleChange, handleSubmit }) => {
             <Form.Field
               control={TextArea}
               value={description}
-              name="description"
+              name='description'
               onChange={handleChange}
-              placeholder="Tell us more about yourself..."
+              placeholder='Tell us more about yourself...'
             />
 
             <h1 style={FieldHeaderStyle}>
               What types of pictures are you looking for?
             </h1>
             <Dropdown
-              placeholder="Please select at least one type"
+              placeholder='Please select at least one type'
               fluid
               multiple
               selection
               options={PICTURE_OPTIONS}
               value={shootingStyle}
-              name="shootingStyle"
+              name='shootingStyle'
               onChange={handleChange}
             />
             <br></br>
-            <Button color="teal" fluid size="large">
+            <Button color='teal' fluid size='large'>
               Update Profile
             </Button>
           </Segment>

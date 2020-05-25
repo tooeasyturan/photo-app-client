@@ -38,7 +38,6 @@ const Profile = (props) => {
         throw new Error("User does not exist");
       });
     }
-    console.log("got profile", user);
     // Probably a better way to set state here so props can be passed to UserCard????
     setProfile({
       ...profile,
