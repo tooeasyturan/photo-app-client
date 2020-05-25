@@ -1,10 +1,9 @@
 /** @format */
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
 import CreateProfile from "./CreateProfile";
 import EditProfile from "./EditProfile";
-import { UserContext } from "../UserContext";
 import ManageMyPortfolio from "./ManageMyPortfolio";
 import usersServices from "../../services/users";
 import { useEffect } from "react";
@@ -23,9 +22,7 @@ const DEFAULT_CURRENT_USER = {
 };
 
 const MyProfile = () => {
-  // const { user, setUser } = useContext(UserContext);
   const [user, setUser] = useState(DEFAULT_CURRENT_USER);
-
   const { profile } = user;
 
   useEffect(() => {
@@ -39,8 +36,6 @@ const MyProfile = () => {
       setUser({ ...myProfile, token: loggedInUser.token });
     }
   };
-
-  console.log("my profile user", user);
 
   return (
     <Grid>
