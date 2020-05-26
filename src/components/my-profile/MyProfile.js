@@ -15,8 +15,7 @@ const DEFAULT_CURRENT_USER = {
   lastName: "",
   username: loggedInUser ? loggedInUser.username : "",
   status: "",
-  token: loggedInUser ? loggedInUser.token : "",
-  profile: [],
+  profile: {},
   upload: [],
   avatar: [],
 };
@@ -37,13 +36,17 @@ const MyProfile = () => {
     }
   };
 
+  console.log("fetched user", user);
+
+  window.user = user;
+
   return (
     <Grid>
       <Grid.Column>
-        {profile.length === 0 ? (
-          <CreateProfile user={user} />
-        ) : (
+        {profile && Object.entries(user.profile).length > 0 ? (
           <EditProfile user={user} />
+        ) : (
+          <CreateProfile user={user} />
         )}
         <ManageMyPortfolio user={user} />
       </Grid.Column>

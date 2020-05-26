@@ -16,7 +16,7 @@ const EditProfile = ({ user }) => {
   // const [user, setUser] = useContext(UserContext);
 
   // console.log("EDIT PROFILE");
-  const profile = user.profile[0];
+  const profile = user.profile;
 
   const EDIT_PROFILE_OPTIONS = {
     country: profile.country ? profile.country : "",

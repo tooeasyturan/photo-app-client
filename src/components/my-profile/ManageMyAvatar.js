@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import useImageHandling from "../custom-hooks/useImageHandling";
 import { Button, Image, Popup, Loader } from "semantic-ui-react";
@@ -13,9 +15,9 @@ const ManageMyAvatar = ({ user }) => {
     setIsUpdated
   );
 
-  useEffect(() => {
-    fetchAvatar();
-  }, []);
+  // useEffect(() => {
+  //   fetchAvatar();
+  // }, []);
 
   useEffect(() => {
     if (!file) {
@@ -43,30 +45,30 @@ const ManageMyAvatar = ({ user }) => {
     <>
       <div>
         <input
-          type="file"
-          id="avatarInput"
+          type='file'
+          id='avatarInput'
           onChange={onSelectFile}
           style={{ display: "none" }}
         />
         <Popup
           trigger={
-            <label htmlFor="avatarInput">
-              {!avatar && !preview ? (
+            <label htmlFor='avatarInput'>
+              {!user.avatar && !preview ? (
                 <Image
                   src={
                     "https://www.sackettwaconia.com/wp-content/uploads/default-profile.png"
                   }
-                  alt="asdf"
-                  size="medium"
+                  alt='asdf'
+                  size='medium'
                   rounded
                   centered
                   style={{ cursor: "pointer" }}
                 />
               ) : (
                 <Image
-                  src={!file ? avatar : preview}
-                  alt="asdf"
-                  size="huge"
+                  src={!file ? user.avatar : preview}
+                  alt='asdf'
+                  size='huge'
                   rounded
                   centered
                   style={{ cursor: "pointer" }}
@@ -84,8 +86,8 @@ const ManageMyAvatar = ({ user }) => {
         <Button
           style={isLoading ? { background: "none" } : { background: "red" }}
           fluid
-          size="medium"
-          type="submit"
+          size='medium'
+          type='submit'
           onClick={handleChange}
         >
           {isLoading === true ? (

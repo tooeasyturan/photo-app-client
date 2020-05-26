@@ -39,18 +39,22 @@ const Profile = (props) => {
       });
     }
     // Probably a better way to set state here so props can be passed to UserCard????
-    setProfile({
-      ...profile,
-      username: username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      status: user.status,
-      email: user.email,
-      profile: user.profile[0],
-      avatar: user.avatar[0].avatar,
-      upload: user.upload,
-    });
+    // setProfile({
+    //   ...profile,
+    //   username: username,
+    //   firstName: user.firstName,
+    //   lastName: user.lastName,
+    //   status: user.status,
+    //   email: user.email,
+    //   profile: user.profile,
+    //   avatar: user.avatar,
+    //   upload: user.upload,
+    // });
+
+    setProfile(user);
   };
+
+  console.log("profile user", profile);
 
   return (
     <>

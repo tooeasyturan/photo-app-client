@@ -9,7 +9,9 @@ import Register from "../register/Register";
 import MyProfile from "../my-profile/MyProfile";
 import GetAllMessages from "../messaging/GetAllMessages";
 import Profile from "../profiles/Profile";
-import Profiles from "../profiles/Profiles";
+import Profiles from "../profiles/Profiles.tsx";
+
+// import Profiles from "../profiles/Profiles.tsx";
 // import Profile from "../profiles/Profilezz";
 
 const Routes = () => {

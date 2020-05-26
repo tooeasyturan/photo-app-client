@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import ConvoAvatar from "./ConvoAvatar";
 import {
@@ -10,6 +12,7 @@ import {
   Container,
   List,
   Segment,
+  Image,
 } from "semantic-ui-react";
 
 const MessageAppView = ({
@@ -28,22 +31,23 @@ const MessageAppView = ({
     <div style={{ marginTop: 75, width: "100%" }}>
       <Container style={{ width: "70%", height: 600 }}>
         <Segment style={{ height: 600 }}>
-          <Header as="h1" style={{ textAlign: "center" }}>
+          <Header as='h1' style={{ textAlign: "center" }}>
             Inbox
           </Header>
           <Grid>
             <Grid.Column width={5}>
-              <List selection verticalAlign="middle">
+              <List selection verticalAlign='middle'>
                 {users && cleanConvos ? (
                   users.map((user) => (
                     <List.Item>
                       <ConvoAvatar user={user} />
+                      {/* <Image avatar src={user.avatar} /> */}
                       <List.Content
-                        verticalAlign="middle"
+                        verticalAlign='middle'
                         style={{ paddingTop: 5 }}
                       >
                         <List.Header
-                          as="h4"
+                          as='h4'
                           onClick={handleFetchMessages}
                           id={cleanConvos[user]}
                           key={cleanConvos[user]}
@@ -52,9 +56,9 @@ const MessageAppView = ({
                         </List.Header>
                       </List.Content>
                       <Button
-                        floated="right"
-                        icon="trash alternate outline"
-                        size="medium"
+                        floated='right'
+                        icon='trash alternate outline'
+                        size='medium'
                         id={cleanConvos[user]}
                         onClick={(e) => handleRemoveConvo(e, user)}
                       ></Button>
@@ -82,13 +86,13 @@ const MessageAppView = ({
                   control={TextArea}
                   value={response}
                   onChange={(e) => setResponse(e.target.value)}
-                  placeholder="Write a response"
+                  placeholder='Write a response'
                 />
                 <Button
-                  content="Send"
-                  labelPosition="left"
-                  icon="edit"
-                  type="submit"
+                  content='Send'
+                  labelPosition='left'
+                  icon='edit'
+                  type='submit'
                   primary
                 />
               </Form>

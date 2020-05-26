@@ -18,7 +18,8 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
   const fetchAvatar = async (username) => {
     username = user ? user.username : username;
     const avatar = await uploadsService.getImages(`uploads/${username}/avatar`);
-    setAvatar(avatar[0]);
+    console.log("fetchd avatar", avatar);
+    setAvatar(avatar);
   };
 
   const uploadImage = async (formData) => {

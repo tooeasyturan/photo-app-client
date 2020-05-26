@@ -21,6 +21,7 @@ const create = async (credentials, newObject) => {
 const getProfile = async (username) => {
   const res = await axios.get(`http://localhost:3004/users/${username}`);
   //Map through profile(s) here and return only data needed
+  console.log("res data", res.data);
   return res.data[0];
 };
 

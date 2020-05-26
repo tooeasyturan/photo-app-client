@@ -25,11 +25,16 @@ interface Props {
 }
 
 const UserCard: React.FC<Props> = ({ profile, isFullProfile, ...children }) => {
+  console.log("user card", profile);
+  // const { username, firstName, lastName, email } = profile;
+  // const { avatar } = isFullProfile ? profile : profile.avatar[0];
+  // const { country, region, description } = isFullProfile
+  //   ? profile.profile
+  //   : profile.profile[0];
+
   const { username, firstName, lastName, email } = profile;
-  const { avatar } = isFullProfile ? profile : profile.avatar[0];
-  const { country, region, description } = isFullProfile
-    ? profile.profile
-    : profile.profile[0];
+  const { avatar } = profile;
+  const { country, region, description } = profile.profile;
 
   //Ask question about passing props that haven't been mapped (i.e. from FullProfile)
 

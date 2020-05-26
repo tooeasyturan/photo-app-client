@@ -3,29 +3,40 @@
 import React, { useState, useEffect } from "react";
 import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
-import UserCard from "./UserCard.tsx";
+import UserCard from "./UserCard";
+
+interface IProfiles {
+  id: string;
+  avatar: string[];
+  username: string;
+  profile: {
+    country: string;
+    region: string;
+    description: string;
+  };
+}
 
 const Profiles = () => {
-  const [profiles, setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState<IProfiles[]>([]);
 
   useEffect(() => {
     fetchProfiles();
   }, []);
 
   const fetchProfiles = async () => {
+    console.log("fetching profiles");
     const profiles = await usersService.getAll();
-    console.log(profiles);
-    const mappedProfiles = profiles.map(({ id, avatar, username, profile }) => {
-      return { id, avatar, username, profile };
-    });
-    setProfiles(mappedProfiles);
+    console.log("fetched profiles", profiles);
+    // const mappedProfiles = profiles.map(({ id, avatar, username, profile }) => {
+    //   return { id, avatar, username, profile };
+    // });
+    // console.log("mapped profiles", mappedProfiles);
+    setProfiles(profiles);
   };
-
-  console.log(profiles);
 
   const displayProfiles = profiles.map((profile) => {
     // Only display profiles if a user profile has been created
-    if (profile.profile.length > 0) {
+    if (Object.entries(profile.profile).length > 0) {
       return <UserCard profile={profile} key={profile.id} />;
     }
   });
