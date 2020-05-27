@@ -6,11 +6,11 @@ import { Card, Image } from "semantic-ui-react";
 const CardStyles = { marginTop: 100 };
 
 interface Profile {
-  avatar: any;
+  avatar: string;
   username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
   profile: {
     country: string;
     region: string;
@@ -19,21 +19,13 @@ interface Profile {
 }
 
 interface Props {
-  profile: Profile;
-  isFullProfile: boolean;
-  children: any;
+  profile?: Profile;
+  isFullProfile?: boolean;
+  children?: any;
 }
 
 const UserCard: React.FC<Props> = ({ profile, isFullProfile, ...children }) => {
-  console.log("user card", profile);
-  // const { username, firstName, lastName, email } = profile;
-  // const { avatar } = isFullProfile ? profile : profile.avatar[0];
-  // const { country, region, description } = isFullProfile
-  //   ? profile.profile
-  //   : profile.profile[0];
-
-  const { username, firstName, lastName, email } = profile;
-  const { avatar } = profile;
+  const { username, firstName, lastName, email, avatar } = profile;
   const { country, region, description } = profile.profile;
 
   //Ask question about passing props that haven't been mapped (i.e. from FullProfile)

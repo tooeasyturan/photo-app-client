@@ -4,18 +4,14 @@
  * @format
  */
 
-import React, { useContext } from "react";
+import React from "react";
 import profilesService from "../../services/profiles";
 import ManageProfilePage from "./ManageProfilePage.tsx";
-import useFormHandling from "../custom-hooks/useFormHandling";
-import { UserContext } from "../UserContext";
+import useFormHandling from "../custom-hooks/useFormHandling.tsx";
 
 // Component for editing user with status 'photographer' after initial profile has been created.
 
 const EditProfile = ({ user }) => {
-  // const [user, setUser] = useContext(UserContext);
-
-  // console.log("EDIT PROFILE");
   const profile = user.profile;
 
   const EDIT_PROFILE_OPTIONS = {

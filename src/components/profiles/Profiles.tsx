@@ -7,7 +7,7 @@ import UserCard from "./UserCard";
 
 interface IProfiles {
   id: string;
-  avatar: string[];
+  avatar: string;
   username: string;
   profile: {
     country: string;
@@ -25,12 +25,8 @@ const Profiles = () => {
 
   const fetchProfiles = async () => {
     console.log("fetching profiles");
-    const profiles = await usersService.getAll();
-    console.log("fetched profiles", profiles);
-    // const mappedProfiles = profiles.map(({ id, avatar, username, profile }) => {
-    //   return { id, avatar, username, profile };
-    // });
-    // console.log("mapped profiles", mappedProfiles);
+    const profiles: Array<IProfiles> = await usersService.getAll();
+    console.log(profiles);
     setProfiles(profiles);
   };
 

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navigation from "../layout/Navigation";
 import Landing from "../layout/Landing";
+// import Login from "../login/Login.tsx";
 import Login from "../login/Login";
 import Register from "../register/Register";
 import MyProfile from "../my-profile/MyProfile";

@@ -7,7 +7,7 @@
 import React, { useContext } from "react";
 import profilesService from "../../services/profiles";
 import ManageProfilePage from "./ManageProfilePage.tsx";
-import useFormHandling from "../custom-hooks/useFormHandling";
+import useFormHandling from "../custom-hooks/useFormHandling.tsx";
 import { UserContext } from "../UserContext";
 
 // Component for editing user with status 'model' after initial profile has been created.

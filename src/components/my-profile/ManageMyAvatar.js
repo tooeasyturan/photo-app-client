@@ -8,16 +8,12 @@ const ManageMyAvatar = ({ user }) => {
   const [file, setFile] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
   const [preview, setPreview] = useState();
-  const { fetchAvatar, avatar, handleChange, isLoading } = useImageHandling(
+  const { handleChange, isLoading } = useImageHandling(
     user,
     true,
     file,
     setIsUpdated
   );
-
-  // useEffect(() => {
-  //   fetchAvatar();
-  // }, []);
 
   useEffect(() => {
     if (!file) {
