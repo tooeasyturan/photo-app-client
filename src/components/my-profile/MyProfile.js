@@ -1,12 +1,11 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
+import usersServices from "../../services/users";
 import CreateProfile from "./CreateProfile";
 import EditProfile from "./EditProfile";
 import ManageMyPortfolio from "./ManageMyPortfolio";
-import usersServices from "../../services/users";
-import { useEffect } from "react";
 
 const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
 
@@ -31,7 +30,7 @@ const MyProfile = () => {
   const fetchMyProfile = async () => {
     console.log("fetching user...");
     if (loggedInUser) {
-      const myProfile = await usersServices.auth(loggedInUser);
+      const myProfile = await usersServices.auth(loggedInUser.token);
       setUser({ ...myProfile, token: loggedInUser.token });
     }
   };

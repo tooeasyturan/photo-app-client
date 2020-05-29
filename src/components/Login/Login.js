@@ -1,12 +1,12 @@
 /** @format */
 
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import loginService from "../../services/login.tsx";
 import useFormHandling from "../custom-hooks/useFormHandling.tsx";
+import { UserContext } from "../UserContext";
 import LoginView from "./LoginView.tsx";
 import validateLogin from "./validateLogin";
-import { UserContext } from "../UserContext";
 
 const USER_CREDENTIALS = { username: "", password: "" };
 

@@ -5,7 +5,7 @@
  */
 
 import React, { useContext } from "react";
-import profilesService from "../../services/profiles";
+import profilesService from "../../services/profiles.tsx";
 import ManageProfilePage from "./ManageProfilePage.tsx";
 import useFormHandling from "../custom-hooks/useFormHandling.tsx";
 import { UserContext } from "../UserContext";
@@ -33,7 +33,7 @@ const CreateProfile = ({ user }) => {
 
   async function submit() {
     try {
-      await profilesService.create(user, values);
+      await profilesService.create(user.token, values);
     } catch (error) {
       console.log(error);
     }

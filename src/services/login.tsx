@@ -18,12 +18,16 @@ interface LoginCredentials {
 
 const login = async (
   loginCredentials: LoginCredentials
-): Promise<AuthenticatedUser> => {
-  const authUser = await axios.post(baseUrl, loginCredentials);
-  console.log("authUser data", authUser.data);
-  window.localStorage.setItem("loggedInUser", JSON.stringify(authUser.data));
-  usersService.setToken(authUser.data.token);
-  return authUser.data;
+): Promise<AuthenticatedUser | undefined> => {
+  try {
+    const authUser = await axios.post(baseUrl, loginCredentials);
+    window.localStorage.setItem("loggedInUser", JSON.stringify(authUser.data));
+    console.log("login auth user", authUser);
+    // usersService.setToken(authUser.data.token);
+    return authUser.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default { login };

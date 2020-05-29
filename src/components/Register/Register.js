@@ -5,8 +5,8 @@
  */
 
 import React from "react";
-import useFormHandling from "../custom-hooks/useFormHandling.tsx";
 import usersService from "../../services/users";
+import useFormHandling from "../custom-hooks/useFormHandling.tsx";
 import RegisterView from "./RegisterView.tsx";
 import validateRegistration from "./validateRegistration";
 
