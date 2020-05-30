@@ -22,10 +22,6 @@ const SendMessage = ({ userTo }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
-  const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
-
-  messagesService.setToken(loggedInUser.token);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

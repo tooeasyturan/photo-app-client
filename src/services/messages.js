@@ -1,51 +1,52 @@
+/** @format */
+
 import axios from "axios";
 const baseUrl = "http://localhost:3004/messages";
 
-let token = null;
-const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
-
-const setToken = (newToken) => {
-  token = `bearer ${newToken}`;
+const loggedInUser = window.localStorage.getItem("loggedInUser")
+  ? JSON.parse(window.localStorage.getItem("loggedInUser"))
+  : null;
+let token = loggedInUser ? `bearer ${loggedInUser.token}` : null;
+const config = {
+  headers: { Authorization: token },
 };
 
 const create = async (newObject) => {
-  console.log(token);
-  const config = {
-    headers: { Authorization: token },
-  };
-  const response = await axios.post(baseUrl, newObject, config);
-  return response.data;
+  try {
+    const res = await axios.post(baseUrl, newObject, config);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getAll = async () => {
-  setToken(loggedInUser.token);
-  const config = {
-    headers: { Authorization: token },
-  };
-  const request = await axios.get(baseUrl, config);
-  return request.data;
+  try {
+    const res = await axios.get(baseUrl, config);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getConvo = async (id) => {
-  setToken(loggedInUser.token);
-  const config = {
-    headers: { Authorization: token },
-  };
-  const request = await axios.get(`${baseUrl}/${id}`, config);
-  return request.data;
+  try {
+    const res = await axios.get(`${baseUrl}/${id}`, config);
+    return res.data;
+  } catch (error) {}
 };
 
 const removeConvo = async (id) => {
-  setToken(loggedInUser.token);
-  const config = {
-    headers: { Authorization: token },
-  };
-  const request = await axios.post(
-    `${baseUrl}/${id}`,
-    loggedInUser.username,
-    config
-  );
-  return request.data;
+  try {
+    const res = await axios.post(
+      `${baseUrl}/${id}`,
+      loggedInUser.username,
+      config
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export default { create, setToken, getAll, getConvo, removeConvo };
+export default { create, getAll, getConvo, removeConvo };
