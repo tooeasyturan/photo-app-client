@@ -5,7 +5,6 @@ import profilesServices from "../../services/profiles.tsx";
 import UserCard from "./UserCard.tsx";
 import SendMessage from "../messaging/SendMessage";
 import PortfolioPictures from "./PortfolioPictures";
-import { useError } from "../ErrorBoundaryContext";
 
 const DEFAULT_USER_PROFILE = {
   username: "",
@@ -22,7 +21,6 @@ const DEFAULT_USER_PROFILE = {
 
 const Profile = (props) => {
   const username = props.match.params.username;
-  const errorMessage = useError();
   const [profile, setProfile] = useState(DEFAULT_USER_PROFILE);
   const { upload } = profile;
   const [error, setError] = useState();
