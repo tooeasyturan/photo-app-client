@@ -35,7 +35,7 @@ const EditProfile = ({ user }) => {
 
   async function submit() {
     try {
-      await profilesService.create(user.token, values);
+      await profilesService.create(values);
     } catch (error) {
       console.log(error);
     }

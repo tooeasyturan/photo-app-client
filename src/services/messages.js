@@ -3,8 +3,10 @@
 import axios from "axios";
 const baseUrl = "http://localhost:3004/messages";
 
-const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
-let token = loggedInUser.token ? `bearer ${loggedInUser.token}` : null;
+const loggedInUser = window.localStorage.getItem("loggedInUser")
+  ? JSON.parse(window.localStorage.getItem("loggedInUser"))
+  : null;
+let token = loggedInUser ? `bearer ${loggedInUser.token}` : null;
 const config = {
   headers: { Authorization: token },
 };

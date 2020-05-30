@@ -4,6 +4,14 @@ import axios from "axios";
 import { MyProfile, UserProfile, Upload } from "../types.d";
 const baseUrl = "http://localhost:3004/users/profile";
 
+const loggedInUser = window.localStorage.getItem("loggedInUser")
+  ? JSON.parse(window.localStorage.getItem("loggedInUser"))
+  : null;
+let token = loggedInUser ? `bearer ${loggedInUser.token}` : null;
+let config = {
+  headers: { Authorization: token },
+};
+
 interface FullUserProfile {
   avatar: string;
   firstName: string;
@@ -14,13 +22,7 @@ interface FullUserProfile {
   upload: Upload;
 }
 
-const create = async (
-  authToken: string,
-  newObject: MyProfile
-): Promise<string | undefined> => {
-  const config = {
-    headers: { Authorization: `bearer ${authToken}` },
-  };
+const create = async (newObject: MyProfile): Promise<string | undefined> => {
   try {
     const res = await axios.post(baseUrl, newObject, config);
     return res.data;
@@ -33,7 +35,7 @@ const getProfile = async (
   username: string
 ): Promise<FullUserProfile | undefined> => {
   try {
-    const res = await axios.get(`http://localhost:3004/users/${username}`);
+    const res = await axios.get(`${baseUrl}/${username}`);
     return res.data[0];
   } catch (error) {
     console.log(error);

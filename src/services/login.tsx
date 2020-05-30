@@ -1,7 +1,6 @@
 /** @format */
 
 import axios from "axios";
-import usersService from "./users";
 const baseUrl = "http://localhost:3004/login";
 
 interface AuthenticatedUser {
@@ -22,8 +21,6 @@ const login = async (
   try {
     const authUser = await axios.post(baseUrl, loginCredentials);
     window.localStorage.setItem("loggedInUser", JSON.stringify(authUser.data));
-    console.log("login auth user", authUser);
-    // usersService.setToken(authUser.data.token);
     return authUser.data;
   } catch (error) {
     console.log(error);
