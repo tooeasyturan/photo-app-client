@@ -19,7 +19,7 @@ interface Profile {
 }
 
 interface Props {
-  profile?: Profile;
+  profile: Profile;
   isFullProfile?: boolean;
   children?: any;
 }
