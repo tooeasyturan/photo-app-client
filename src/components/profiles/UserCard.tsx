@@ -25,6 +25,8 @@ interface Props {
 }
 
 const UserCard: React.FC<Props> = ({ profile, isFullProfile, ...children }) => {
+  const childMap = Object.keys(children).map((childKey) => children[childKey]);
+  console.log("childMap", childMap);
   const { username, firstName, lastName, email, avatar } = profile;
   const { country, region, description } = profile.profile;
 

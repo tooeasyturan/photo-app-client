@@ -21,7 +21,6 @@ const uploadImage = async (
   };
   try {
     const res = await axios.post(baseUrl, formData, config);
-    console.log("upload res", res.data);
     return res.data.url;
   } catch (error) {
     console.log(error);
@@ -47,7 +46,6 @@ const deletePortfolioPicture = async (
   userToken: string,
   imageToDelete: string
 ) => {
-  console.log("token", userToken);
   const config = {
     "Content-Type": "application/json",
     headers: { Authorization: `bearer ${userToken}` },
