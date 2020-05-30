@@ -55,7 +55,7 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
     // *** maybe portfolioPictures should be saved using portfolio id.
 
     if (window.confirm("Are you sure you want to delete this image")) {
-      await uploadsService.deletePortfolioPicture(user.token, imageToDelete);
+      await uploadsService.deletePortfolioPicture(imageToDelete);
       const updatedPortfolioPictures = portfolioPictures.filter(
         (image) => image !== imageToDelete
       );
