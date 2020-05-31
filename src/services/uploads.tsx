@@ -36,20 +36,9 @@ const uploadAvatar = async (formData: {}): Promise<string | undefined> => {
 };
 
 const deletePortfolioPicture = async (imageToDelete: string) => {
-  let configWithData = {
-    "Content-Type": "application/json",
-    ...config,
-    data: { imageToDelete },
-  };
-  try {
-    const res = await axios.delete(
-      "http://localhost:3004/uploads",
-      configWithData
-    );
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  await apiRequestWithToken(uploadsUrl, "delete", {
+    imageToDelete,
+  });
 };
 
 export default {
