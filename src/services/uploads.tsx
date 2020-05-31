@@ -1,24 +1,11 @@
 /** @format */
 
-import axios from "axios";
-import { apiRequestWithToken } from "./apiRequest";
+import { apiRequestWithToken, apiRequest } from "./apiRequest";
 const uploadsUrl = "uploads";
 
-const loggedInUser = window.localStorage.getItem("loggedInUser")
-  ? JSON.parse(window.localStorage.getItem("loggedInUser"))
-  : null;
-let token = loggedInUser ? `bearer ${loggedInUser.token}` : null;
-let config = {
-  headers: { Authorization: token },
-};
-
-const getImages = async (param: string): Promise<string[] | undefined> => {
-  try {
-    const res = await axios.get(`http://localhost:3004/${param}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+const getImages = async (url: string): Promise<string[] | undefined> => {
+  const res = await apiRequest(`${uploadsUrl}/${url}`, "get");
+  return res.data;
 };
 
 const uploadPicture = async (formData: {}): Promise<string | undefined> => {

@@ -10,14 +10,14 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
 
   const fetchPortfolioPictures = async () => {
     const portfolioPictures = await uploadsService.getImages(
-      `uploads/${user.username ? user.username : user}`
+      user.username ? user.username : user
     );
     setPortfolioPictures(portfolioPictures);
   };
 
   const fetchAvatar = async (username) => {
     username = user ? user.username : username;
-    const avatar = await uploadsService.getImages(`uploads/${username}/avatar`);
+    const avatar = await uploadsService.getImages(`${username}/avatar`);
     console.log("fetchd avatar", avatar);
     setAvatar(avatar);
   };
