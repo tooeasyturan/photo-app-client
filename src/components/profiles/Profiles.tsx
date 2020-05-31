@@ -25,7 +25,7 @@ const Profiles = () => {
 
   const fetchProfiles = async () => {
     console.log("fetching profiles");
-    const profiles: Array<Profiles> = await usersService.getAll();
+    const profiles: Array<Profiles> = await usersService.getAllUsers();
     console.log(profiles);
     setProfiles(profiles);
   };

@@ -1,36 +1,18 @@
 /** @format */
 
-import axios from "axios";
 import { User } from "../types.d";
-import { apiRequest } from "./apiRequest";
-const baseUrl = "http://localhost:3004/users";
+import { apiRequest, apiRequestWithToken } from "./apiRequest";
 const userUrl = "users";
+const authUrl = "auth";
 
-const authUrl = "http://localhost:3004/auth";
-
-let token;
-
-const setToken = (newToken: string) => {
-  token = `bearer ${newToken}`;
-  console.log("user token", newToken);
-};
-
-const auth = async (token: string) => {
-  const config = {
-    headers: { Authorization: `bearer ${token}` },
-  };
-  console.log("auth config", config);
-  const res = await axios.get(authUrl, config);
+const getLoggedInUser = async () => {
+  const res = await apiRequestWithToken(authUrl, "get");
   return res.data;
 };
 
-const getAll = async () => {
-  try {
-    const res = await axios.get(baseUrl);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+const getAllUsers = async () => {
+  const res = await apiRequest(userUrl, "get");
+  return res.data;
 };
 
 const createUser = async (newUser: User) => {
@@ -38,4 +20,4 @@ const createUser = async (newUser: User) => {
   return res.data;
 };
 
-export default { setToken, getAll, auth, createUser };
+export default { getAllUsers, createUser, getLoggedInUser };
