@@ -8,14 +8,13 @@ const getImages = async (url: string): Promise<string[] | undefined> => {
   return res.data;
 };
 
-const uploadPicture = async (formData: {}): Promise<string | undefined> => {
-  const res = await apiRequestWithToken(uploadsUrl, "post", formData);
-  return res.data.url;
-};
-
-const uploadAvatar = async (formData: {}): Promise<string | undefined> => {
+const uploadImage = async (
+  url: string,
+  formData: {}
+): Promise<string | undefined> => {
+  console.log("upload url", url);
   const res = await apiRequestWithToken(
-    `${uploadsUrl}/avatar`,
+    `${uploadsUrl}/${url}`,
     "post",
     formData
   );
@@ -30,7 +29,6 @@ const deletePortfolioPicture = async (imageToDelete: string) => {
 
 export default {
   getImages,
-  uploadPicture,
+  uploadImage,
   deletePortfolioPicture,
-  uploadAvatar,
 };
