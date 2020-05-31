@@ -24,7 +24,7 @@ interface RegistrationErrors {
   matchError: string;
 }
 
-interface Props {
+interface RegistrationProps {
   values: RegistrationFields;
   errors: RegistrationErrors;
   handleChange: () => void;
@@ -32,13 +32,13 @@ interface Props {
   handleStatus: () => void;
 }
 
-const RegisterView: React.FC<Props> = ({
+const RegisterView = ({
   values,
   errors,
   handleChange,
   handleSubmit,
   handleStatus,
-}) => {
+}: RegistrationProps) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>

@@ -41,6 +41,7 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
     formData.append("file", file);
     formData.append("username", user.username);
     formData.append("folder", "userimg");
+    console.log("form Data", formData.getAll("file"));
     try {
       uploadImage(formData);
     } catch (error) {

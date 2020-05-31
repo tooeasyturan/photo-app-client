@@ -5,7 +5,7 @@ import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
 import UserCard from "./UserCard";
 
-interface IProfiles {
+interface Profiles {
   id: string;
   avatar: string;
   username: string;
@@ -17,7 +17,7 @@ interface IProfiles {
 }
 
 const Profiles = () => {
-  const [profiles, setProfiles] = useState<IProfiles[]>([]);
+  const [profiles, setProfiles] = useState<Profiles[]>([]);
 
   useEffect(() => {
     fetchProfiles();
@@ -25,7 +25,7 @@ const Profiles = () => {
 
   const fetchProfiles = async () => {
     console.log("fetching profiles");
-    const profiles: Array<IProfiles> = await usersService.getAll();
+    const profiles: Array<Profiles> = await usersService.getAll();
     console.log(profiles);
     setProfiles(profiles);
   };

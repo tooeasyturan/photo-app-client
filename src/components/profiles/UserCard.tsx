@@ -18,13 +18,13 @@ interface Profile {
   };
 }
 
-interface Props {
+interface UserCardProps {
   profile: Profile;
   isFullProfile?: boolean;
   children?: any;
 }
 
-const UserCard: React.FC<Props> = ({ profile, isFullProfile, ...children }) => {
+const UserCard = ({ profile, isFullProfile, ...children }: UserCardProps) => {
   const { username, firstName, lastName, email, avatar } = profile;
   const { country, region, description } = profile.profile;
 

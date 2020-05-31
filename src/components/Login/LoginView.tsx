@@ -17,19 +17,19 @@ interface LoginErrors {
   passwordError: string;
 }
 
-interface Props {
+interface LoginProps {
   values: LoginCredentials;
   errors: LoginErrors;
   handleChange: () => void;
   handleSubmit: () => void;
 }
 
-const LoginPage: React.FC<Props> = ({
+const LoginPage = ({
   values,
   errors,
   handleChange,
   handleSubmit,
-}) => {
+}: LoginProps) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>
