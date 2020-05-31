@@ -1,7 +1,7 @@
 /** @format */
 
-import axios, { AxiosRequestConfig, Method } from "axios";
-import { GetToken } from "./tokenService";
+import axios, { Method } from "axios";
+import { getToken } from "./tokenService";
 const baseUrl = "http://localhost:3004";
 
 export const apiRequest = (
@@ -19,9 +19,11 @@ export const apiRequest = (
 };
 
 export const apiRequestWithToken = (url: string, method: Method, data: {}) => {
-  const token = GetToken();
+  const token = getToken();
+  console.log("get token", token);
   const headers = {
     Authorization: `bearer ${token}`,
   };
+  console.log("headers", headers);
   return apiRequest(url, method, data, headers);
 };

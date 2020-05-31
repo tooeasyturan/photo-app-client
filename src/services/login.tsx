@@ -3,7 +3,7 @@
 import axios from "axios";
 import usersService from "./users";
 import { apiRequest, apiRequestWithToken } from "./apiRequest";
-import { SetUser } from "./tokenService";
+import { setUser } from "./tokenService";
 const loginUrl = "login";
 
 interface AuthenticatedUser {
@@ -24,7 +24,7 @@ const login = async (
   try {
     const response = await apiRequest(loginUrl, "post", loginCredentials);
     const user: AuthenticatedUser = response.data;
-    SetUser(user);
+    setUser(user);
     return user;
   } catch (error) {
     console.log(error);
