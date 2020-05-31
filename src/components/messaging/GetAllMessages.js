@@ -33,7 +33,7 @@ const GetAllMessages = () => {
   const getUserMessages = async () => {
     try {
       // Fetch all conversations for logged in user
-      let result = await messagesService.getAll();
+      let result = await messagesService.getAllMessages();
       result = result.filter(
         (message) =>
           message.deleteBySender !== user.username &&

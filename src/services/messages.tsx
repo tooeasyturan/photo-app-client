@@ -1,7 +1,9 @@
 /** @format */
 
 import axios from "axios";
+import { apiRequestWithToken } from "./apiRequest";
 const baseUrl = "http://localhost:3004/messages";
+const messagesUrl = "messages";
 
 const loggedInUser = window.localStorage.getItem("loggedInUser")
   ? JSON.parse(window.localStorage.getItem("loggedInUser"))
@@ -11,22 +13,14 @@ const config = {
   headers: { Authorization: token },
 };
 
-const create = async (newObject) => {
-  try {
-    const res = await axios.post(baseUrl, newObject, config);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+const createMessage = async (newMessage: {}) => {
+  const res = await apiRequestWithToken(messagesUrl, "post", newMessage);
+  return res.data;
 };
 
-const getAll = async () => {
-  try {
-    const res = await axios.get(baseUrl, config);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+const getAllMessages = async () => {
+  const res = await apiRequestWithToken(messagesUrl, "get");
+  return res.data;
 };
 
 const getConvo = async (id) => {
@@ -49,4 +43,4 @@ const removeConvo = async (id) => {
   }
 };
 
-export default { create, getAll, getConvo, removeConvo };
+export default { getConvo, removeConvo, createMessage, getAllMessages };
