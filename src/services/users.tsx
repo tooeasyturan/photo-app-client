@@ -2,7 +2,10 @@
 
 import axios from "axios";
 import { User } from "../types.d";
+import { apiRequest } from "./apiRequest";
 const baseUrl = "http://localhost:3004/users";
+const userUrl = "users";
+
 const authUrl = "http://localhost:3004/auth";
 
 let token;
@@ -31,12 +34,8 @@ const getAll = async () => {
 };
 
 const createUser = async (newUser: User) => {
-  try {
-    const res = await axios.post(baseUrl, newUser);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await apiRequest(userUrl, "post", newUser);
+  return res.data;
 };
 
 export default { setToken, getAll, auth, createUser };
