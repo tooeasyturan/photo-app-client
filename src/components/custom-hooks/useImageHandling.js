@@ -25,10 +25,10 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
   const uploadImage = async (formData) => {
     setIsLoading(true);
     if (!isAvatar) {
-      const upload = await uploadsService.uploadImage(formData, user.token);
+      const upload = await uploadsService.uploadImage(formData);
       setPortfolioPictures([...portfolioPictures, upload]);
     } else if (isAvatar) {
-      const upload = await uploadsService.uploadAvatar(formData, user.token);
+      const upload = await uploadsService.uploadAvatar(formData);
       setAvatar(upload);
       setIsUpdated(true);
     }
