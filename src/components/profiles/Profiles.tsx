@@ -6,7 +6,7 @@ import { Card } from "semantic-ui-react";
 import UserCard from "./UserCard";
 import { ShortProfiles } from "../../types.d";
 
-const Profiles = () => {
+const Profiles = (props) => {
   const [profiles, setProfiles] = useState<ShortProfiles[]>([]);
 
   useEffect(() => {
@@ -14,9 +14,7 @@ const Profiles = () => {
   }, []);
 
   const fetchProfiles = async () => {
-    console.log("fetching profiles");
     const profiles: ShortProfiles[] = await usersService.getAllUsers();
-    console.log(profiles);
     setProfiles(profiles);
   };
 

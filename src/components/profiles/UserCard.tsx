@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Card, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const CardStyles = { marginTop: 100 };
 
@@ -33,7 +34,9 @@ const UserCard = ({ profile, isFullProfile, ...children }: UserCardProps) => {
   return (
     <Card
       className='ui centered card'
-      href={!isFullProfile ? `/profiles/${username}` : null}
+      as={Link}
+      to={!isFullProfile ? `/profiles/${username}` : null}
+      // href={!isFullProfile ? `/profiles/${username}` : null}
       style={CardStyles}
     >
       <Image key={avatar} src={avatar} alt='' />

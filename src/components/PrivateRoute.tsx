@@ -11,6 +11,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
+        console.log("private route props", props);
         const paramsUsername = props.match.params.username;
         const isAuthorized = paramsUsername === getUsername();
         if (!isAuthenticated || (paramsUsername && !isAuthorized)) {
