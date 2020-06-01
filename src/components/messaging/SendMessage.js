@@ -27,7 +27,7 @@ const SendMessage = ({ userTo }) => {
 
     try {
       if (message.length > 0) {
-        const result = await messagesService.create({
+        const result = await messagesService.createMessage({
           userFrom: user.id,
           userTo: userTo,
           message: message,

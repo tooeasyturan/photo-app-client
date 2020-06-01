@@ -30,7 +30,7 @@ const MyProfile = () => {
   const fetchMyProfile = async () => {
     console.log("fetching user...");
     if (loggedInUser) {
-      const myProfile = await usersServices.auth(loggedInUser.token);
+      const myProfile = await usersServices.getLoggedInUser();
       setUser({ ...myProfile, token: loggedInUser.token });
     }
   };

@@ -25,6 +25,16 @@ export type UserProfile = {
   status: string;
 };
 
+export type FullUserProfile = {
+  avatar: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  date: string;
+  profile: UserProfile;
+  upload: Upload;
+};
+
 export type Upload = {
   id: string;
   portfolio: string;

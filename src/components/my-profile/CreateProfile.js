@@ -4,11 +4,10 @@
  * @format
  */
 
-import React, { useContext } from "react";
+import React from "react";
 import profilesService from "../../services/profiles.tsx";
-import ManageProfilePage from "./ManageProfilePage.tsx";
 import useFormHandling from "../custom-hooks/useFormHandling.tsx";
-import { UserContext } from "../UserContext";
+import ManageProfilePage from "./ManageProfilePage.tsx";
 
 // Component for editing user with status 'model' after initial profile has been created.
 
@@ -33,7 +32,7 @@ const CreateProfile = ({ user }) => {
 
   async function submit() {
     try {
-      await profilesService.create(values);
+      await profilesService.createProfile(values);
     } catch (error) {
       console.log(error);
     }

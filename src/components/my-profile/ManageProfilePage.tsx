@@ -40,19 +40,19 @@ interface Profile {
   shootingStyle: string[];
 }
 
-interface Props {
+interface MyProfileProps {
   user: User;
   values: Profile;
   handleChange: () => void;
   handleSubmit: () => void;
 }
 
-const ManageProfilePage: React.FC<Props> = ({
+const ManageProfilePage = ({
   user,
   values,
   handleChange,
   handleSubmit,
-}) => {
+}: MyProfileProps) => {
   const { description, country, region, shootingStyle } = values;
   return (
     <Grid textAlign='center' verticalAlign='middle' style={GridStyle}>

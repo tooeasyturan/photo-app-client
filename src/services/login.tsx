@@ -1,7 +1,8 @@
 /** @format */
 
-import axios from "axios";
-const baseUrl = "http://localhost:3004/login";
+import { apiRequest } from "./apiRequest";
+import { setUser } from "./tokenService";
+const loginUrl = "login";
 
 interface AuthenticatedUser {
   id: string;
@@ -19,9 +20,10 @@ const login = async (
   loginCredentials: LoginCredentials
 ): Promise<AuthenticatedUser | undefined> => {
   try {
-    const authUser = await axios.post(baseUrl, loginCredentials);
-    window.localStorage.setItem("loggedInUser", JSON.stringify(authUser.data));
-    return authUser.data;
+    const res = await apiRequest(loginUrl, "post", loginCredentials);
+    const user: AuthenticatedUser = res.data;
+    setUser(user);
+    return user;
   } catch (error) {
     console.log(error);
   }

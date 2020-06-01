@@ -33,7 +33,7 @@ const GetAllMessages = () => {
   const getUserMessages = async () => {
     try {
       // Fetch all conversations for logged in user
-      let result = await messagesService.getAll();
+      let result = await messagesService.getAllMessages();
       result = result.filter(
         (message) =>
           message.deleteBySender !== user.username &&
@@ -69,7 +69,7 @@ const GetAllMessages = () => {
     // Fetch messages between logged in user and user that is selected onClick
     setUserSelected(e.target.innerHTML);
     fetchAvatar(e.target.innerHTML);
-    const result = await messagesService.getConvo(e.target.id);
+    const result = await messagesService.getConversation(e.target.id);
     setFetchedMessages(result[0].message);
   };
 
@@ -87,7 +87,7 @@ const GetAllMessages = () => {
     e.preventDefault();
     console.log("onSubmit", userSelected);
     try {
-      await messagesService.create({
+      await messagesService.createMessage({
         userFrom: user.id,
         userTo: userSelected,
         message: response,
@@ -117,7 +117,10 @@ const GetAllMessages = () => {
     setUsers(updatedConvos);
 
     try {
-      const result = await messagesService.removeConvo(e.target.id);
+      const result = await messagesService.removeConversation(
+        e.target.id,
+        user.username
+      );
       console.log(result);
     } catch (error) {
       console.log(error);
