@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import profilesServices from "../../services/profiles.tsx";
-import UserCard from "./UserCard.tsx";
+import UserCard from "./UserCard";
 import SendMessage from "../messaging/SendMessage";
 import PortfolioPictures from "./PortfolioPictures";
 

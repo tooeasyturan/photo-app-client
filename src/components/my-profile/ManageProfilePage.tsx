@@ -26,7 +26,10 @@ const PICTURE_OPTIONS = [
 const GridStyle = { height: "100vh" };
 const ColumnStyle = { maxWidth: 450 };
 const SegmentStyle = { marginTop: 100 };
-const FieldHeaderStyle = { fontSize: 16, fontWeight: "bold" };
+const FieldHeaderStyle = {
+  fontSize: 16,
+  fontWeight: "bold",
+} as React.CSSProperties;
 
 interface User {
   username: string;
