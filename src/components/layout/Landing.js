@@ -31,7 +31,11 @@ const Landing = () => {
                 </Button>
               ) : (
                 <div>
-                  <Button secondary size='huge' href={`/${user.username}`}>
+                  <Button
+                    secondary
+                    size='huge'
+                    href={`/myprofile/${user.username}`}
+                  >
                     Go to my profile
                   </Button>
                   <Button secondary size='huge' href='/profiles'>

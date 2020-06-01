@@ -20,7 +20,7 @@ export const apiRequest = (
 
 export const apiRequestWithToken = (url: string, method: Method, data?: {}) => {
   const token: string = getToken();
-  const headers = {
+  const headers: { Authorization: string } = {
     Authorization: `bearer ${token}`,
   };
   return apiRequest(url, method, data, headers);

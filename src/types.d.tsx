@@ -22,7 +22,6 @@ export type UserProfile = {
   regions: string;
   shootingStyle: string[];
   user: string;
-  status: string;
 };
 
 export type FullUserProfile = {
@@ -30,13 +29,36 @@ export type FullUserProfile = {
   firstName: string;
   lastName: string;
   username: string;
+  status: String;
   date: string;
   profile: UserProfile;
   upload: Upload;
+  id: string;
 };
 
 export type Upload = {
   id: string;
   portfolio: string;
   user: string;
+};
+
+export type ShortProfiles = {
+  id: string;
+  avatar: string;
+  username: string;
+  profile: {
+    country: string;
+    region: string;
+    description: string;
+  };
+};
+
+export type NewUser = {
+  date: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  status: string;
+  upload: [];
+  username: string;
 };

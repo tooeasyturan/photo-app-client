@@ -11,7 +11,9 @@ const createProfile = async (
   return res.data;
 };
 
-const getProfile = async (username: string) => {
+const getProfile = async (
+  username: string
+): Promise<FullUserProfile | undefined> => {
   // Need to update endpoints
   const res = await apiRequest(`users/${username}`, "get");
   return res.data[0];

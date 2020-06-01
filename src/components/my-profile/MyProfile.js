@@ -20,20 +20,14 @@ const DEFAULT_CURRENT_USER = {
 };
 
 const MyProfile = (params) => {
-  const paramUsername = params.match.params.username;
   const [user, setUser] = useState(DEFAULT_CURRENT_USER);
   const { profile } = user;
-
-  const isAuthorized = () => {
-    return paramUsername === user.username;
-  };
 
   useEffect(() => {
     fetchMyProfile();
   }, []);
 
   const fetchMyProfile = async () => {
-    console.log("fetching user...");
     if (loggedInUser) {
       const myProfile = await usersServices.getLoggedInUser();
       setUser({ ...myProfile, token: loggedInUser.token });

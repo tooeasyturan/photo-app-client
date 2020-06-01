@@ -4,20 +4,10 @@ import React, { useState, useEffect } from "react";
 import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
 import UserCard from "./UserCard";
-
-interface Profiles {
-  id: string;
-  avatar: string;
-  username: string;
-  profile: {
-    country: string;
-    region: string;
-    description: string;
-  };
-}
+import { ShortProfiles } from "../../types.d";
 
 const Profiles = () => {
-  const [profiles, setProfiles] = useState<Profiles[]>([]);
+  const [profiles, setProfiles] = useState<ShortProfiles[]>([]);
 
   useEffect(() => {
     fetchProfiles();
@@ -25,7 +15,7 @@ const Profiles = () => {
 
   const fetchProfiles = async () => {
     console.log("fetching profiles");
-    const profiles: Array<Profiles> = await usersService.getAllUsers();
+    const profiles: ShortProfiles[] = await usersService.getAllUsers();
     console.log(profiles);
     setProfiles(profiles);
   };
