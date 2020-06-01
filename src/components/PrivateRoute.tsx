@@ -6,7 +6,6 @@ import { getToken, getUsername } from "../services/tokenService";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = getToken() ? true : false;
-  console.log("...rest", rest);
 
   return (
     <Route

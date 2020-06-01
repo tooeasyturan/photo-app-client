@@ -32,13 +32,14 @@ const UserCard = ({ profile, isFullProfile, ...children }: UserCardProps) => {
   //Ask question about passing props that haven't been mapped (i.e. from FullProfile)
 
   return (
-    <Card
-      className='ui centered card'
-      as={Link}
-      to={!isFullProfile ? `/profiles/${username}` : null}
-      style={CardStyles}
-    >
-      <Image key={avatar} src={avatar} alt='' />
+    <Card className='ui centered card' style={CardStyles} as='a'>
+      <Image
+        key={avatar}
+        src={avatar}
+        alt=''
+        as={Link}
+        to={!isFullProfile ? `/profiles/${username}` : null}
+      />
       <Card.Content>
         <Card.Header>{username}</Card.Header>
         <Card.Description>

@@ -30,6 +30,7 @@ interface AllMessages {
 }
 
 const createMessage = async (newMessage: NewMessage) => {
+  console.log("new message", newMessage);
   const res = await apiRequestWithToken(messagesUrl, "post", newMessage);
   return res.data;
 };
