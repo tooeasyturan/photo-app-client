@@ -12,6 +12,7 @@ const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(loggedInUser);
+  console.log("user context", user);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

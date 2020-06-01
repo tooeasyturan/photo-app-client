@@ -1,18 +1,8 @@
 /** @format */
 
-import { Upload, UserProfile } from "../types.d";
 import { apiRequest, apiRequestWithToken } from "./apiRequest";
+import { FullUserProfile } from "../types.d";
 const profileUrl = "users/profile";
-
-interface FullUserProfile {
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  date: string;
-  profile: UserProfile;
-  upload: Upload;
-}
 
 const createProfile = async (
   profileFields: FullUserProfile

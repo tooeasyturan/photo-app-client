@@ -1,8 +1,6 @@
 /** @format */
 
-import axios from "axios";
-import usersService from "./users";
-import { apiRequest, apiRequestWithToken } from "./apiRequest";
+import { apiRequest } from "./apiRequest";
 import { setUser } from "./tokenService";
 const loginUrl = "login";
 
@@ -22,8 +20,8 @@ const login = async (
   loginCredentials: LoginCredentials
 ): Promise<AuthenticatedUser | undefined> => {
   try {
-    const response = await apiRequest(loginUrl, "post", loginCredentials);
-    const user: AuthenticatedUser = response.data;
+    const res = await apiRequest(loginUrl, "post", loginCredentials);
+    const user: AuthenticatedUser = res.data;
     setUser(user);
     return user;
   } catch (error) {

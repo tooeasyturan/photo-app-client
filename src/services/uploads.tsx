@@ -12,7 +12,6 @@ const uploadImage = async (
   url: string,
   formData: {}
 ): Promise<string | undefined> => {
-  console.log("upload url", url);
   const res = await apiRequestWithToken(
     `${uploadsUrl}/${url}`,
     "post",
