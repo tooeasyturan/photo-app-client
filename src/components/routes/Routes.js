@@ -10,6 +10,7 @@ import MyProfile from "../my-profile/MyProfile";
 import GetAllMessages from "../messaging/GetAllMessages";
 import Profile from "../profiles/Profile";
 import Profiles from "../profiles/Profiles.tsx";
+import { PrivateRoute } from "../PrivateRoute";
 
 const Routes = () => {
   // const [loggedInUser, setLoggedInUser] = useState(
