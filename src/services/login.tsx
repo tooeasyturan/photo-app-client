@@ -1,9 +1,7 @@
 /** @format */
 
-import axios from "axios";
-import usersService from "./users";
-import { apiRequest, apiRequestWithToken } from "./apiRequest";
-import { SetUser } from "./tokenService";
+import { apiRequest } from "./apiRequest";
+import { setUser } from "./tokenService";
 const loginUrl = "login";
 
 interface AuthenticatedUser {
@@ -22,9 +20,9 @@ const login = async (
   loginCredentials: LoginCredentials
 ): Promise<AuthenticatedUser | undefined> => {
   try {
-    const response = await apiRequest(loginUrl, "post", loginCredentials);
-    const user: AuthenticatedUser = response.data;
-    SetUser(user);
+    const res = await apiRequest(loginUrl, "post", loginCredentials);
+    const user: AuthenticatedUser = res.data;
+    setUser(user);
     return user;
   } catch (error) {
     console.log(error);

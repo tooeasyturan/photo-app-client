@@ -1,43 +1,20 @@
 /** @format */
 
-import axios from "axios";
-import { MyProfile, UserProfile, Upload } from "../types.d";
-const baseUrl = "http://localhost:3004/users/profile";
+import { apiRequest, apiRequestWithToken } from "./apiRequest";
+import { FullUserProfile } from "../types.d";
+const profileUrl = "users/profile";
 
-interface FullUserProfile {
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  date: string;
-  profile: UserProfile;
-  upload: Upload;
-}
-
-const create = async (
-  authToken: string,
-  newObject: MyProfile
+const createProfile = async (
+  profileFields: FullUserProfile
 ): Promise<string | undefined> => {
-  const config = {
-    headers: { Authorization: `bearer ${authToken}` },
-  };
-  try {
-    const res = await axios.post(baseUrl, newObject, config);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await apiRequestWithToken(profileUrl, "post", profileFields);
+  return res.data;
 };
 
-const getProfile = async (
-  username: string
-): Promise<FullUserProfile | undefined> => {
-  try {
-    const res = await axios.get(`http://localhost:3004/users/${username}`);
-    return res.data[0];
-  } catch (error) {
-    console.log(error);
-  }
+const getProfile = async (username: string) => {
+  // Need to update endpoints
+  const res = await apiRequest(`users/${username}`, "get");
+  return res.data[0];
 };
 
-export default { create, getProfile };
+export default { createProfile, getProfile };

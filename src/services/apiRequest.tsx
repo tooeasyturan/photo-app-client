@@ -1,13 +1,13 @@
 /** @format */
 
-import axios, { AxiosRequestConfig, Method } from "axios";
-import { GetToken } from "./tokenService";
+import axios, { Method } from "axios";
+import { getToken } from "./tokenService";
 const baseUrl = "http://localhost:3004";
 
 export const apiRequest = (
   url: string,
   method: Method,
-  data: {},
+  data?: {},
   headers?: {}
 ) => {
   return axios({
@@ -18,8 +18,8 @@ export const apiRequest = (
   });
 };
 
-export const apiRequestWithToken = (url: string, method: Method, data: {}) => {
-  const token = GetToken();
+export const apiRequestWithToken = (url: string, method: Method, data?: {}) => {
+  const token: string = getToken();
   const headers = {
     Authorization: `bearer ${token}`,
   };

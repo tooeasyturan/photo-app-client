@@ -10,14 +10,14 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
 
   const fetchPortfolioPictures = async () => {
     const portfolioPictures = await uploadsService.getImages(
-      `uploads/${user.username ? user.username : user}`
+      user.username ? user.username : user
     );
     setPortfolioPictures(portfolioPictures);
   };
 
   const fetchAvatar = async (username) => {
     username = user ? user.username : username;
-    const avatar = await uploadsService.getImages(`uploads/${username}/avatar`);
+    const avatar = await uploadsService.getImages(`${username}/avatar`);
     console.log("fetchd avatar", avatar);
     setAvatar(avatar);
   };
@@ -25,10 +25,13 @@ const useFetchImages = (user, isAvatar, avatarFile, setIsUpdated) => {
   const uploadImage = async (formData) => {
     setIsLoading(true);
     if (!isAvatar) {
-      const upload = await uploadsService.uploadImage(formData);
+      // UPDATE ENDPOINT TO /PORTFOLIO FOR IMRPROVED READABILITY
+      const upload = await uploadsService.uploadImage("", formData);
       setPortfolioPictures([...portfolioPictures, upload]);
     } else if (isAvatar) {
-      const upload = await uploadsService.uploadAvatar(formData);
+      // const upload = await uploadsService.uploadAvatar(formData);
+      const upload = await uploadsService.uploadImage("avatar", formData);
+
       setAvatar(upload);
       setIsUpdated(true);
     }
