@@ -5,7 +5,7 @@ import { Container, Icon, Loader, Popup } from "semantic-ui-react";
 import useImageHandling from "../custom-hooks/useImageHandling";
 import PortfolioPictures from "../profiles/PortfolioPictures";
 
-const ContainerStyles = { marginTop: 150, marginLeft: 100 };
+const ContainerStyles = { marginTop: 200, marginLeft: 100 };
 const InputStyles = { display: "none" };
 const HeaderStyles = { display: "inline", marginRight: 10 };
 const LabelStyles = { cursor: "pointer", marginBottom: 45 };
