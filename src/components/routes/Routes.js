@@ -13,18 +13,15 @@ import Profiles from "../profiles/Profiles.tsx";
 import PrivateRoute from "../PrivateRoute";
 
 const Routes = () => {
-  const loggedInUser = JSON.parse(window.localStorage.getItem("loggedInUser"));
-  const username = loggedInUser ? loggedInUser.username : "";
-
   return (
     <>
       <Route path='/' component={Navigation} />
       <Route exact path='/' component={Landing} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />
-      <PrivateRoute exact path={`/${username}`} component={MyProfile} />
       <Route exact path='/profiles' component={Profiles} />
       <Route exact path='/profiles/:username' component={Profile} />
+      <PrivateRoute exact path={`/myprofile/:username`} component={MyProfile} />
       <PrivateRoute exact path='/inbox' component={GetAllMessages} />
     </>
   );

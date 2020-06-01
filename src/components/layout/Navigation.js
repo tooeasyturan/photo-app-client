@@ -35,7 +35,7 @@ const Navigation = () => {
       key: "profile",
       text: "My Profile",
       as: Link,
-      to: `/${isUser ? user.username : "/"}`,
+      to: `/myprofile/${isUser ? user.username : "/"}`,
     },
     { key: "explore", text: "Explore", as: Link, to: "/profiles" },
     { key: "inbox", text: "Inbox", as: Link, to: "/inbox" },

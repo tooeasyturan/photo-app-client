@@ -19,9 +19,14 @@ const DEFAULT_CURRENT_USER = {
   avatar: [],
 };
 
-const MyProfile = () => {
+const MyProfile = (params) => {
+  const paramUsername = params.match.params.username;
   const [user, setUser] = useState(DEFAULT_CURRENT_USER);
   const { profile } = user;
+
+  const isAuthorized = () => {
+    return paramUsername === user.username;
+  };
 
   useEffect(() => {
     fetchMyProfile();
