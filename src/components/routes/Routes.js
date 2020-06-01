@@ -21,7 +21,12 @@ const Routes = () => {
       <Route exact path='/register' component={Register} />
       <Route exact path='/profiles' component={Profiles} />
       <Route exact path='/profiles/:username' component={Profile} />
-      <PrivateRoute exact path={`/myprofile/:username`} component={MyProfile} />
+      <PrivateRoute
+        exact
+        path={`/myprofile/:username`}
+        component={MyProfile}
+        name='josh'
+      />
       <PrivateRoute exact path='/inbox' component={GetAllMessages} />
     </>
   );

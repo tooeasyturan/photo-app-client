@@ -1,6 +1,9 @@
+/** @format */
+
 import React from "react";
 import { Comment } from "semantic-ui-react";
 import "../../styles/Messages.css";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 // Displays messages from parent GetAllMessages. Does not display list of convos. This is done in GetAllMessages for now.
 // Need to fix so that message (comment) avatars are displayed first time convo is opened. Currently requires double click.
@@ -10,9 +13,9 @@ const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
     <>
       {userFrom.username !== message.sender ? (
         <Comment>
-          <Comment.Avatar as="a" src={userToAvatar} />
+          <Comment.Avatar as='a' src={userToAvatar} />
           <Comment.Content>
-            <Comment.Author href={`/users/${message.sender}`}>
+            <Comment.Author as={Link} to={`/users/${message.sender}`}>
               {message.sender}
             </Comment.Author>
             <Comment.Metadata>{message.date}</Comment.Metadata>
@@ -24,7 +27,7 @@ const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
       ) : (
         <Comment>
           <Comment.Content>
-            <Comment.Author className="loggedInUser">You</Comment.Author>
+            <Comment.Author className='loggedInUser'>You</Comment.Author>
             <Comment.Metadata
               style={{
                 display: "flex",
@@ -34,7 +37,7 @@ const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
             >
               {message.date}
             </Comment.Metadata>
-            <Comment.Text className="loggedInUser">
+            <Comment.Text className='loggedInUser'>
               <p>{message.content}</p>
             </Comment.Text>
           </Comment.Content>

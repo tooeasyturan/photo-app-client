@@ -8,6 +8,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import "../../styles/Landing.css";
 import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Landing = () => {
   const { user } = useContext(UserContext);
@@ -26,7 +27,7 @@ const Landing = () => {
               <div></div>
 
               {!isUser ? (
-                <Button secondary size='huge' href='/register'>
+                <Button secondary size='huge' as={Link} to='/register'>
                   Sign Up
                 </Button>
               ) : (
@@ -34,11 +35,12 @@ const Landing = () => {
                   <Button
                     secondary
                     size='huge'
-                    href={`/myprofile/${user.username}`}
+                    as={Link}
+                    to={`/myprofile/${user.username}`}
                   >
                     Go to my profile
                   </Button>
-                  <Button secondary size='huge' href='/profiles'>
+                  <Button secondary size='huge' as={Link} to='/profiles'>
                     Explore users
                   </Button>
                 </div>

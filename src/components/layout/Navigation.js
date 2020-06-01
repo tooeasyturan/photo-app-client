@@ -74,7 +74,7 @@ const Navigation = () => {
               style={{ background: "black" }}
             >
               <Container>
-                <Menu.Item as='a' active href='/'>
+                <Menu.Item as={Link} to='/' active>
                   Home
                 </Menu.Item>
                 <Menu.Item as='a'>About</Menu.Item>
@@ -85,23 +85,23 @@ const Navigation = () => {
                       <Menu.Item>
                         <Dropdown trigger={trigger} options={options} />
                       </Menu.Item>
-                      <Menu.Item href='/inbox'>
+                      <Menu.Item as={Link} to='/inbox'>
                         <Icon name='envelope outline' />
                       </Menu.Item>
                     </>
                   ) : (
                     <>
                       <Button
-                        href='/login'
-                        as='a'
+                        as={Link}
+                        to={"/login"}
                         inverted={!hideFixedMenu}
                         style={{ margin: "auto" }}
                       >
                         Log in
                       </Button>
                       <Button
-                        href='/register'
-                        as='a'
+                        as={Link}
+                        to={"/register"}
                         inverted={!hideFixedMenu}
                         primary={hideFixedMenu}
                         style={{ margin: "auto", marginLeft: "1em" }}
@@ -140,7 +140,7 @@ const Navigation = () => {
           >
             {isUser ? (
               <>
-                <Menu.Item as='a' active href='/'>
+                <Menu.Item active as={Link} to='/'>
                   Home
                 </Menu.Item>
                 <Menu.Item as='a'>About</Menu.Item>
@@ -148,14 +148,14 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <Menu.Item as='a' active href='/'>
+                <Menu.Item active as={Link} to='/'>
                   Home
                 </Menu.Item>
                 <Menu.Item as='a'>About</Menu.Item>
-                <Menu.Item as='a' href='/login'>
+                <Menu.Item as={Link} to='/login'>
                   Log in
                 </Menu.Item>
-                <Menu.Item as='a' href='/register'>
+                <Menu.Item as={Link} to='/register'>
                   Sign Up
                 </Menu.Item>
               </>
@@ -182,12 +182,12 @@ const Navigation = () => {
                       />
                     ) : (
                       <>
-                        <Button href='/login' as='a'>
+                        <Button as={Link} to='/login'>
                           Log in
                         </Button>
                         <Button
-                          href='/register'
-                          as='a'
+                          as={Link}
+                          to='/register'
                           style={{ marginLeft: "0.5em" }}
                         >
                           Sign Up

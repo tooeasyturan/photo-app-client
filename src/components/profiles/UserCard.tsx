@@ -36,7 +36,6 @@ const UserCard = ({ profile, isFullProfile, ...children }: UserCardProps) => {
       className='ui centered card'
       as={Link}
       to={!isFullProfile ? `/profiles/${username}` : null}
-      // href={!isFullProfile ? `/profiles/${username}` : null}
       style={CardStyles}
     >
       <Image key={avatar} src={avatar} alt='' />
