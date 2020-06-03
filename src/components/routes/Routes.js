@@ -11,6 +11,7 @@ import GetAllMessages from "../messaging/GetAllMessages";
 import Profile from "../profiles/Profile";
 import Profiles from "../profiles/Profiles.tsx";
 import PrivateRoute from "../PrivateRoute";
+import GetAllMessagesReducer from "../messaging/GetAllMessagesReducer";
 
 const Routes = () => {
   return (
@@ -27,7 +28,8 @@ const Routes = () => {
         component={MyProfile}
         name='josh'
       />
-      <PrivateRoute exact path='/inbox' component={GetAllMessages} />
+      {/* <PrivateRoute exact path='/inbox' component={GetAllMessages} /> */}
+      <PrivateRoute exact path='/inbox' component={GetAllMessagesReducer} />
     </>
   );
 };

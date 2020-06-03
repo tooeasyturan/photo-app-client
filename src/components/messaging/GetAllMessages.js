@@ -1,147 +1,148 @@
-/**
- * /* eslint-disable react-hooks/exhaustive-deps
- *
- * @format
- */
+/** @format */
 
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from "react";
-import messagesService from "../../services/messages";
-import { UserContext } from "../UserContext";
-import { flatten, zipObject } from "lodash";
-import DisplayMessage from "./DisplayMessages";
-import MessageAppView from "./MessageAppView";
-import useImageHandling from "../custom-hooks/useImageHandling";
+// /**
+//  * /* eslint-disable react-hooks/exhaustive-deps
+//  *
+//  * @format
+//  */
 
-// This component is probably too large and confusing with shitty variable names
+// /* eslint-disable no-unused-vars */
+// import React, { useState, useEffect, useContext } from "react";
+// import messagesService from "../../services/messages";
+// import { UserContext } from "../UserContext";
+// import { flatten, zipObject } from "lodash";
+// import DisplayMessage from "./DisplayMessages";
+// import MessageAppView from "./MessageAppView";
+// import useImageHandling from "../custom-hooks/useImageHandling";
 
-const GetAllMessages = () => {
-  const { user, setUser } = useContext(UserContext);
-  const [users, setUsers] = useState([]);
-  const [cleanConvos, setCleanConvos] = useState([]);
-  const [fetchedMessages, setFetchedMessages] = useState([]);
-  const [userSelected, setUserSelected] = useState(null);
-  const [response, setResponse] = useState("");
+// // This component is probably too large and confusing with shitty variable names
 
-  const { fetchAvatar, avatar } = useImageHandling();
+// const GetAllMessages = () => {
+//   const { user, setUser } = useContext(UserContext);
+//   const [users, setUsers] = useState([]);
+//   const [cleanConvos, setCleanConvos] = useState([]);
+//   const [fetchedMessages, setFetchedMessages] = useState([]);
+//   const [userSelected, setUserSelected] = useState(null);
+//   const [response, setResponse] = useState("");
 
-  useEffect(() => {
-    getUserMessages();
-  }, []);
+//   const { fetchAvatar, avatar } = useImageHandling();
 
-  // Go through with mark on how to do this with user testing in typescript
-  const getUserMessages = async () => {
-    try {
-      // Fetch all conversations for logged in user
-      let result = await messagesService.getAllMessages();
-      result = result.filter(
-        (message) =>
-          message.deleteBySender !== user.username &&
-          message.deleteByReceiver !== user.username
-      );
-      setCleanConvos(cleanData(result));
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+//   useEffect(() => {
+//     getUserMessages();
+//   }, []);
 
-  const cleanData = (rawConvos) => {
-    // This function "cleans" the data and returns an object with the userTo name and corresponding conversationID for each conversation. ex {emil: "5eb9499e9f2581ac9e791cc7", jon: "5ebfefd38756654cfd41f4a6"}
+//   // Go through with mark on how to do this with user testing in typescript
+//   const getUserMessages = async () => {
+//     try {
+//       // Fetch all conversations for logged in user
+//       let result = await messagesService.getAllMessages();
+//       result = result.filter(
+//         (message) =>
+//           message.deleteBySender !== user.username &&
+//           message.deleteByReceiver !== user.username
+//       );
+//       setCleanConvos(cleanData(result));
+//     } catch (exception) {
+//       console.log(exception);
+//     }
+//   };
 
-    let convos = rawConvos.map((convo) => convo.members);
-    // Returns an array of size 2 arrays consisting of the members of each conversation.
-    // ex. [['emil', 'josh'], ['josh','jon'],...[loggedInUser, userTo]]
+//   const cleanData = (rawConvos) => {
+//     // This function "cleans" the data and returns an object with the userTo name and corresponding conversationID for each conversation. ex {emil: "5eb9499e9f2581ac9e791cc7", jon: "5ebfefd38756654cfd41f4a6"}
 
-    let users = flatten(convos).filter((name) => name !== user.username);
-    setUsers(users);
-    // Returns an array of strings consisting of all the other users the logged in user has an existing conversation object with. ex ['emil', 'jon'] ....where 'josh' is the logged in user
+//     let convos = rawConvos.map((convo) => convo.members);
+//     // Returns an array of size 2 arrays consisting of the members of each conversation.
+//     // ex. [['emil', 'josh'], ['josh','jon'],...[loggedInUser, userTo]]
 
-    let ids = rawConvos.map((convo) => convo.id);
-    // Returns the conversation ID for each conversation
+//     let users = flatten(convos).filter((name) => name !== user.username);
+//     setUsers(users);
+//     // Returns an array of strings consisting of all the other users the logged in user has an existing conversation object with. ex ['emil', 'jon'] ....where 'josh' is the logged in user
 
-    return zipObject(users, ids);
-    // Creates an object with key: userTo.username, value: conversation ID
-  };
+//     let ids = rawConvos.map((convo) => convo.id);
+//     // Returns the conversation ID for each conversation
 
-  window.cleanConvos = cleanConvos;
+//     return zipObject(users, ids);
+//     // Creates an object with key: userTo.username, value: conversation ID
+//   };
 
-  const handleFetchMessages = async (e) => {
-    // Fetch messages between logged in user and user that is selected onClick
-    setUserSelected(e.target.innerHTML);
-    fetchAvatar(e.target.innerHTML);
-    const result = await messagesService.getConversation(e.target.id);
-    setFetchedMessages(result[0].message);
-  };
+//   window.cleanConvos = cleanConvos;
 
-  const messagesToDisplay = () =>
-    fetchedMessages.map((message) => (
-      <DisplayMessage
-        key={message._id}
-        message={message}
-        userFrom={user}
-        userToAvatar={avatar}
-      />
-    ));
+//   const handleFetchMessages = async (e) => {
+//     // Fetch messages between logged in user and user that is selected onClick
+//     setUserSelected(e.target.innerHTML);
+//     fetchAvatar(e.target.innerHTML);
+//     const result = await messagesService.getConversation(e.target.id);
+//     setFetchedMessages(result[0].message);
+//   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("onSubmit", userSelected);
-    try {
-      await messagesService.createMessage({
-        userFrom: user.id,
-        userTo: userSelected,
-        message: response,
-      });
-      let newMessage = {
-        sender: user.username,
-        content: response,
-        date: new Date().toLocaleString(),
-      };
-      setFetchedMessages([...fetchedMessages, { ...newMessage }]);
-      setResponse("");
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+//   window.fetchedMessages = fetchedMessages;
 
-  window.cleanConvos = cleanConvos;
+//   const messagesToDisplay = () =>
+//     fetchedMessages.map((message) => (
+//       <DisplayMessage
+//         key={message._id}
+//         message={message}
+//         userFrom={user}
+//         userToAvatar={avatar}
+//       />
+//     ));
 
-  const handleRemoveConvo = async (e, user) => {
-    console.log(e.target.id);
-    console.log(user);
-    console.log(users);
-    console.log(cleanConvos);
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     console.log("onSubmit", userSelected);
+//     try {
+//       await messagesService.create({
+//         userFrom: user.id,
+//         userTo: userSelected,
+//         message: response,
+//       });
+//       let newMessage = {
+//         sender: user.username,
+//         content: response,
+//         date: new Date().toLocaleString(),
+//       };
+//       setFetchedMessages([...fetchedMessages, { ...newMessage }]);
+//       setResponse("");
+//     } catch (exception) {
+//       console.log(exception);
+//     }
+//   };
 
-    let updatedConvos = users.filter((updated) => updated !== user);
-    console.log(updatedConvos);
-    setUsers(updatedConvos);
+//   window.cleanConvos = cleanConvos;
 
-    try {
-      const result = await messagesService.removeConversation(
-        e.target.id,
-        user.username
-      );
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+//   const handleRemoveConvo = async (e, user) => {
+//     console.log(e.target.id);
+//     console.log(user);
+//     console.log(users);
+//     console.log(cleanConvos);
 
-  window.users = users;
+//     let updatedConvos = users.filter((updated) => updated !== user);
+//     console.log(updatedConvos);
+//     setUsers(updatedConvos);
 
-  return (
-    <MessageAppView
-      users={users}
-      cleanConvos={cleanConvos}
-      handleFetchMessages={handleFetchMessages}
-      handleRemoveConvo={handleRemoveConvo}
-      fetchedMessages={fetchedMessages}
-      messagesToDisplay={messagesToDisplay}
-      handleSubmit={handleSubmit}
-      response={response}
-      setResponse={setResponse}
-    />
-  );
-};
+//     try {
+//       const result = await messagesService.removeConversation(e.target.id);
+//       console.log(result);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
 
-export default GetAllMessages;
+//   window.users = users;
+
+//   return (
+//     <MessageAppView
+//       users={users}
+//       cleanConvos={cleanConvos}
+//       handleFetchMessages={handleFetchMessages}
+//       handleRemoveConvo={handleRemoveConvo}
+//       fetchedMessages={fetchedMessages}
+//       messagesToDisplay={messagesToDisplay}
+//       handleSubmit={handleSubmit}
+//       response={response}
+//       setResponse={setResponse}
+//     />
+//   );
+// };
+
+// export default GetAllMessages;

@@ -5,9 +5,6 @@ import { Comment } from "semantic-ui-react";
 import "../../styles/Messages.css";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-// Displays messages from parent GetAllMessages. Does not display list of convos. This is done in GetAllMessages for now.
-// Need to fix so that message (comment) avatars are displayed first time convo is opened. Currently requires double click.
-
 const DisplayMessages = ({ message, userToAvatar, userFrom }) => {
   return (
     <>

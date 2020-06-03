@@ -12,21 +12,20 @@ import {
   Container,
   List,
   Segment,
-  Image,
 } from "semantic-ui-react";
 
 const MessageAppView = ({
   users,
-  avatar,
-  cleanConvos,
+  conversations,
   handleFetchMessages,
   handleRemoveConvo,
-  fetchedMessages,
+  messages,
   messagesToDisplay,
   handleSubmit,
   response,
   setResponse,
 }) => {
+  console.log("message view", messages);
   return (
     <div style={{ marginTop: 75, width: "100%" }}>
       <Container style={{ width: "70%", height: 600 }}>
@@ -37,7 +36,7 @@ const MessageAppView = ({
           <Grid>
             <Grid.Column width={5}>
               <List selection verticalAlign='middle'>
-                {users && cleanConvos ? (
+                {users && conversations ? (
                   users.map((user) => (
                     <List.Item>
                       <ConvoAvatar user={user} />
@@ -49,8 +48,8 @@ const MessageAppView = ({
                         <List.Header
                           as='h4'
                           onClick={handleFetchMessages}
-                          id={cleanConvos[user]}
-                          key={cleanConvos[user]}
+                          id={conversations[user]}
+                          key={conversations[user]}
                         >
                           {user}
                         </List.Header>
@@ -59,7 +58,7 @@ const MessageAppView = ({
                         floated='right'
                         icon='trash alternate outline'
                         size='medium'
-                        id={cleanConvos[user]}
+                        id={conversations[user]}
                         onClick={(e) => handleRemoveConvo(e, user)}
                       ></Button>
                     </List.Item>
@@ -79,7 +78,7 @@ const MessageAppView = ({
                   borderRadius: "5px",
                 }}
               >
-                {fetchedMessages ? messagesToDisplay() : null}
+                {messages ? messagesToDisplay() : null}
               </Comment.Group>
               <Form reply onSubmit={handleSubmit}>
                 <Form.TextArea
