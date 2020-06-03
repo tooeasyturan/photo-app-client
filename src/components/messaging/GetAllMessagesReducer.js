@@ -24,13 +24,13 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "clean-convos":
+    case "conversations":
       return { ...state, conversations: action.payload };
     case "set-users":
       return { ...state, users: action.payload };
     case "user-selected":
       return { ...state, userSelected: action.payload };
-    case "all-messages":
+    case "messages":
       return { ...state, messages: action.payload };
     case "new-message":
       return {
@@ -64,7 +64,7 @@ const GetAllMessagesReducer = () => {
           message.deleteBySender !== user.username &&
           message.deleteByReceiver !== user.username
       );
-      dispatch({ type: "clean-convos", payload: cleanData(result) });
+      dispatch({ type: "conversations", payload: cleanData(result) });
     } catch (exception) {
       console.log(exception);
     }
@@ -96,7 +96,7 @@ const GetAllMessagesReducer = () => {
 
     fetchAvatar(e.target.innerHTML);
     const result = await messagesService.getConversation(e.target.id);
-    dispatch({ type: "all-messages", payload: result[0].message });
+    dispatch({ type: "messages", payload: result[0].message });
   };
 
   const messagesToDisplay = () =>
@@ -113,7 +113,6 @@ const GetAllMessagesReducer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("onSubmit", state.userSelected);
     try {
       await messagesService.createMessage({
         userFrom: user.id,
@@ -141,7 +140,6 @@ const GetAllMessagesReducer = () => {
         e.target.id,
         user.username
       );
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
