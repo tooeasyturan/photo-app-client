@@ -21,12 +21,11 @@ const EditProfile = ({ user }) => {
     shootingStyle: profile.shootingStyle ? profile.shootingStyle : "",
   };
 
-  const {
-    handleChange,
-    handleLocation,
-    handleSubmit,
-    values,
-  } = useFormHandling(EDIT_PROFILE_OPTIONS, submit, validateProfile);
+  const { handleChange, handleSubmit, values } = useFormHandling(
+    EDIT_PROFILE_OPTIONS,
+    submit,
+    validateProfile
+  );
 
   function validateProfile() {
     let errors = {};

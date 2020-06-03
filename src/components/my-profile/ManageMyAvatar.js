@@ -77,7 +77,6 @@ const ManageMyAvatar = ({ user }) => {
         </Popup>
       </div>
       <br></br>
-      {/* <button onClick={() => setFile(null)}>Reset</button> */}
       {file && isUpdated === false ? (
         <Button
           style={isLoading ? { background: "none" } : { background: "red" }}
