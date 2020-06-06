@@ -6,8 +6,8 @@
 
 import React from "react";
 import usersService from "../../services/users";
-import useFormHandling from "../custom-hooks/useFormHandling.tsx";
-import RegisterView from "./RegisterView.tsx";
+import useFormHandling from "../custom-hooks/useFormHandling";
+import RegisterView from "./RegisterView";
 import validateRegistration from "./validateRegistration";
 
 const USER_REGISTER_OBJECT = {
@@ -17,7 +17,10 @@ const USER_REGISTER_OBJECT = {
   password: "",
   status: "",
   confirmPassword: "",
+  email: "",
 };
+
+type RegisterFields = typeof USER_REGISTER_OBJECT;
 
 const Register = () => {
   const {
@@ -26,6 +29,12 @@ const Register = () => {
     handleSubmit,
     values,
     errors,
+  }: {
+    handleChange: any;
+    handleStatus: any;
+    handleSubmit: any;
+    values: any;
+    errors: any;
   } = useFormHandling(USER_REGISTER_OBJECT, submit, validateRegistration);
 
   async function submit() {

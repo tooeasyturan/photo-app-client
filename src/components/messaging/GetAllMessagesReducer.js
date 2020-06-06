@@ -1,11 +1,6 @@
-/**
- * /* eslint-disable react-hooks/exhaustive-deps
- *
- * @format
- */
+/** @format */
 
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext, useReducer } from "react";
+import React, { useEffect, useContext, useReducer } from "react";
 import messagesService from "../../services/messages";
 import { UserContext } from "../UserContext";
 import { flatten, zipObject } from "lodash";
@@ -20,6 +15,7 @@ const initialState = {
   conversations: [],
   messages: [],
   userSelected: null,
+  response: "",
 };
 
 function reducer(state, action) {
@@ -36,6 +32,12 @@ function reducer(state, action) {
       return {
         ...state,
         messages: [...state.messages, action.payload],
+        response: "",
+      };
+    case "response":
+      return {
+        ...state,
+        response: action.payload,
       };
     case "remove-conversation":
       return { ...state, users: action.payload };
@@ -45,9 +47,8 @@ function reducer(state, action) {
 }
 
 const GetAllMessagesReducer = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [response, setResponse] = useState("");
   const { fetchAvatar, avatar } = useImageHandling();
 
   useEffect(() => {
@@ -93,7 +94,6 @@ const GetAllMessagesReducer = () => {
   const handleFetchMessages = async (e) => {
     // Fetch messages between logged in user and user that is selected onClick
     dispatch({ type: "user-selected", payload: e.target.innerHTML });
-
     fetchAvatar(e.target.innerHTML);
     const result = await messagesService.getConversation(e.target.id);
     dispatch({ type: "messages", payload: result[0].message });
@@ -111,21 +111,26 @@ const GetAllMessagesReducer = () => {
 
   window.state = state;
 
+  const handleChange = (e) => {
+    dispatch({ type: "response", payload: e.target.value });
+    console.log("handle change", state.response);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await messagesService.createMessage({
         userFrom: user.id,
         userTo: state.userSelected,
-        message: response,
+        message: state.response,
       });
       let newMessage = {
         sender: user.username,
-        content: response,
+        content: state.response,
         date: new Date().toLocaleString(),
       };
       dispatch({ type: "new-message", payload: newMessage });
-      setResponse("");
+      // setResponse("");
     } catch (exception) {
       console.log(exception);
     }
@@ -154,8 +159,9 @@ const GetAllMessagesReducer = () => {
       messages={state.messages}
       messagesToDisplay={messagesToDisplay}
       handleSubmit={handleSubmit}
-      response={response}
-      setResponse={setResponse}
+      response={state.response}
+      handleChange={handleChange}
+      // setResponse={setResponse}
     />
   );
 };

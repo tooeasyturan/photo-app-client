@@ -2,19 +2,12 @@
 
 import { useState } from "react";
 
-interface FormReturns {
-  handleChange: () => void;
-  handleStatus: () => void;
-  handleSubmit: () => void;
-  values: {};
-  errors: {};
-}
-
 const useFormHandling = (formInputs, callback, validate) => {
-  const [values, setValues] = useState<{}>(formInputs);
-  const [errors, setErrors] = useState<{}>({});
+  const [values, setValues] = useState(formInputs);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (val, e) => {
+    console.log("e", e);
     const { name, value } = e.target ? e.target : e;
     setValues({
       ...values,
@@ -29,7 +22,7 @@ const useFormHandling = (formInputs, callback, validate) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formErrors = validate(values);
     Object.keys(formErrors).length === 0 ? callback() : setErrors(formErrors);

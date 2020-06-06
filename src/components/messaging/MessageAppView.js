@@ -23,9 +23,8 @@ const MessageAppView = ({
   messagesToDisplay,
   handleSubmit,
   response,
-  setResponse,
+  handleChange,
 }) => {
-  console.log("message view", messages);
   return (
     <div style={{ marginTop: 75, width: "100%" }}>
       <Container style={{ width: "70%", height: 600 }}>
@@ -40,7 +39,6 @@ const MessageAppView = ({
                   users.map((user) => (
                     <List.Item>
                       <ConvoAvatar user={user} />
-                      {/* <Image avatar src={user.avatar} /> */}
                       <List.Content
                         verticalAlign='middle'
                         style={{ paddingTop: 5 }}
@@ -84,7 +82,7 @@ const MessageAppView = ({
                 <Form.TextArea
                   control={TextArea}
                   value={response}
-                  onChange={(e) => setResponse(e.target.value)}
+                  onChange={(e) => handleChange(e)}
                   placeholder='Write a response'
                 />
                 <Button

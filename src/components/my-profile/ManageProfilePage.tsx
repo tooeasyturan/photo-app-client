@@ -48,6 +48,7 @@ interface MyProfileProps {
   values: Profile;
   handleChange: () => void;
   handleSubmit: () => void;
+  handleLocation: () => void;
 }
 
 const ManageProfilePage = ({
@@ -55,6 +56,7 @@ const ManageProfilePage = ({
   values,
   handleChange,
   handleSubmit,
+  handleLocation,
 }: MyProfileProps) => {
   const { description, country, region, shootingStyle } = values;
   return (
