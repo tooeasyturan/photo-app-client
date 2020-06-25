@@ -6,7 +6,9 @@
 
 import React from "react";
 import usersService from "../../services/users";
-import useFormHandling from "../custom-hooks/useFormHandling";
+import useFormHandling, {
+  CustomFormType,
+} from "../custom-hooks/useFormHandling";
 import RegisterView from "./RegisterView";
 import validateRegistration from "./validateRegistration";
 
@@ -20,8 +22,6 @@ const USER_REGISTER_OBJECT = {
   email: "",
 };
 
-type RegisterFields = typeof USER_REGISTER_OBJECT;
-
 const Register = () => {
   const {
     handleChange,
@@ -29,12 +29,6 @@ const Register = () => {
     handleSubmit,
     values,
     errors,
-  }: {
-    handleChange: any;
-    handleStatus: any;
-    handleSubmit: any;
-    values: any;
-    errors: any;
   } = useFormHandling(USER_REGISTER_OBJECT, submit, validateRegistration);
 
   async function submit() {

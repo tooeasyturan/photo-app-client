@@ -5,9 +5,9 @@
  */
 
 import React from "react";
-import profilesService from "../../services/profiles.tsx";
-import useFormHandling from "../custom-hooks/useFormHandling.tsx";
-import ManageProfilePage from "./ManageProfilePage.tsx";
+import profilesService from "../../services/profiles";
+import useFormHandling from "../custom-hooks/useFormHandling";
+import ManageProfilePage from "./ManageProfilePage";
 
 // Component for editing user with status 'model' after initial profile has been created.
 

@@ -2,35 +2,56 @@
 
 import React from "react";
 import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
+import { ChangeType, CustomFormType } from "../custom-hooks/useFormHandling";
 
 const GridStyles = { height: "100vh" };
 const ColumnStyles = { maxWidth: 450 };
 
 interface RegistrationFields {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
 interface RegistrationErrors {
-  firstNameError: string;
-  lastNameError: string;
-  usernameError: string;
-  emailError: string;
-  passwordError: string;
-  matchError: string;
+  firstNameError?: string;
+  lastNameError?: string;
+  usernameError?: string;
+  emailError?: string;
+  passwordError?: string;
+  matchError?: string;
 }
 
-interface RegistrationProps {
-  values: RegistrationFields;
-  errors: RegistrationErrors;
-  handleChange: () => void;
-  handleSubmit: () => void;
-  handleStatus: () => void;
-}
+// extend custom hook type here
+// interface RegistrationProps extends CustomFormType {
+//   values: RegistrationFields;
+//   errors: RegistrationErrors;
+
+// }
+
+// const weirdTypedObject1 = {
+//   "string key": 37;
+//   "key 2": "potato"
+// };
+
+// const weirdTypedObject2: weirdObjectType = {
+//   "stringkey": 65,
+//   "key 2": "ice cream",
+//   "object key": {
+//     "sub object 1": 1057
+//   },
+//   1: 65
+// };
+
+// Type weirdObjectType = {
+//   [key: string]: string | number | boolean | {
+//     [key: string]: (string|number)
+//   },
+
+// }
 
 const RegisterView = ({
   values,
@@ -38,7 +59,7 @@ const RegisterView = ({
   handleChange,
   handleSubmit,
   handleStatus,
-}: RegistrationProps) => {
+}: CustomFormType) => {
   return (
     <Grid textAlign='center' style={GridStyles} verticalAlign='middle'>
       <Grid.Column style={ColumnStyles}>

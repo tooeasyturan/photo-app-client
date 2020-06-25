@@ -8,8 +8,6 @@ import DisplayMessage from "./DisplayMessages";
 import MessageAppView from "./MessageAppView";
 import useImageHandling from "../custom-hooks/useImageHandling";
 
-// This component is probably too large and confusing with shitty variable names
-
 const initialState = {
   users: [],
   conversations: [],

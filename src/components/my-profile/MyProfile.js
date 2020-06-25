@@ -34,10 +34,6 @@ const MyProfile = (params) => {
     }
   };
 
-  console.log("fetched user", user);
-
-  window.user = user;
-
   return (
     <Grid>
       <Grid.Column>
