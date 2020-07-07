@@ -175,11 +175,13 @@ const Navigation = () => {
                   </Menu.Item>
                   <Menu.Item position='right'>
                     {isUser ? (
-                      <Dropdown
-                        position='right'
-                        trigger={trigger}
-                        options={options}
-                      />
+                      <Menu.Item>
+                        <Dropdown
+                          position='right'
+                          trigger={trigger}
+                          options={options}
+                        />
+                      </Menu.Item>
                     ) : (
                       <>
                         <Button as={Link} to='/login'>

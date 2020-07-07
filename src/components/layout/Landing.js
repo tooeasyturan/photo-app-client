@@ -23,9 +23,8 @@ const Landing = () => {
           <div className='ui vertical center aligned segment'>
             <div className='ui text container'>
               <h1 className='ui inverted header'>TFP Application</h1>
-              <h2>Do whatever you want when you want to.</h2>
+              <h2>Connect with local photographers and models in your area</h2>
               <div></div>
-
               {!isUser ? (
                 <Button secondary size='huge' as={Link} to='/register'>
                   Sign Up YO2

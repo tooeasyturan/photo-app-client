@@ -46,6 +46,7 @@ export type ShortProfiles = {
   id: string;
   avatar: string;
   username: string;
+  status: string;
   profile: {
     country: string;
     region: string;

@@ -12,7 +12,7 @@ export const apiRequest = (
   headers?: {}
 ) => {
   return axios({
-    url: `${herokuUrl}/${url}`,
+    url: `${baseUrl}/${url}`,
     method: method,
     data: data,
     headers: headers,

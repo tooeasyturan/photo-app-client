@@ -5,9 +5,12 @@ import usersService from "../../services/users";
 import { Card } from "semantic-ui-react";
 import UserCard from "./UserCard";
 import { ShortProfiles } from "../../types.d";
+import FilterProfiles from "./FilterProfiles";
 
 const Profiles = (props) => {
   const [profiles, setProfiles] = useState<ShortProfiles[]>([]);
+  const [filteredProfiles, setFilteredProfiles] = useState([]);
+  const [showFilteredProfiles, setShowFilteredProfiles] = useState(false);
 
   useEffect(() => {
     fetchProfiles();
@@ -18,16 +21,35 @@ const Profiles = (props) => {
     setProfiles(profiles);
   };
 
-  const displayProfiles = profiles.map((profile) => {
+  const profilesToShow = showFilteredProfiles ? filteredProfiles : profiles;
+
+  const displayProfiles = profilesToShow.map((profile) => {
     // Only display profiles if a user profile has been created
     if (Object.entries(profile.profile).length > 0) {
       return <UserCard profile={profile} key={profile.id} />;
     }
   });
 
+  const handleStatusFilter = (e, { value }) => {
+    console.log("value", value);
+    if (value === "all") {
+      setShowFilteredProfiles(false);
+      return;
+    }
+    const profilesByStatus = profiles.filter(
+      (profile) => profile.status === value
+    );
+    setFilteredProfiles(profilesByStatus);
+    setShowFilteredProfiles(true);
+  };
+
   return (
     <div style={{ marginTop: 200 }}>
-      <h1 style={{ textAlign: "center" }}>Explore Users</h1>
+      <div style={{ textAlign: "center" }}>
+        <h1>Explore Users</h1>
+        <h1>Filter by status</h1>
+        <FilterProfiles handleStatusFilter={handleStatusFilter} />
+      </div>
       <Card.Group
         className='doubling stackable'
         itemsPerRow={6}

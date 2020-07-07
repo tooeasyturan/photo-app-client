@@ -39,7 +39,7 @@ const ManageMyPortfolio = ({ user }) => {
           <Loader active inline />
         ) : (
           <>
-            <h1 style={HeaderStyles}>Portfolio</h1>
+            <h1 style={HeaderStyles}>Add Photo</h1>
             <Popup
               trigger={
                 <label htmlFor='portfolioInput'>
