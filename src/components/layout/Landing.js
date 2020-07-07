@@ -28,7 +28,7 @@ const Landing = () => {
 
               {!isUser ? (
                 <Button secondary size='huge' as={Link} to='/register'>
-                  Sign Up
+                  Sign Up YO2
                 </Button>
               ) : (
                 <div>

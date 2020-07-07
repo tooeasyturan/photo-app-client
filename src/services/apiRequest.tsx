@@ -2,7 +2,7 @@
 
 import axios, { Method } from "axios";
 import { getToken } from "./tokenService";
-const herokuURL = "https://blooming-caverns-21237.herokuapp.com";
+const herokuUrl = "https://blooming-caverns-21237.herokuapp.com";
 const baseUrl = "http://localhost:3004";
 
 export const apiRequest = (
@@ -12,7 +12,7 @@ export const apiRequest = (
   headers?: {}
 ) => {
   return axios({
-    url: `${baseUrl}/${url}`,
+    url: `${herokuUrl}/${url}`,
     method: method,
     data: data,
     headers: headers,
