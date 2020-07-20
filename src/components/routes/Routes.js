@@ -12,16 +12,18 @@ import Profile from "../profiles/Profile";
 import Profiles from "../profiles/Profiles.tsx";
 import PrivateRoute from "../PrivateRoute";
 import GetAllMessagesReducer from "../messaging/GetAllMessagesReducer";
+import HomeSass from "../layout/HomeSass";
 
 const Routes = () => {
   return (
     <>
-      <Route path='/' component={Navigation} />
+      <Route exact path='/' component={Navigation} />
       <Route exact path='/' component={Landing} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />
       <Route exact path='/profiles' component={Profiles} />
       <Route exact path='/profiles/:username' component={Profile} />
+      <Route exact path='/home' component={HomeSass} />
       <PrivateRoute
         exact
         path={`/myprofile/:username`}

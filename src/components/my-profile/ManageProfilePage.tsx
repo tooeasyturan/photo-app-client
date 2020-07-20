@@ -20,7 +20,6 @@ const PICTURE_OPTIONS = [
   { key: "fashion", text: "Fashion", value: "fashion" },
   { key: "family", text: "Family", value: "family" },
   { key: "event", text: "Event", value: "event" },
-  { key: "nude", text: "Nude", value: "nude" },
 ];
 
 const GridStyle = { height: "100vh" };

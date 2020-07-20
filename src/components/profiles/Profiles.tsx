@@ -25,7 +25,7 @@ const Profiles = (props) => {
 
   const displayProfiles = profilesToShow.map((profile) => {
     // Only display profiles if a user profile has been created
-    if (Object.entries(profile.profile).length > 0) {
+    if (profile.profile) {
       return <UserCard profile={profile} key={profile.id} />;
     }
   });
